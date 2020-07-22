@@ -1,12 +1,18 @@
 package com.ed.shuneladmin;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -23,6 +29,12 @@ public class loginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Activity activity;
+
+    /*測試登入 Jack 7.22*/
+    private Button btnLogin;
+    /*測試登入 Jack 7.22*/
+
 
     public loginFragment() {
         // Required empty public constructor
@@ -49,10 +61,7 @@ public class loginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        activity = getActivity();
     }
 
     @Override
@@ -60,5 +69,46 @@ public class loginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        findViews(view);
+        /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
+        initData();
+        /* 設置必要的系統服務元件如: Services、BroadcastReceiver */
+        setSystemServices();
+        /* 設置View元件對應的linstener事件,讓UI可以與用戶產生互動 */
+        setLinstener();
+
+    }
+
+    private void findViews(View view) {
+
+        /*測試登入 Jack 7.22*/
+        btnLogin = view.findViewById(R.id.btnLogin);
+        /*測試登入 Jack 7.22*/
+    }
+
+    private void initData() {
+    }
+
+    private void setSystemServices() {
+    }
+
+    private void setLinstener() {
+
+        /*測試登入 Jack 7.22*/
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        /*測試登入 Jack 7.22*/
+
     }
 }

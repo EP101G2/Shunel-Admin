@@ -11,4 +11,8 @@
     <string name="product">商品管理</string>
     <string name="price">銷售總額</string>
     <string name="news">消息</string>
+    <string name="msg">訊息</string>
+    <string name="Promotion">促銷</string>
+    <string name="hotProduct">熱門</string>
+    <string name="system">系統</string>
 </resources>
