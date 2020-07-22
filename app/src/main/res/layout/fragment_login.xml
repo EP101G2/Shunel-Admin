@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".loginFragment">
 
         <ImageView
@@ -24,7 +24,7 @@
             android:layout_marginTop="450dp"
 
             android:background="@drawable/background2"
-            android:text="@string/typeAdminId"
+            android:hint="@string/typeAdminId"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background2"
-            android:text="@string/typeAdminPassword"
+            android:hint="@string/typeAdminPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,25 +46,14 @@
             android:id="@+id/button"
             android:layout_width="175dp"
             android:layout_height="45dp"
-            android:layout_marginTop="68dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginRight="124dp"
             android:background="@drawable/backgroundlogin"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="120dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="72dp"
-            android:background="@drawable/backgroundfp"
-            android:text="@string/fotgetpassword"
-            android:textColor="#B3E1D9"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

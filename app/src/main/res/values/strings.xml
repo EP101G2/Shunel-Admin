@@ -7,4 +7,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="member">會員管理</string>
+    <string name="product">商品管理</string>
+    <string name="price">銷售總額</string>
+    <string name="news">消息</string>
 </resources>
