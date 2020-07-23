@@ -11,6 +11,13 @@
     <string name="product">商品管理</string>
     <string name="price">銷售總額</string>
     <string name="news">消息</string>
+<<<<<<< HEAD
     <string name="textNoNetwork">沒有網路</string>
     <string name="loginnsuccess">"登入成功 "</string>
+=======
+    <string name="msg">訊息</string>
+    <string name="Promotion">促銷</string>
+    <string name="hotProduct">熱門</string>
+    <string name="system">系統</string>
+>>>>>>> fcb92d8ed06fb185f5db4bf96ba2ee882f1777fb
 </resources>
