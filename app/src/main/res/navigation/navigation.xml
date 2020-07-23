@@ -9,4 +9,19 @@
         android:name="com.ed.shuneladmin.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/systemFragment"
+        android:name="com.ed.shuneladmin.SystemFragment"
+        android:label="fragment_system"
+        tools:layout="@layout/fragment_system" />
+    <fragment
+        android:id="@+id/promotionFragment"
+        android:name="com.ed.shuneladmin.PromotionFragment"
+        android:label="fragment_promotion"
+        tools:layout="@layout/fragment_promotion" />
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.ed.shuneladmin.NoticeFragment"
+        android:label="fragment_notice"
+        tools:layout="@layout/fragment_notice" />
 </navigation>
