@@ -9,7 +9,8 @@
     <item android:title="@string/product"
         android:icon="@drawable/product"/>
     <item android:title="@string/member"
-        android:icon="@drawable/member"/>
+        android:icon="@drawable/member"
+        android:id="@+id/userFragment"/>
     <item android:title="@string/price"
         android:icon="@drawable/price"/>
 </menu>
