@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.ed.shunel.R;
+import com.ed.shuneladmin.R;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedInputStream;

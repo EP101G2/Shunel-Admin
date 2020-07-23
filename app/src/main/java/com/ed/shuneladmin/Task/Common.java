@@ -13,13 +13,11 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import tech.cherri.tpdirect.api.TPDCard;
+//import tech.cherri.tpdirect.api.TPDCard;
 
 //import tech.cherri.tpdirect.api.TPDCard;
 
-/**
- * 定義通用屬性與方法
- */
+/* 定義通用屬性與方法*/
 public class Common {
     private static final String TAG = "TAG_Common";
 
@@ -27,15 +25,15 @@ public class Common {
 //public static String URL_SERVER = "http://192.168.43.249:8080/Shunel_Web/";
 
 
-    //第三支付
-    public static final String TAPPAY_DOMAIN_SANDBOX = "https://sandbox.tappaysdk.com";
-    public static final String TAPPAY_PAY_BY_PRIME_URL = "/tpc/payment/pay-by-prime";
-    public static final TPDCard.CardType[] CARD_TYPES = new TPDCard.CardType[]{
-            TPDCard.CardType.Visa
-            , TPDCard.CardType.MasterCard
-            , TPDCard.CardType.JCB
-            , TPDCard.CardType.AmericanExpress
-    };
+//    //第三支付
+//    public static final String TAPPAY_DOMAIN_SANDBOX = "https://sandbox.tappaysdk.com";
+//    public static final String TAPPAY_PAY_BY_PRIME_URL = "/tpc/payment/pay-by-prime";
+//    public static final TPDCard.CardType[] CARD_TYPES = new TPDCard.CardType[]{
+//            TPDCard.CardType.Visa
+//            , TPDCard.CardType.MasterCard
+//            , TPDCard.CardType.JCB
+//            , TPDCard.CardType.AmericanExpress
+//    };
 
 
     public static SharedPreferences getPreherences(Activity activity) {

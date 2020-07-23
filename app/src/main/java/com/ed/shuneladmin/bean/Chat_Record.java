@@ -1,4 +1,4 @@
-package com.ed.shunel.bean;
+package com.ed.shuneladmin.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
