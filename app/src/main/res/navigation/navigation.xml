@@ -14,4 +14,9 @@
         android:name="com.ed.shuneladmin.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/member_newsFragment"
+        android:name="com.ed.shuneladmin.Member_newsFragment"
+        android:label="fragment_member_news"
+        tools:layout="@layout/fragment_member_news" />
 </navigation>

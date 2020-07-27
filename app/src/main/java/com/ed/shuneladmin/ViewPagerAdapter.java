@@ -17,13 +17,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         //帶建立的fragment
         switch (position){
             case 0: //系統
-//                return new HotProductFragment();
+                return new LabelFragment();
             case 1: //熱門
-//                return new SettingFragment();
+                return new UserFragment();
             case 2: //促銷
-//                return new AllProductFragment();
+                return new LabelFragment();
             case 3: //訊息
-//                return new Perfume_necklaceFragment();
+                return new Member_newsFragment();
 
         }
         return LabelFragment.newInstance(position);
