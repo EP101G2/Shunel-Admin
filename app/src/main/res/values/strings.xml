@@ -21,7 +21,8 @@
     <string name="system">系統</string>
     <string name="manageUserAccount">管理會員帳戶</string>
     <string name="name">姓名</string>
-    <string name="id">編號</string>
+    <string name="id">帳號</string>
     <string name="edit">編輯</string>
+    <string name="textNoUserAccountFound">沒有會員資料</string>
 
 </resources>
