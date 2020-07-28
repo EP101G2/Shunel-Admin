@@ -19,4 +19,9 @@
         android:name="com.ed.shuneladmin.Member_newsFragment"
         android:label="fragment_member_news"
         tools:layout="@layout/fragment_member_news" />
+    <fragment
+        android:id="@+id/ordersManagementFragment"
+        android:name="com.ed.shuneladmin.OrdersManagementFragment"
+        android:label="fragment_orders_management"
+        tools:layout="@layout/fragment_orders_management" />
 </navigation>
