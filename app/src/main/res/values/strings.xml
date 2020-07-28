@@ -24,5 +24,7 @@
     <string name="id">帳號</string>
     <string name="edit">編輯</string>
     <string name="textNoUserAccountFound">沒有會員資料</string>
+    <string name="admin">管理者</string>
+    <string name="logoutsuccess">登出成功</string>
 
 </resources>

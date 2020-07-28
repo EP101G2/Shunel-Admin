@@ -23,6 +23,7 @@ import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.User_Account;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -82,7 +83,8 @@ public class UserFragment extends Fragment {
                     List<User_Account> searchUserAccount = new ArrayList<>();
                     // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
                     for (User_Account user_account : data) {
-                        if (user_account.getAccount_User_Name().toUpperCase().contains(newText.toUpperCase())) {
+//                        Log.e("1234567890",user_account.getAccount_User_Name());
+                        if (user_account.getAccount_ID().toUpperCase().contains(newText.toUpperCase())) {
                             searchUserAccount.add(user_account);
                         }
                     }
@@ -100,8 +102,9 @@ public class UserFragment extends Fragment {
 
     private List<User_Account> user_accounts() {
 
+        User_Account test = null;
+        List<User_Account> user_account = null;
 
-        List<User_Account> user_accounts = null;
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "User_Account_Servlet";//連server端先檢查網址
             JsonObject jsonObject = new JsonObject();
@@ -112,14 +115,22 @@ public class UserFragment extends Fragment {
                 String jsonIn = UserTask.execute().get();
                 Type listType = new TypeToken<List<User_Account>>() {
                 }.getType();
-                user_accounts = new Gson().fromJson(jsonIn, listType);
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//                參考Android web範例：jsonex
+                user_account = gson.fromJson(jsonIn, listType);
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
+
+            Log.e("---------8",user_account+"");
+            return user_account;
         } else {
             Common.showToast(activity, R.string.textNoNetwork);
         }
-        return user_accounts;
+        Log.e("12345",user_account+"");
+        return user_account;
+
     }
 
     private class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
@@ -151,6 +162,7 @@ public class UserFragment extends Fragment {
             final User_Account user_account = userAccounts.get(position);
             holder.tvId.setText(user_account.getAccount_ID());              //setText()裡塞我要使用的方法
             holder.tvName.setText(user_account.getAccount_User_Name());
+
 //            holder.btEdit.setVisibility(View.GONE);
             holder.btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
