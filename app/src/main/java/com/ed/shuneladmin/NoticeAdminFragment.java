@@ -81,31 +81,35 @@ public class NoticeAdminFragment extends Fragment {
     }
 
     private void setLinstener() {
-        Title = edNoticeTitle.getText().toString();
-        Detail = edNoticeDetail.getText().toString();
+
         spNoticeCategory.setOnItemSelectedListener(listener);
 
         btSendNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Title = edNoticeTitle.getText().toString();
+                Detail = edNoticeDetail.getText().toString();
+//                Log.e("T+D",Title+Detail);
                 if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "Notice_Servlet";
                     JsonObject jsonObject = new JsonObject();
                     switch (choice) {
                         case "促銷訊息":
-                            Log.e("促銷訊息", "===" + choice);
+//                            Log.e("促銷訊息", "===" + choice);
                             jsonObject.addProperty("action", "sendSaleN");
-                            jsonObject.addProperty("Title", Title);
-                            jsonObject.addProperty("Detail", Detail);
-
+                            jsonObject.addProperty("title", Title);
+                            jsonObject.addProperty("msg", Detail);
+                            Log.e("系統訊息", "===" + jsonObject.toString());
                             break;
 
 
                         case "系統訊息":
                             Log.e("系統訊息", "===" + choice);
                             jsonObject.addProperty("action", "sendSystemN");
-                            jsonObject.addProperty("Title", Title);
-                            jsonObject.addProperty("Detail", Detail);
+                            jsonObject.addProperty("title", Title);
+                            jsonObject.addProperty("msg", Detail);
+                            Log.e("系統訊息", "===" + jsonObject.toString());
                             break;
                     }
                     noticeAdminTask = new CommonTask(url, jsonObject.toString());

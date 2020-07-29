@@ -27,12 +27,11 @@
         android:label="fragment_member_news"
         tools:layout="@layout/fragment_member_news" />
     <fragment
-<<<<<<< HEAD
         android:id="@+id/noticeAdminFragment"
         android:name="com.ed.shuneladmin.NoticeAdminFragment"
         android:label="fragment_notice_admin"
         tools:layout="@layout/fragment_notice_admin" />
-=======
+    <fragment
 
         android:id="@+id/adminFragment"
         android:name="com.ed.shuneladmin.AdminFragment"
@@ -44,6 +43,4 @@
         android:name="com.ed.shuneladmin.OrdersManagementFragment"
         android:label="fragment_orders_management"
         tools:layout="@layout/fragment_orders_management" />
-
->>>>>>> f1225621cc85872698b4ab1377ebddd3ebbf0cf5
 </navigation>
