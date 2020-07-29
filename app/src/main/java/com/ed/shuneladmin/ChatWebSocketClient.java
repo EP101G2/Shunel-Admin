@@ -26,16 +26,19 @@ public class ChatWebSocketClient extends WebSocketClient {
         super(serverURI, new Draft_17());
         broadcastManager = LocalBroadcastManager.getInstance(context);
         gson = new Gson();
+    }
 
-        Log.e(TAG,"test1");    }
+
+
 
     @Override
-    public void onOpen(ServerHandshake handshakeData) {
+    public void onOpen(ServerHandshake handshakedata) {
         String text = String.format(Locale.getDefault(),
                 "onOpen: Http status code = %d; status message = %s",
-                handshakeData.getHttpStatus(),
-                handshakeData.getHttpStatusMessage());
+                handshakedata.getHttpStatus(),
+                handshakedata.getHttpStatusMessage());
         Log.d(TAG, "onOpen: " + text);
+
     }
 
     @Override
@@ -44,7 +47,9 @@ public class ChatWebSocketClient extends WebSocketClient {
         // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
         String type = jsonObject.get("type").getAsString();
         sendMessageBroadcast(type, message);
+
         Log.d(TAG, "onMessage: " + message);
+
     }
 
     @Override
@@ -61,6 +66,7 @@ public class ChatWebSocketClient extends WebSocketClient {
     }
 
     private void sendMessageBroadcast(String messageType, String message) {
+        Log.e(TAG,"========="+messageType);
         Intent intent = new Intent(messageType);
         intent.putExtra("message", message);
         broadcastManager.sendBroadcast(intent);

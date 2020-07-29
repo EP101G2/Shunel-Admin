@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_customerServiceFragment"
+            app:destination="@id/customerServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -27,10 +30,22 @@
         android:label="fragment_member_news"
         tools:layout="@layout/fragment_member_news" />
     <fragment
+<<<<<<< HEAD
+=======
+        android:id="@+id/customerServiceFragment"
+        android:name="com.ed.shuneladmin.customerServiceFragment"
+        android:label="fragment_customer_service"
+        tools:layout="@layout/fragment_customer_service" />
+    <fragment
+>>>>>>> e8fe63399750ac323e8c22319f49b48ee353a859
         android:id="@+id/noticeAdminFragment"
         android:name="com.ed.shuneladmin.NoticeAdminFragment"
         android:label="fragment_notice_admin"
         tools:layout="@layout/fragment_notice_admin" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> e8fe63399750ac323e8c22319f49b48ee353a859
     <fragment
 
         android:id="@+id/adminFragment"
@@ -42,5 +57,19 @@
         android:id="@+id/ordersManagementFragment"
         android:name="com.ed.shuneladmin.OrdersManagementFragment"
         android:label="fragment_orders_management"
+<<<<<<< HEAD
         tools:layout="@layout/fragment_orders_management" />
+=======
+        tools:layout="@layout/fragment_orders_management" >
+        <action
+            android:id="@+id/action_ordersManagementFragment_to_orderManageDetailFragment"
+            app:destination="@id/orderManageDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderManageDetailFragment"
+        android:name="com.ed.shuneladmin.OrderManageDetailFragment"
+        android:label="fragment_order_manage_detail"
+        tools:layout="@layout/fragment_order_manage_detail" />
+
+>>>>>>> e8fe63399750ac323e8c22319f49b48ee353a859
 </navigation>

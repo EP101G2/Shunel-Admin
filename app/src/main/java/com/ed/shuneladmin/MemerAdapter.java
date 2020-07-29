@@ -27,8 +27,8 @@ import java.util.List;
 
     @Override
     public int getItemCount() {
-            Log.e("----","======"+MemberList.size()+"/t"+MemberList.toString());
-        return MemberList.size()== 0?  1 :MemberList.size();
+//            Log.e("----","======"+MemberList.size()+"\t"+MemberList.toString());
+        return MemberList.size();
     }
 
 
@@ -46,9 +46,9 @@ import java.util.List;
     @Override
     public void onBindViewHolder(@NonNull MemerAdapter.memberViewHoder holder, int position) {
 
-//        final String member = MemberList.get(position);
+        final String member = MemberList.get(position);
 //        holder.tvFriendName.setText(member);
-//        // 點選聊天清單上的user即開啟聊天頁面
+        // 點選聊天清單上的user即開啟聊天頁面
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
