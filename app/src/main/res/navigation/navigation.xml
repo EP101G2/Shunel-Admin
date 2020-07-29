@@ -18,5 +18,14 @@
         android:id="@+id/member_newsFragment"
         android:name="com.ed.shuneladmin.Member_newsFragment"
         android:label="fragment_member_news"
-        tools:layout="@layout/fragment_member_news" />
+        tools:layout="@layout/fragment_member_news" >
+        <action
+            android:id="@+id/action_member_newsFragment_to_customerServiceFragment"
+            app:destination="@id/customerServiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerServiceFragment"
+        android:name="com.ed.shuneladmin.customerServiceFragment"
+        android:label="fragment_customer_service"
+        tools:layout="@layout/fragment_customer_service" />
 </navigation>
