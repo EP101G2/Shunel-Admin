@@ -24,8 +24,19 @@
     <string name="name">姓名</string>
     <string name="id">帳號</string>
     <string name="edit">編輯</string>
+    
+    <string name="order_id_text">訂單編號：</string>
+    <string name="text_order_id" />
+    <string name="text_hint">Null</string>
+    <string name="account_id_text">會員編號：</string>
+    <string name="text_account_id" />
     <string name="textNoUserAccountFound">沒有會員資料</string>
+<<<<<<< HEAD
     <string name="NoticeManage">訊息管理</string>
     <string name="Sand">送出</string>
+=======
+    <string name="admin">管理者</string>
+    <string name="logoutsuccess">登出成功</string>
+>>>>>>> f1225621cc85872698b4ab1377ebddd3ebbf0cf5
 
 </resources>
