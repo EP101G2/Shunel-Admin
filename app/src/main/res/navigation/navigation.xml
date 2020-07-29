@@ -42,6 +42,13 @@
         tools:layout="@layout/fragment_notice_admin" />
 
     <fragment
+
+        android:id="@+id/adminFragment"
+        android:name="com.ed.shuneladmin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
+
+    <fragment
         android:id="@+id/ordersManagementFragment"
         android:name="com.ed.shuneladmin.OrdersManagementFragment"
         android:label="fragment_orders_management"

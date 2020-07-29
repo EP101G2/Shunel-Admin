@@ -20,13 +20,10 @@ import com.ed.shuneladmin.Task.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-<<<<<<< HEAD
     public static int flag;
-=======
     private ImageView ivAdmin, ivLogout;
     private Activity activity;
 
->>>>>>> f1225621cc85872698b4ab1377ebddd3ebbf0cf5
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
