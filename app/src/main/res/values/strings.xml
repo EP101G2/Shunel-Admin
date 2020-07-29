@@ -35,5 +35,6 @@
     <string name="Sand">送出</string>
     <string name="admin">管理者</string>
     <string name="logoutsuccess">登出成功</string>
+    <string name="textSend">送出</string>
 
 </resources>

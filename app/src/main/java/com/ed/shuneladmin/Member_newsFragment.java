@@ -65,7 +65,7 @@ public class Member_newsFragment extends Fragment {
         MemberList = new ArrayList<>();
         // 取得user name
 //        user = loadUserName(activity);
-        user = "2";
+        user = "Shunel";
         // 初始化LocalBroadcastManager並註冊BroadcastReceiver
         broadcastManager = LocalBroadcastManager.getInstance(activity);
         registerFriendStateReceiver();
@@ -193,7 +193,7 @@ public class Member_newsFragment extends Fragment {
 //                    Intent intent = new Intent(activity,customerServiceFragment.class);
 //                    startActivity(intent);
 //                    Toast.makeText(context,view?.findNavController()?.R.id.customerServiceFragment?.,Toast.LENGTH_SHORT).show()
-                    findNavController(view).navigate(R.id.action_homeFragment_to_customerServiceFragment);
+                    findNavController(view).navigate(R.id.action_homeFragment_to_customerServiceFragment,bundle);
 //                    Navigation.findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment, bundle);
                 }
             });
