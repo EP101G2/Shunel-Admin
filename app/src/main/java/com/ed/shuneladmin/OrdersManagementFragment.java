@@ -7,20 +7,29 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.Order_Main;
 import com.ed.shuneladmin.bean.User_Account;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +42,7 @@ public class OrdersManagementFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String TAG = "---OrdersManagementFragment---";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    private static final String TAG = "---OrdersManageFrag---"; //maximum 23 characters
 
     private Activity activity;
     private Integer counter;
@@ -51,18 +57,10 @@ public class OrdersManagementFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment OrdersManagementFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrdersManagementFragment newInstance(String param1) {
+    public static OrdersManagementFragment newInstance(Integer counter) {
         OrdersManagementFragment fragment = new OrdersManagementFragment();
         Bundle args = new Bundle();
-        args.putString(TAG, param1);
+        args.putInt(TAG, counter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -158,32 +156,107 @@ public class OrdersManagementFragment extends Fragment {
 
     private List<Order_Main> getOrders() {//see notice detail fragments for times format
         List<Order_Main> orderMainList = new ArrayList<>();
-
+        try {
+            if (Common.networkConnected(activity)) {
+//                get data from orders servlet
+                String url = Common.URL_SERVER + "Orders_Servlet";
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "getOrdersForManage");
+//                jsonObject.addProperty("Account_ID", Common.getPreherences(activity).getString("Account_ID", "defValue"));
+                String jsonOut = jsonObject.toString();
+                ordersListGetTask = new CommonTask(url, jsonOut);
+                try {
+                    String jsonIn = ordersListGetTask.execute().get();
+                    Type listType = new TypeToken<List<Order_Main>>() {
+                    }.getType();
+                    orderMainList = new Gson().fromJson(jsonIn, listType);
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+            } else {
+                Common.showToast(activity, R.string.textNoNetwork);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
         return orderMainList;
     }
 
 //    ---adapter---
-    private class OrderMainAdapter extends RecyclerView.Adapter {
+    private class OrderMainAdapter extends RecyclerView.Adapter<OrderMainAdapter.PageViewHolder> {
+        private LayoutInflater layoutInflater;
+        Context context;
+        List<Order_Main> orderMainList;
+
         public OrderMainAdapter(Context context, List<Order_Main> orderMainList) {
+            this.context = context;
+            layoutInflater = LayoutInflater.from(context);
+            this.orderMainList = orderMainList;
         }
 
         @NonNull
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
+        public OrderMainAdapter.PageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.fragment_orders_management_view, parent, false);
+            return new OrderMainAdapter.PageViewHolder(view);
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    //    inner class PageViewHolder for the holding of recycler view
+        class PageViewHolder extends RecyclerView.ViewHolder {
+            TextView tvOrderDate, tvOrderModifyDate, tvOrderId, tvAccountId, tvTotalPrice, tvOrderStatus;
+            TextView tvOrderDateText, tvOrderModifyDateText, tvOrderIdText, tvAccountIdText, tvTotalPriceText, tvOrderStatusText;
+            public PageViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tvOrderDate = itemView.findViewById(R.id.tvOrderDate);
+                tvOrderModifyDate = itemView.findViewById(R.id.tvOrderModifyDate);
+                tvOrderId = itemView.findViewById(R.id.tvOrderId);
+                tvAccountId = itemView.findViewById(R.id.tvAccountId);
+                tvTotalPrice = itemView.findViewById(R.id.tvTotalPrice);
+                tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
 
+                tvOrderDateText = itemView.findViewById(R.id.tvOrderDateText);
+                tvOrderModifyDateText = itemView.findViewById(R.id.tvOrderModifyDateText);
+                tvOrderIdText = itemView.findViewById(R.id.tvOrderIdText);
+                tvAccountIdText = itemView.findViewById(R.id.tvAccountIdText);
+                tvTotalPriceText = itemView.findViewById(R.id.tvTotalPriceText);
+                tvOrderStatusText = itemView.findViewById(R.id.tvOrderStatusText);
+            }
+        }//ok
+
+        @Override
+        public void onBindViewHolder(@NonNull OrderMainAdapter.PageViewHolder holder, int position) {
+            final Order_Main orderMain = orderMainList.get(position);
+            holder.tvOrderDate.setText(orderMain.getOrder_Main_Order_Date().toString());
+            holder.tvOrderModifyDate.setText(orderMain.getOrder_Main_Modify_Date().toString());
+            holder.tvOrderId.setText(String.valueOf(orderMain.getOrder_ID()));
+            holder.tvAccountId.setText(String.valueOf(orderMain.getAccount_ID()));
+            holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
+            holder.tvOrderStatus.setText(String.valueOf(orderMain.getOrder_Main_Order_Status()));
+//            navigate to detail fragment
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            try {
+                if (orderMainList != null) {
+                    Log.e(TAG,"itemCount:"+orderMainList.size());
+                    return orderMainList == null ? 0 : orderMainList.size();
+                }
+            }catch (Exception e){
+                Log.e(TAG,"null list");
+            }
+            return orderMainList == null ? 0 : orderMainList.size();
         }
 
         public void setOrders(List<Order_Main> orderMainList) {
+            this.orderMainList = orderMainList;
         }
     }
 }

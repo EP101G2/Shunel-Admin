@@ -51,6 +51,15 @@
         android:id="@+id/ordersManagementFragment"
         android:name="com.ed.shuneladmin.OrdersManagementFragment"
         android:label="fragment_orders_management"
-        tools:layout="@layout/fragment_orders_management" />
+        tools:layout="@layout/fragment_orders_management" >
+        <action
+            android:id="@+id/action_ordersManagementFragment_to_orderManageDetailFragment"
+            app:destination="@id/orderManageDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderManageDetailFragment"
+        android:name="com.ed.shuneladmin.OrderManageDetailFragment"
+        android:label="fragment_order_manage_detail"
+        tools:layout="@layout/fragment_order_manage_detail" />
 
 </navigation>
