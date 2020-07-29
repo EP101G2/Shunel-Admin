@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_customerServiceFragment"
+            app:destination="@id/customerServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -25,11 +28,7 @@
         android:id="@+id/member_newsFragment"
         android:name="com.ed.shuneladmin.Member_newsFragment"
         android:label="fragment_member_news"
-        tools:layout="@layout/fragment_member_news" >
-        <action
-            android:id="@+id/action_member_newsFragment_to_customerServiceFragment"
-            app:destination="@id/customerServiceFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_member_news" />
     <fragment
         android:id="@+id/customerServiceFragment"
         android:name="com.ed.shuneladmin.customerServiceFragment"

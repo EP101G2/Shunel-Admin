@@ -193,7 +193,7 @@ public class Member_newsFragment extends Fragment {
 //                    Intent intent = new Intent(activity,customerServiceFragment.class);
 //                    startActivity(intent);
 //                    Toast.makeText(context,view?.findNavController()?.R.id.customerServiceFragment?.,Toast.LENGTH_SHORT).show()
-                    findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment);
+                    findNavController(view).navigate(R.id.action_homeFragment_to_customerServiceFragment);
 //                    Navigation.findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment, bundle);
                 }
             });
