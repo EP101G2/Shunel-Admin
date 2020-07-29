@@ -13,24 +13,23 @@ import static android.content.Context.MODE_PRIVATE;
 public class CommonTwo {
     private final static String TAG = "CommonTwo";
     public static final String SERVER_URI =
-            "ws://10.0.2.2:8080/Shunel_Web/TwoChatServer/";
+            "ws://192.168.196.146:8080/Shunel_Web/TwoChatServer/";
     public static ChatWebSocketClient chatWebSocketClient;
 
     // 建立WebSocket連線
     public static void connectServer(Context context, String userName) {
         URI uri = null;
-        userName = "管理員";
         try {
             uri = new URI(SERVER_URI + userName);
-            Log.e(TAG,"12312312312"+uri);
+            Log.e(TAG,"1="+uri);
         } catch (URISyntaxException e) {
             Log.e(TAG, e.toString());
         }
         if (chatWebSocketClient == null) {
-            Log.e(TAG,"1111111111"+uri);
             chatWebSocketClient = new ChatWebSocketClient(uri, context);
-            Log.e(TAG,"121232323"+uri);
+            Log.e(TAG,"2=111111");
             chatWebSocketClient.connect();
+            Log.e(TAG,"1="+chatWebSocketClient.toString());
         }
     }
 
@@ -42,18 +41,18 @@ public class CommonTwo {
         }
     }
 
-//    public static void saveUserName(Context context, String userName) {
-//        SharedPreferences preferences =
-//                context.getSharedPreferences("user", MODE_PRIVATE);
-//        preferences.edit().putString("userName", userName).apply();
-//    }
+    public static void saveUserName(Context context, String userName) {
+        SharedPreferences preferences =
+                context.getSharedPreferences("user", MODE_PRIVATE);
+        preferences.edit().putString("userName", userName).apply();
+        Log.e(TAG,"123123"+preferences.toString());
+    }
 
     public static String loadUserName(Context context) {
-//        SharedPreferences preferences =
-//                context.getSharedPreferences("user", MODE_PRIVATE);
-//        String userName = preferences.getString("userName", "");
-
-        String userName = "管理者";
+        SharedPreferences preferences =
+                context.getSharedPreferences("user", MODE_PRIVATE);
+        String userName = preferences.getString("userName", "");
+//        String userName = "5566";
         Log.d(TAG, "userName = " + userName);
         return userName;
     }

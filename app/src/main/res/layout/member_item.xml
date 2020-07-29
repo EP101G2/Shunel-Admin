@@ -7,7 +7,7 @@
     android:layout_margin="6dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
-    tools:context="idv.ron.wschatbasic_android.two.FriendsActivity">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
