@@ -13,7 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class CommonTwo {
     private final static String TAG = "CommonTwo";
     public static final String SERVER_URI =
-            "ws://192.168.196.146:8080/Shunel_Web/TwoChatServer/";
+            "ws://172.20.10.3:8080/Shunel_Web/TwoChatServer/";
     public static ChatWebSocketClient chatWebSocketClient;
 
     // 建立WebSocket連線
@@ -41,17 +41,18 @@ public class CommonTwo {
         }
     }
 
-    public static void saveUserName(Context context, String userName) {
-        SharedPreferences preferences =
-                context.getSharedPreferences("user", MODE_PRIVATE);
-        preferences.edit().putString("userName", userName).apply();
-        Log.e(TAG,"123123"+preferences.toString());
-    }
+//    public static void saveUserName(Context context, String userName) {
+////        SharedPreferences preferences =
+////                context.getSharedPreferences("user", MODE_PRIVATE);
+////        preferences.edit().putString("userName", userName).apply();
+//
+////        Log.e(TAG,"123123"+preferences.toString());
+//    }
 
     public static String loadUserName(Context context) {
-        SharedPreferences preferences =
-                context.getSharedPreferences("user", MODE_PRIVATE);
-        String userName = preferences.getString("userName", "");
+//        SharedPreferences preferences =
+//                context.getSharedPreferences("user", MODE_PRIVATE);
+        String userName ="Shunel";
 //        String userName = "5566";
         Log.d(TAG, "userName = " + userName);
         return userName;
