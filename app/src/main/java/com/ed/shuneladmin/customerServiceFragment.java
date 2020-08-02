@@ -225,7 +225,7 @@ public class customerServiceFragment extends Fragment {
         jsonObject.addProperty("receiver", chatMessage.getReceiver());
         jsonObject.addProperty("sender", chatMessage.getSender());
         jsonObject.addProperty("msg", chatMessage.getMessage());
-
+        jsonObject.addProperty("msgtype", chatMessage.getType());
 
         Log.e(TAG, jsonObject.toString());
         try {
