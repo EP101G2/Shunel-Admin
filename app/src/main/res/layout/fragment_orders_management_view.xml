@@ -57,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/text_order_modify_date_text"
+                    android:textColor="#FFFFFF"
                     android:textSize="12sp" />
 
                 <TextView

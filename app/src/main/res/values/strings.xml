@@ -38,6 +38,10 @@
     <string name="admin">管理者</string>
     <string name="logoutsuccess">登出成功</string>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> ff7453fd79a545f075d3639cc9cb12323d8ec113
     <string name="text_order_status_text">訂單狀態：</string>
     <string name="text_order_status" />
     <string name="text_total_price_title">訂單總額：</string>
@@ -48,7 +52,11 @@
     <string name="text_order_modify_date_text">上次修改日期：</string>
     <string name="text_order_modify_date" />
     <string name="textnofound">查無資料！</string>
+    <string name="saleNotice">促銷訊息</string>
 
+<<<<<<< HEAD
+=======
     <string name="textSend">送出</string>
+>>>>>>> ff7453fd79a545f075d3639cc9cb12323d8ec113
 
 </resources>
