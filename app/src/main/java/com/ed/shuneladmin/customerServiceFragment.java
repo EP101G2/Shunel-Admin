@@ -15,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.ChatMessage;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,6 +42,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -141,20 +145,20 @@ public class customerServiceFragment extends Fragment {
     }
 
     private List<ChatMessage> getData() {
-
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         List<ChatMessage> messages = null;
 
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "Chat_Servlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("type", "getAll");
-            jsonObject.addProperty("chat_ID",chat_ID);
+            jsonObject.addProperty("chat_ID", chat_ID);
             messageTask = new CommonTask(url, jsonObject.toString());
             try {
                 String jsonIn = messageTask.execute().get();
                 Type listType = new TypeToken<List<ChatMessage>>() {
                 }.getType();
-                messages = new Gson().fromJson(jsonIn, listType);
+                messages = gson.fromJson(jsonIn, listType);
 
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -164,10 +168,9 @@ public class customerServiceFragment extends Fragment {
         } else {
             Common.showToast(activity, R.string.textNoNetwork);
         }
-        Log.e("--------------",messages+"");
+        Log.e("--------------", messages + "");
 
-        return  messages;
-
+        return messages;
 
 
     }
@@ -350,21 +353,35 @@ public class customerServiceFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewholder holder, int position) {
 
             final ChatMessage CM = message.get(position);
+            Calendar mCal = Calendar.getInstance();
+            CharSequence s = DateFormat.format("hh:mm:ss", mCal.getTime());
 
 
-            if (CM.getSender().equals("Shunel")){
-                if (CM.getType().equals("chat")){
+            if (CM.getSender().equals("Shunel")) {
+                if (CM.getType().equals("chat")) {
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
                     messageHolder.messageTxt.setText(CM.getMessage());
-                }else {
+                   if (CM.getDate()!=null){
+                       messageHolder.myTime.setText(DateToStr(CM.getDate()));
+                   }else {
+                       messageHolder.myTime.setText(s);
+                   }
+
+
+                } else {
                     SentImageHolder imageHolder = (SentImageHolder) holder;
 
                 }
-            }else {
-                if (CM.getType().equals("chat")){
+            } else {
+                if (CM.getType().equals("chat")) {
                     ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
                     messageHolder.nameTxt.setText(CM.getSender());
                     messageHolder.messageTxt.setText(CM.getMessage());
+                    if (CM.getDate()!=null){
+                        messageHolder.theirTime.setText(DateToStr(CM.getDate()));
+                    }else{
+                        messageHolder.theirTime.setText(s);
+                    }
                 }
 
             }
@@ -389,20 +406,21 @@ public class customerServiceFragment extends Fragment {
 
 
         private class SentMessageHolder extends MyViewholder {
-            TextView messageTxt;
+            TextView messageTxt,myTime;
 
             public SentMessageHolder(@NonNull View itemView) {
                 super(itemView);
                 messageTxt = itemView.findViewById(R.id.message_mybody);
+                myTime = itemView.findViewById(R.id.myTime);
             }
         }
 
         private class ReceivedMessageHolder extends MyViewholder {
-            TextView nameTxt, messageTxt;
+            TextView nameTxt, messageTxt,theirTime;
 
             public ReceivedMessageHolder(@NonNull View itemView) {
                 super(itemView);
-
+                theirTime=itemView.findViewById(R.id.theirTime);
                 nameTxt = itemView.findViewById(R.id.name);
                 messageTxt = itemView.findViewById(R.id.message_mybody);
             }
@@ -412,6 +430,7 @@ public class customerServiceFragment extends Fragment {
 
         private class SentImageHolder extends MyViewholder {
             ImageView imageView;
+
             public SentImageHolder(@NonNull View itemView) {
                 super(itemView);
 
@@ -421,14 +440,21 @@ public class customerServiceFragment extends Fragment {
 
         private class ReceivedImageHolder extends MyViewholder {
             ImageView imageView;
-            TextView nameTxt;
+            TextView nameTxt, theirTime;
 
             public ReceivedImageHolder(@NonNull View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 nameTxt = itemView.findViewById(R.id.nameTxt);
+                theirTime = imageView.findViewById(R.id.theirTime);
             }
         }
+    }
+    public static String DateToStr(Date date) {
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        String str = format.format(date);
+        return str;
     }
 }
 
