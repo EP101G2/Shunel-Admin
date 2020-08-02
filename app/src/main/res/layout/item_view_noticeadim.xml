@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/checkBox"
             app:layout_constraintStart_toEndOf="@+id/checkBox"
             app:layout_constraintTop_toTopOf="@+id/checkBox"
-            app:srcCompat="@drawable/saleItem" />
+            app:srcCompat="@drawable/saleitem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

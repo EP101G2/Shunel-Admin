@@ -15,6 +15,8 @@ public class ChatMessage {
 
     private String base64;
     private Date date;
+    private int id;
+
 
     public ChatMessage(String type, String sender, String receiver, String message, int chatRoom) {
         this.type = type;
@@ -24,8 +26,16 @@ public class ChatMessage {
         this.chatRoom = chatRoom;
     }
 
+    public ChatMessage(String type, String sender, String receiver, String message, int chatRoom, int id) {
+        this.type = type;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.chatRoom = chatRoom;
+        this.id = id;
+    }
 
-    //    public ChatMessage(String sender, String receiver, String message, int chatRoom) {
+//    public ChatMessage(String sender, String receiver, String message, int chatRoom) {
 //        this.sender = sender;
 //        this.receiver = receiver;
 //        this.message = message;
@@ -61,7 +71,13 @@ public class ChatMessage {
     }
 
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRead() {
         return read;

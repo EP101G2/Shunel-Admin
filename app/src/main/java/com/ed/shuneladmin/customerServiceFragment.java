@@ -31,14 +31,17 @@ import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.ChatMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.ed.shuneladmin.CommonTwo.chatWebSocketClient;
 import static com.ed.shuneladmin.CommonTwo.loadUserName;
@@ -61,6 +64,7 @@ public class customerServiceFragment extends Fragment {
     private Button btSend;
     private RecyclerView rv;
     private CommonTask chatTask;
+    private CommonTask messageTask;
     private String user_Name;
     private ChatMessage chatMessage = null;
     String message = "";
@@ -132,6 +136,40 @@ public class customerServiceFragment extends Fragment {
     }
 
     private void initData() {
+        chatMessageList = getData();
+
+    }
+
+    private List<ChatMessage> getData() {
+
+        List<ChatMessage> messages = null;
+
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL_SERVER + "Chat_Servlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("type", "getAll");
+            jsonObject.addProperty("chat_ID",chat_ID);
+            messageTask = new CommonTask(url, jsonObject.toString());
+            try {
+                String jsonIn = messageTask.execute().get();
+                Type listType = new TypeToken<List<ChatMessage>>() {
+                }.getType();
+                messages = new Gson().fromJson(jsonIn, listType);
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Common.showToast(activity, R.string.textNoNetwork);
+        }
+        Log.e("--------------",messages+"");
+
+        return  messages;
+
+
+
     }
 
     private void setSystemServices() {
