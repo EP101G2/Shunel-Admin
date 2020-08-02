@@ -13,7 +13,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class CommonTwo {
     private final static String TAG = "CommonTwo";
     public static final String SERVER_URI =
-            "ws://172.20.10.3:8080/Shunel_Web/TwoChatServer/";
+            "ws://10.0.2.2:8080/Shunel_Web/TwoChatServer/";
+
+    public static  final  String user_Name = "Shunel";
+
     public static ChatWebSocketClient chatWebSocketClient;
 
     // 建立WebSocket連線
@@ -21,15 +24,15 @@ public class CommonTwo {
         URI uri = null;
         try {
             uri = new URI(SERVER_URI + userName);
-            Log.e(TAG,"1="+uri);
+            Log.e(TAG, "1=" + uri);
         } catch (URISyntaxException e) {
             Log.e(TAG, e.toString());
         }
         if (chatWebSocketClient == null) {
             chatWebSocketClient = new ChatWebSocketClient(uri, context);
-            Log.e(TAG,"2=111111");
+            Log.e(TAG, "2=111111");
             chatWebSocketClient.connect();
-            Log.e(TAG,"1="+chatWebSocketClient.toString());
+            Log.e(TAG, "1=" + chatWebSocketClient.toString());
         }
     }
 
@@ -41,19 +44,9 @@ public class CommonTwo {
         }
     }
 
-//    public static void saveUserName(Context context, String userName) {
-////        SharedPreferences preferences =
-////                context.getSharedPreferences("user", MODE_PRIVATE);
-////        preferences.edit().putString("userName", userName).apply();
-//
-////        Log.e(TAG,"123123"+preferences.toString());
-//    }
 
     public static String loadUserName(Context context) {
-//        SharedPreferences preferences =
-//                context.getSharedPreferences("user", MODE_PRIVATE);
-        String userName ="Shunel";
-//        String userName = "5566";
+        String userName = CommonTwo.user_Name;
         Log.d(TAG, "userName = " + userName);
         return userName;
     }

@@ -24,12 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
+import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.StateMessage;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static androidx.navigation.Navigation.findNavController;
 import static com.ed.shuneladmin.CommonTwo.loadUserName;
 import static com.ed.shuneladmin.CommonTwo.showToast;
@@ -46,8 +49,9 @@ public class Member_newsFragment extends Fragment {
     private String user;
     private List<String> MemberList;
     private LocalBroadcastManager broadcastManager;
-
-
+    private CommonTask chatTask;
+    private String member_ID;
+    private int chat_ID;
     public Member_newsFragment() {
         // Required empty public constructor
     }
@@ -180,16 +184,26 @@ public class Member_newsFragment extends Fragment {
         public void onBindViewHolder(@NonNull mViewHoder holder, int position) {
 
             final String member = MemberList.get(position);
+
+            member_ID = member;
+
             holder.tvFriendName.setText(member);
             // 點選聊天清單上的user即開啟聊天頁面
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    findRoomId();
+
+
+
+
+
                     Bundle bundle = new Bundle();
                     bundle.putString("member", member);
+                    bundle.putInt("chatRoom",chat_ID);
 
-
+                    Log.e(TAG,member+"==================================="+chat_ID);
 //                    Intent intent = new Intent(activity,customerServiceFragment.class);
 //                    startActivity(intent);
 //                    Toast.makeText(context,view?.findNavController()?.R.id.customerServiceFragment?.,Toast.LENGTH_SHORT).show()
@@ -217,6 +231,37 @@ public class Member_newsFragment extends Fragment {
             }
 
         }
+    }
+
+    private void findRoomId() {
+
+
+        /********************************建立聊天室 Jack*****************************************/
+
+//        user_Id = Common.getPreherences(activity).getString("id","");
+
+        String url = Common.URL_SERVER + "Chat_Servlet";
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("type", "findRoomID");
+        jsonObject.addProperty("admin_Id", "1");
+        jsonObject.addProperty("user_ID", member_ID);
+
+        Log.e(TAG, jsonObject.toString());
+        try {
+            chatTask = new CommonTask(url, jsonObject.toString());
+            String result = chatTask.execute().get();
+            chat_ID = Integer.parseInt(result);
+            Log.e(TAG, "============"+result);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("chatroom",chat_ID);
+
+        /********************************建立聊天室 Jack*****************************************/
+
+
     }
 
 
