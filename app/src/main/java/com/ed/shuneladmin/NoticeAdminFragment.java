@@ -130,7 +130,7 @@ public class NoticeAdminFragment extends Fragment {
 
         spNoticeCategory.setSelection(0, true);
         String[] noticeCategory = {"促銷訊息", "系統訊息"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(activity,
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
 //                提供textView元件,提供一個當模板，提供預設樣式
                 android.R.layout.simple_spinner_item, noticeCategory);
 

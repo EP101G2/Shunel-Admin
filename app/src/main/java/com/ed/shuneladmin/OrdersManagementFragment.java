@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -104,7 +103,7 @@ public class OrdersManagementFragment extends Fragment {
         });
 
 //        setting search view
-        svOrders = view.findViewById(R.id.svOrders);
+        svOrders = view.findViewById(R.id.searchView);
         svOrders.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
