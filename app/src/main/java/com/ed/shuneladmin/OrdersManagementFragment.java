@@ -34,8 +34,6 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OrdersManagementFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class OrdersManagementFragment extends Fragment {
 
@@ -47,21 +45,13 @@ public class OrdersManagementFragment extends Fragment {
     private Integer counter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView svOrders;
-    private User_Account userAccount;
+//    private User_Account userAccount;
     List<Order_Main> orderMainList;
     RecyclerView rvOrderMain;
     private CommonTask ordersListGetTask;
 
     public OrdersManagementFragment() {
         // Required empty public constructor
-    }
-
-    public static OrdersManagementFragment newInstance(Integer counter) {
-        OrdersManagementFragment fragment = new OrdersManagementFragment();
-        Bundle args = new Bundle();
-        args.putInt(TAG, counter);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -88,7 +78,6 @@ public class OrdersManagementFragment extends Fragment {
         rvOrderMain = view.findViewById(R.id.rvOrderMain);
         rvOrderMain.setLayoutManager(new LinearLayoutManager(activity));
         rvOrderMain.setAdapter(new OrderMainAdapter(getContext(), orderMainList));
-
 //        setting swipe refresh layout
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutOrder);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -159,17 +148,17 @@ public class OrdersManagementFragment extends Fragment {
             if (Common.networkConnected(activity)) {
 //                get data from orders servlet
                 String url = Common.URL_SERVER + "Orders_Servlet";
-                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "getOrdersForManage");
-//                jsonObject.addProperty("Account_ID", Common.getPreherences(activity).getString("Account_ID", "defValue"));
                 String jsonOut = jsonObject.toString();
                 ordersListGetTask = new CommonTask(url, jsonOut);
                 try {
                     String jsonIn = ordersListGetTask.execute().get();
                     Type listType = new TypeToken<List<Order_Main>>() {
                     }.getType();
-                    orderMainList = new Gson().fromJson(jsonIn, listType);
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                    orderMainList = gson.fromJson(jsonIn, listType);
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
