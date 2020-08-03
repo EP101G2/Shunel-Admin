@@ -17,6 +17,10 @@ public class ChatMessage {
     private String base64;
     private Timestamp date;
     private int id;
+    private int imageView;
+
+
+
 
 
     public ChatMessage(String type, String sender, String receiver, String message, int chatRoom, Timestamp date, int id) {

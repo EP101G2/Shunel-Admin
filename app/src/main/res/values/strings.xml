@@ -45,12 +45,25 @@
     <string name="text_total_price" />
     <string name="text_order_date" />
     <string name="text_order_text_text">訂購日期：</string>
-    <string name="manageOrders">管理訂單</string>
+    <string name="manageOrders">訂單管理</string>
     <string name="text_order_modify_date_text">上次修改日期：</string>
     <string name="text_order_modify_date" />
     <string name="textnofound">查無資料！</string>
     <string name="saleNotice">促銷訊息</string>
 
+    <string name="order_detail_manage">訂單詳情</string>
+    <string name="text_receiver_name">姓名：</string>
+    <string name="receiver">收件者資料：</string>
+    <string name="receiver_name" />
+    <string name="text_phone">電話：</string>
+    <string name="phone" />
+    <string name="text_address">地址：</string>
+    <string name="address" />
+    <string name="text_cancel">取消修改</string>
+    <string name="text_save">儲存變更</string>
+    <string name="product_name" />
+    <string name="text_product_price">售價：</string>
+    <string name="product_price" />
     <string name="textSend">送出</string>
     <string name="productname">商品名稱</string>
     <string name="productcolor">顏色</string>
@@ -59,5 +72,7 @@
     <string name="productCategory">類別</string>
     <string name="productStatus">狀態</string>
     <string name="addproduct">新增商品</string>
+    <string name="textTakePicture">拍照</string>
+    <string name="textNoCameraApp">textNoCameraApp</string>
 
 </resources>
