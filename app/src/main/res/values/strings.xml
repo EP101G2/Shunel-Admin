@@ -31,6 +31,13 @@
     <string name="text_hint">Null</string>
     <string name="account_id_text">會員編號：</string>
     <string name="text_account_id" />
+
+    <string name="NoticeManage">訊息管理</string>
+    <string name="Sand">送出</string>
+
+    <string name="admin">管理者</string>
+    <string name="logoutsuccess">登出成功</string>
+
     <string name="text_order_status_text">訂單狀態：</string>
     <string name="text_order_status" />
     <string name="text_total_price_title">訂單總額：</string>
@@ -41,11 +48,8 @@
     <string name="text_order_modify_date_text">上次修改日期：</string>
     <string name="text_order_modify_date" />
     <string name="textnofound">查無資料！</string>
+    <string name="saleNotice">促銷訊息</string>
 
-    <string name="NoticeManage">訊息管理</string>
-    <string name="Sand">送出</string>
-    <string name="admin">管理者</string>
-    <string name="logoutsuccess">登出成功</string>
     <string name="order_detail_manage">訂單詳情</string>
     <string name="text_receiver_name">姓名：</string>
     <string name="receiver">收件者資料：</string>
@@ -59,5 +63,6 @@
     <string name="product_name" />
     <string name="text_product_price">售價：</string>
     <string name="product_price" />
+    <string name="textSend">送出</string>
 
 </resources>
