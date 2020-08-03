@@ -51,5 +51,7 @@
     <string name="saleNotice">促銷訊息</string>
 
     <string name="textSend">送出</string>
+    <string name="textTakePicture">拍照</string>
+    <string name="textNoCameraApp">textNoCameraApp</string>
 
 </resources>
