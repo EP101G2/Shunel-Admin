@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--設定foreground="?selectableItemBackground"當選項被點擊時會改變背景色-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:foreground="?selectableItemBackground"
+    app:cardBackgroundColor="#C8DFC3"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:text="@string/id"
+            android:textColor="#0000FF"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="35dp"
+            android:layout_marginLeft="35dp"
+            android:text="@string/name"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btEdit"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="16dp"
+            android:background="#D8EACD"
+            android:shadowColor="#D8EACD"
+            android:text="@string/edit"
+            android:textColorHint="#FFFFFF" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
