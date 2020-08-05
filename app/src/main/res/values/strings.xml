@@ -96,5 +96,6 @@
     <string name="addproduct">新增商品</string>
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
+    <string name="modify">修改</string>
 
 </resources>

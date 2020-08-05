@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class AdminNewDetailFragment extends Fragment {
 private Activity activity;
 private TextView tvAdminNo,tvAdminName,tvAdminId,tvAdminIdPassword,tvAdminIdPosition;
-private Button btCancel,btConfirm;
+private Button btCancel,btModify;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +43,10 @@ private Button btCancel,btConfirm;
         tvAdminIdPassword=view.findViewById(R.id.tvAdminIdPassword);
         tvAdminIdPosition=view.findViewById(R.id.tvAdminIdPosition);
         btCancel=view.findViewById(R.id.btCancel);
-        btConfirm= view.findViewById(R.id.btConfirm);
+        btModify= view.findViewById(R.id.btModify);
 
 
-        btConfirm.setOnClickListener(new View.OnClickListener() {
+        btModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

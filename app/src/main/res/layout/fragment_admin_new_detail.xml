@@ -97,7 +97,7 @@
         android:text="@string/position"
         android:textColor="#B3E1D9"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btConfirm"
+        app:layout_constraintBottom_toTopOf="@+id/btModify"
         app:layout_constraintEnd_toStartOf="@+id/tvAdminIdPosition"
         app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toStartOf="parent" />
@@ -109,6 +109,7 @@
         android:layout_marginTop="48dp"
         android:text="TextView"
         android:textColor="#0000FF"
+        android:background="@drawable/backgroundadminnew"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/tvAdminName"
         app:layout_constraintHorizontal_bias="0.0"
@@ -149,7 +150,7 @@
         android:textColor="#0000FF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvPosition"
-        app:layout_constraintEnd_toEndOf="@+id/btConfirm"
+        app:layout_constraintEnd_toEndOf="@+id/btModify"
         app:layout_constraintTop_toTopOf="@+id/tvPosition"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -176,7 +177,7 @@
         android:text="@string/cancel"
         android:textColor="#B3E1D9"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btConfirm"
+        app:layout_constraintEnd_toStartOf="@+id/btModify"
         app:layout_constraintHorizontal_bias="0.605"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPosition"
@@ -184,7 +185,7 @@
 
     <Button
 
-        android:id="@+id/btConfirm"
+        android:id="@+id/btModify"
 
         android:layout_width="150dp"
         android:layout_height="40dp"
@@ -192,7 +193,7 @@
         android:layout_marginRight="36dp"
         android:layout_marginBottom="60dp"
         android:background="@drawable/backgroundlogin"
-        android:text="@string/confirm"
+        android:text="@string/modify"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -1,7 +1,6 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,12 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.Admin;
-import com.ed.shuneladmin.bean.User_Account;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -61,7 +58,7 @@ private String result;
     etReTypeNewPassword=view.findViewById(R.id.etReTypeNewPassword);
     btCancel=view.findViewById(R.id.btCancel);
 
-    btConfirm=view.findViewById(R.id.btConfirm);
+    btConfirm=view.findViewById(R.id.btModify);
     spPosition=view.findViewById(R.id.spPosition);
         /* 也可使用List */
         final String[] postions = {"管理員", "一般職員"};
@@ -144,15 +141,15 @@ btConfirm.setOnClickListener(new View.OnClickListener() {
 
                 savePreferences();
 
-//                AlertDialog.Builder builder = new AlertDialog.Builder(activity);    //當你在使用物件後還有其他動作要執行，補充資料在JAVA-slide-ch0805
-//                LayoutInflater inflater = LayoutInflater.from(activity);
-//                final View view =inflater.inflate(R.layout.registersuccess,null);
-//                builder.setView(view);
-//                builder.create().show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);    //當你在使用物件後還有其他動作要執行，補充資料在JAVA-slide-ch0805
+                LayoutInflater inflater = LayoutInflater.from(activity);
+                final View view =inflater.inflate(R.layout.registersuccess,null);
+                builder.setView(view);
+                builder.create().show();
 
 
                 Navigation.findNavController(v)
-                        .navigate(R.id.action_adminNewFragment_to_adminNewDetailFragment);
+                        .navigate(R.id.action_adminNewFragment_to_adminFragment);
 
 
 

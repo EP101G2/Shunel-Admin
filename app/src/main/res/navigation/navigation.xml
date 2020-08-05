@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_adminFragment_to_adminNewFragment"
             app:destination="@id/adminNewFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_adminNewDetailFragment"
+            app:destination="@id/adminNewDetailFragment" />
     </fragment>
 
     <fragment
@@ -94,8 +97,8 @@
         android:label="fragment_admin_new"
         tools:layout="@layout/fragment_admin_new" >
         <action
-            android:id="@+id/action_adminNewFragment_to_adminNewDetailFragment"
-            app:destination="@id/adminNewDetailFragment" />
+            android:id="@+id/action_adminNewFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminNewDetailFragment"
