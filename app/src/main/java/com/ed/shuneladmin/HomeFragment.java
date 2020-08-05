@@ -1,29 +1,34 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.ed.shuneladmin.Task.Common;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class HomeFragment extends Fragment {
 
-    Activity activity;
+    private Activity activity;
 
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
-    private int[] label={R.string.system,R.string.hotProduct,R.string.Promotion,R.string.msg};
+    private int[] label = {R.string.system, R.string.hotProduct, R.string.Promotion, R.string.msg};
+    private ImageView ivLogout, ivAdmin;
 
 
     public HomeFragment() {
@@ -47,6 +52,23 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ivLogout = view.findViewById(R.id.ivLogout);
+        ivAdmin = view.findViewById(R.id.ivAdmin);
+
+        ivLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logout();
+            }
+        });
+        ivAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
+            }
+        });
+
+
         findViews(view);
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
         initData();
@@ -56,6 +78,14 @@ public class HomeFragment extends Fragment {
         setLinstener();
 
 
+    }
+
+    private void Logout() {
+        Common.getPreherences(activity).edit().clear().apply();
+        Intent intent = new Intent();
+        intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
+        startActivity(intent);
+//        if (MainActivity.preferences.edit())
     }
 
     private void findViews(View view) {
@@ -78,7 +108,8 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         tab.setText(label[position]);
                     }
                 }).attach();
@@ -96,40 +127,40 @@ public class HomeFragment extends Fragment {
 
     /*viewPage 滑動特效 Jack 7.22*/
     private class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
-        private static final float MIN_SCALE = 0.85f ;
-        private static final float MIN_ALPHA = 0.5f ;
+        private static final float MIN_SCALE = 0.85f;
+        private static final float MIN_ALPHA = 0.5f;
 
-        public void transformPage ( View view , float position ) {
-            int pageWidth = view . getWidth ();
-            int pageHeight = view . getHeight ();
+        public void transformPage(View view, float position) {
+            int pageWidth = view.getWidth();
+            int pageHeight = view.getHeight();
 
-            if ( position < - 1 ) { // [-Infinity,-1)
+            if (position < -1) { // [-Infinity,-1)
                 // This page is way off-screen to the left.
-                view . setAlpha ( 0f );
+                view.setAlpha(0f);
 
-            } else if ( position <= 1 ) { // [-1,1]
+            } else if (position <= 1) { // [-1,1]
                 // Modify the default slide transition to shrink the page as well
-                float scaleFactor = Math . max ( MIN_SCALE , 1 - Math . abs ( position ));
-                float vertMargin = pageHeight * ( 1 - scaleFactor ) / 2 ;
-                float horzMargin = pageWidth * ( 1 - scaleFactor ) / 2 ;
-                if ( position < 0 ) {
-                    view . setTranslationX ( horzMargin - vertMargin / 2 );
+                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+                if (position < 0) {
+                    view.setTranslationX(horzMargin - vertMargin / 2);
                 } else {
-                    view . setTranslationX (- horzMargin + vertMargin / 2 );
+                    view.setTranslationX(-horzMargin + vertMargin / 2);
                 }
 
                 // Scale the page down (between MIN_SCALE and 1)
-                view . setScaleX ( scaleFactor );
-                view . setScaleY ( scaleFactor );
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
 
                 // Fade the page relative to its size.
-                view . setAlpha ( MIN_ALPHA +
-                        ( scaleFactor - MIN_SCALE ) /
-                                ( 1 - MIN_SCALE ) * ( 1 - MIN_ALPHA ));
+                view.setAlpha(MIN_ALPHA +
+                        (scaleFactor - MIN_SCALE) /
+                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 
             } else { // (1,+Infinity]
                 // This page is way off-screen to the right.
-                view . setAlpha ( 0f );
+                view.setAlpha(0f);
             }
         }
 

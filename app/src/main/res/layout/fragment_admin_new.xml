@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminNewFragment">
+
+
+    <TextView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appbar"
+        android:gravity="center"
+        android:text="@string/NewAdmin"
+        android:textColor="#FFFFFF"
+
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etAccountId"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/backgroundadminnew"
+
+        android:hint="@string/typeAcountId"
+        android:textColor="#0000FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="92dp"
+
+        android:background="@drawable/backgroundadminnew"
+        android:hint="@string/typeYourNmae"
+        android:textColor="#0000FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/backgroundadminnew"
+        android:hint="@string/typePassword"
+        android:inputType="textPassword"
+        android:textColor="#0000FF"
+        app:layout_constraintEnd_toEndOf="@+id/etAccountId"
+        app:layout_constraintStart_toStartOf="@+id/etAccountId"
+        app:layout_constraintTop_toBottomOf="@+id/etAccountId" />
+
+    <EditText
+        android:id="@+id/etReTypeNewPassword"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/backgroundadminnew"
+        android:hint="@string/retypePassword"
+        android:inputType="textPassword"
+        android:textColor="#0000FF"
+        app:layout_constraintEnd_toEndOf="@+id/etNewPassword"
+        app:layout_constraintStart_toStartOf="@+id/etNewPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etNewPassword" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/name"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/etName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tvAccountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/accountId"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvAccountPassword"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvAccountPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="87dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/password"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPosition"
+        app:layout_constraintEnd_toEndOf="@+id/tvAccountId"
+        app:layout_constraintStart_toStartOf="@+id/tvAccountId"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="@string/password"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="@+id/tvAccountPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvAccountPassword"
+        app:layout_constraintTop_toTopOf="@+id/etReTypeNewPassword"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="208dp"
+        android:text="@string/position"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btCancel"
+        app:layout_constraintEnd_toEndOf="@+id/tvPosition"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvPosition"
+        app:layout_constraintTop_toTopOf="@+id/spPosition"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+
+        android:id="@+id/btCancel"
+
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/background2"
+        android:text="@string/cancel"
+        android:textColor="#B3E1D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btConfirm"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spPosition"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+
+        android:id="@+id/btConfirm"
+
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:background="@drawable/backgroundlogin"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spPosition"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spPosition"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/backgroundadminnew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/etReTypeNewPassword" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
