@@ -6,7 +6,9 @@
         android:iconTint="#AFE0D7"
         />
     <item android:title="@string/product"
-        android:icon="@drawable/product"/>
+        android:icon="@drawable/product"
+        android:id="@+id/productFragment"/>
+
     <item android:id="@+id/ordersManagementFragment"
         android:icon="@drawable/orders"
         android:title="@string/manageOrders"/>

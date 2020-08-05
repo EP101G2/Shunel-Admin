@@ -1,7 +1,6 @@
 package com.ed.shuneladmin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         Log.e("1","1111111111111");
 
 
-        btLogin=findViewById(R.id.btLogin);
+        btLogin=findViewById(R.id.btCancel);
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
