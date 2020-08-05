@@ -74,6 +74,9 @@ public class OrdersManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        get data
+        orderMainList = getOrders();
+        showOrders(orderMainList);
 //        setting recycler view
         rvOrderMain = view.findViewById(R.id.rvOrderMain);
         rvOrderMain.setLayoutManager(new LinearLayoutManager(activity));

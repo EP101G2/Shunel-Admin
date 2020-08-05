@@ -93,7 +93,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
                 if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "Update");//變作ＪＳＯＮ自串 //build case "update" in servlet
+                    jsonObject.addProperty("action", "update");//變作ＪＳＯＮ自串 //build case "update" in servlet(check)
                     jsonObject.addProperty("Receiver", new Gson().toJson(orderMain));
                     int count = 0;
                     try {
