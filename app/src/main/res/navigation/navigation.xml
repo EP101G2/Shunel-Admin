@@ -8,14 +8,40 @@
         android:id="@+id/homeFragment"
         android:name="com.ed.shuneladmin.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/systemFragment"
+        android:name="com.ed.shuneladmin.SystemFragment"
+        android:label="fragment_system"
+        tools:layout="@layout/fragment_system" />
+    <fragment
+        android:id="@+id/promotionFragment"
+        android:name="com.ed.shuneladmin.PromotionFragment"
+        android:label="fragment_promotion"
+        tools:layout="@layout/fragment_promotion" />
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.ed.shuneladmin.NoticeFragment"
+        android:label="fragment_notice"
+        tools:layout="@layout/fragment_notice" />
+
         <action
             android:id="@+id/action_homeFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
         <action
             android:id="@+id/action_homeFragment_to_userFragment"
             app:destination="@id/userFragment" />
-    </fragment>
+        <action
+            android:id="@+id/action_homeFragment_to_customerServiceFragment"
+            app:destination="@id/customerServiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_noticeListAdimFragment"
+            app:destination="@id/noticeListAdimFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ordersManagementFragment"
+            app:destination="@id/ordersManagementFragment" />
+
+
     <fragment
         android:id="@+id/userFragment"
         android:name="com.ed.shuneladmin.UserFragment"
@@ -31,6 +57,16 @@
         android:label="fragment_member_news"
         tools:layout="@layout/fragment_member_news" />
     <fragment
+        android:id="@+id/customerServiceFragment"
+        android:name="com.ed.shuneladmin.customerServiceFragment"
+        android:label="fragment_customer_service"
+        tools:layout="@layout/fragment_customer_service" />
+    <fragment
+        android:id="@+id/noticeAdminFragment"
+        android:name="com.ed.shuneladmin.NoticeAdminFragment"
+        android:label="fragment_notice_admin"
+        tools:layout="@layout/fragment_notice_admin" />
+    <fragment
 
         android:id="@+id/adminFragment"
         android:name="com.ed.shuneladmin.AdminFragment"
@@ -45,6 +81,7 @@
         android:id="@+id/ordersManagementFragment"
         android:name="com.ed.shuneladmin.OrdersManagementFragment"
         android:label="fragment_orders_management"
+
         tools:layout="@layout/fragment_orders_management" />
     <fragment
         android:id="@+id/userdetailFragment"
@@ -65,5 +102,39 @@
         android:name="com.ed.shuneladmin.AdminNewDetailFragment"
         android:label="fragment_admin_new_detail"
         tools:layout="@layout/fragment_admin_new_detail" />
+
+        <action
+            android:id="@+id/action_ordersManagementFragment_to_orderManageDetailFragment"
+            app:destination="@id/orderManageDetailFragment" />
+
+    <fragment
+        android:id="@+id/orderManageDetailFragment"
+        android:name="com.ed.shuneladmin.OrderManageDetailFragment"
+        android:label="fragment_order_manage_detail"
+        tools:layout="@layout/fragment_order_manage_detail" >
+        <action
+            android:id="@+id/action_orderManageDetailFragment_to_modifyReceiverDetailFragment"
+            app:destination="@id/modifyReceiverDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noticeListAdimFragment"
+        android:name="com.ed.shuneladmin.noticeListAdimFragment"
+        android:label="fragment_notice_list_adim"
+        tools:layout="@layout/fragment_notice_list_adim" />
+    <fragment
+        android:id="@+id/modifyReceiverDetailFragment"
+        android:name="com.ed.shuneladmin.ModifyReceiverDetailFragment"
+        android:label="fragment_modify_receiver_detail"
+        tools:layout="@layout/fragment_modify_receiver_detail" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.ed.shuneladmin.productFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" />
+    <fragment
+        android:id="@+id/insertProductFragment"
+        android:name="com.ed.shuneladmin.insertProductFragment"
+        android:label="fragment_insert_product"
+        tools:layout="@layout/fragment_insert_product" />
 
 </navigation>

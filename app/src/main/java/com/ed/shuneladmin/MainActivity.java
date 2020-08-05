@@ -20,7 +20,10 @@ import com.ed.shuneladmin.Task.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView  ivLogout;
+
+    public static int flag;
+    private ImageView ivAdmin, ivLogout;
+
     private Activity activity;
 
 

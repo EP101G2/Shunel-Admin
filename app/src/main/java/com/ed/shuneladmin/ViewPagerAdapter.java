@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-    private static final int CARD_ITEM_SIZE = 4;
+    private static final int CARD_ITEM_SIZE = 5;
     public ViewPagerAdapter(@NonNull Activity fragmentActivity) {
         super((FragmentActivity) fragmentActivity);
     }
@@ -18,13 +18,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         switch (position){
             case 0: //系統
                 return new LabelFragment();
-            case 1: //熱門
-                return new UserFragment();
+            case 1: //產品
+                return new productFragment();
             case 2: //促銷
                 return new LabelFragment();
             case 3: //訊息
                 return new Member_newsFragment();
-
+            case 4: //通知
+                return new NoticeAdminFragment();
         }
         return LabelFragment.newInstance(position);
     }
