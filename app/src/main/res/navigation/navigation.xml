@@ -8,7 +8,23 @@
         android:id="@+id/homeFragment"
         android:name="com.ed.shuneladmin.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/systemFragment"
+        android:name="com.ed.shuneladmin.SystemFragment"
+        android:label="fragment_system"
+        tools:layout="@layout/fragment_system" />
+    <fragment
+        android:id="@+id/promotionFragment"
+        android:name="com.ed.shuneladmin.PromotionFragment"
+        android:label="fragment_promotion"
+        tools:layout="@layout/fragment_promotion" />
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.ed.shuneladmin.NoticeFragment"
+        android:label="fragment_notice"
+        tools:layout="@layout/fragment_notice" />
+
         <action
             android:id="@+id/action_homeFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
@@ -24,7 +40,8 @@
         <action
             android:id="@+id/action_homeFragment_to_ordersManagementFragment"
             app:destination="@id/ordersManagementFragment" />
-    </fragment>
+
+
     <fragment
         android:id="@+id/userFragment"
         android:name="com.ed.shuneladmin.UserFragment"
@@ -82,5 +99,15 @@
         android:name="com.ed.shuneladmin.ModifyReceiverDetailFragment"
         android:label="fragment_modify_receiver_detail"
         tools:layout="@layout/fragment_modify_receiver_detail" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.ed.shuneladmin.productFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" />
+    <fragment
+        android:id="@+id/insertProductFragment"
+        android:name="com.ed.shuneladmin.insertProductFragment"
+        android:label="fragment_insert_product"
+        tools:layout="@layout/fragment_insert_product" />
 
 </navigation>

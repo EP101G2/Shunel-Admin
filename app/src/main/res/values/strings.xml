@@ -11,14 +11,15 @@
     <string name="product">商品管理</string>
     <string name="price">銷售總額</string>
     <string name="news">消息</string>
-
     <string name="textNoNetwork">沒有網路</string>
     <string name="loginnsuccess">"登入成功 "</string>
 
+    <string name="Product">商品</string>
     <string name="msg">訊息</string>
     <string name="Promotion">促銷</string>
     <string name="hotProduct">熱門</string>
     <string name="system">系統</string>
+
     <string name="notice">通知</string>
     <string name="manageUserAccount">管理會員帳戶</string>
     <string name="name">姓名</string>
@@ -64,9 +65,20 @@
     <string name="text_product_price">售價：</string>
     <string name="product_price" />
     <string name="textSend">送出</string>
+
     <string name="hint_phone">電話</string>
     <string name="hint_address">地址</string>
     <string name="textUpdateFail">修改失敗</string>
     <string name="textUpdateSuccess">修改成功</string>
+
+    <string name="productname">商品名稱</string>
+    <string name="productcolor">顏色</string>
+    <string name="productprice">價格</string>
+    <string name="productdetail">詳情</string>
+    <string name="productCategory">類別</string>
+    <string name="productStatus">狀態</string>
+    <string name="addproduct">新增商品</string>
+    <string name="textTakePicture">拍照</string>
+    <string name="textNoCameraApp">textNoCameraApp</string>
 
 </resources>

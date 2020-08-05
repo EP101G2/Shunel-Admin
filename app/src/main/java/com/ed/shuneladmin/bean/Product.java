@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 
 public class Product implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
     //宣告區
     private int product_ID;
@@ -47,6 +46,10 @@ public class Product implements Serializable {
     public Product(int product_ID, int product_Price) {
         this.product_ID = product_ID;
         this.product_Price = product_Price;
+    }
+
+    public Product() {
+
     }
 
     public int getProduct_ID() {
@@ -132,10 +135,6 @@ public class Product implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
-
-
-
-
 
 
 }
