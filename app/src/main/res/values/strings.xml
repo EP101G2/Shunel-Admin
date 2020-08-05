@@ -64,5 +64,9 @@
     <string name="text_product_price">售價：</string>
     <string name="product_price" />
     <string name="textSend">送出</string>
+    <string name="hint_phone">電話</string>
+    <string name="hint_address">地址</string>
+    <string name="textUpdateFail">修改失敗</string>
+    <string name="textUpdateSuccess">修改成功</string>
 
 </resources>

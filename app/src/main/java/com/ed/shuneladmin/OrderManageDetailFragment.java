@@ -18,14 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Order_Detail;
 import com.ed.shuneladmin.bean.Order_Main;
+import com.ed.shuneladmin.bean.Product;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -47,17 +50,15 @@ public class OrderManageDetailFragment extends Fragment {
 //    routine work
     private Activity activity;
     private Integer counter;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private SearchView svOrders;
     private TextView tvAccountIdDet, tvOrderIdDet, tvOrderDateDet, tvReceiverName, tvReceiverPhone, tvReceiverAddress;
     private Spinner spChangeStatus;
-    private Button btCancel, btSave;
+    private Button btCancel, btSave, btModifyOrderData;
     private String status = "";
+    private Order_Main orderMain;
     List<Order_Main> orderMainList;
     List<Order_Detail> orderDetailList;
     RecyclerView rvOrderDetProduct;
     private CommonTask ordersListDetGetTask;
-
 
     public OrderManageDetailFragment() {
         // Required empty public constructor
@@ -93,7 +94,7 @@ public class OrderManageDetailFragment extends Fragment {
 //        setting recycler view
         rvOrderDetProduct = view.findViewById(R.id.rvOrderDetProduct);
         rvOrderDetProduct.setLayoutManager(new LinearLayoutManager(activity));
-        rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderMainList));
+        rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderDetailList));
 
 //        setting spinner
         spChangeStatus = view.findViewById(R.id.spChangeStatus);
@@ -112,6 +113,7 @@ public class OrderManageDetailFragment extends Fragment {
                 Navigation.findNavController(v).popBackStack();
             }
         });
+
         btSave = view.findViewById(R.id.btSave);
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,21 +122,8 @@ public class OrderManageDetailFragment extends Fragment {
                     if (Common.networkConnected(activity)) {
                         String url = Common.URL_SERVER + "Orders_Servlet";
                         JsonObject jsonObject = new JsonObject();
-                        switch (status) { //modification needed
-                            case "促銷訊息":
-                                Log.e("促銷訊息", "===" + status);
-                                jsonObject.addProperty("action", "updateStatus");
-//                                jsonObject.addProperty("Title", Title);
-//                                jsonObject.addProperty("Detail", Detail);
-                                break;
-                            case "系統訊息":
-                                Log.e("系統訊息", "===" + status);
-                                jsonObject.addProperty("action", "sendSystemN");
-//                                jsonObject.addProperty("Title", Title);
-//                                jsonObject.addProperty("Detail", Detail);
-                                break;
-                        }
-
+                        Log.e("updateStatus", "===" + status);
+                        jsonObject.addProperty("action", "updateStatus");
                         ordersListDetGetTask = new CommonTask(url, jsonObject.toString());
                         String jsonIn = "";
 
@@ -144,28 +133,79 @@ public class OrderManageDetailFragment extends Fragment {
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }
-                        Log.e("------------",jsonIn);
+                    }else {
+                        Common.showToast(activity, R.string.textNoNetwork);
                     }
                 }catch (Exception e){
                     Log.e(TAG, e.toString());
                 }
             }
         });
+
+        btModifyOrderData = view.findViewById(R.id.btModifyOrderData);
+        btModifyOrderData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Receiver", orderMain);
+                Navigation.findNavController(v).navigate(R.id.action_orderManageDetailFragment_to_modifyReceiverDetailFragment, bundle);
+            }
+        });
     }
 
-    private class OrderManageDetAdapter extends RecyclerView.Adapter {
-        public OrderManageDetAdapter(Context context, List<Order_Main> orderMainList) {
+    private class OrderManageDetAdapter extends RecyclerView.Adapter<OrderManageDetAdapter.PageViewHolder> {
+        private LayoutInflater inflater;
+        Context context;
+        List<Order_Detail> orderDetailList;
+        List<Product> productList;
+        private ImageTask orderDetProdImgTask;
+        private int imageSize;
+
+        public OrderManageDetAdapter(Context context, List<Order_Detail> orderDetailList) {
+            this.context = context;
+            inflater = LayoutInflater.from(context);
+            this.orderDetailList = orderDetailList;
+            imageSize = context.getResources().getDisplayMetrics().widthPixels / 4;
         }
 
         @NonNull
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
+        public OrderManageDetAdapter.PageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.fragment_order_manage_detail_view, parent, false);
+            return new OrderManageDetAdapter.PageViewHolder(view);
+        }
+
+        class PageViewHolder extends RecyclerView.ViewHolder{
+            TextView tvProductName, tvProductPrice;
+            ImageView ivOrderProductPic;
+            public PageViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tvProductName = itemView.findViewById(R.id.tvProductName);
+                tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
+                ivOrderProductPic = itemView.findViewById(R.id.ivOrderProductPic);
+            }
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull OrderManageDetAdapter.PageViewHolder holder, int position) {
+            final Order_Detail orderDetail = orderDetailList.get(position);
+            final Product product = productList.get(position);
 
+//            get productDetail through product ID
+            String url = Common.URL_SERVER + "Prouct_Servlet";
+            int productId = orderDetail.getProduct_ID(); //get product id in order detail
+            orderDetProdImgTask = new ImageTask(url, productId, imageSize, holder.ivOrderProductPic);
+            orderDetProdImgTask.execute();
+            holder.tvProductName.setText(product.getProduct_Name()); // --delete ".get(position)"
+            holder.tvProductPrice.setText("$"+product.getProduct_Price());
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("product", product);
+//                    Navigation.findNavController(v).navigate(R.id.productDetailFragment, bundle);
+//                }
+//            });
         }
 
         @Override

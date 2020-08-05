@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_noticeListAdimFragment"
             app:destination="@id/noticeListAdimFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ordersManagementFragment"
+            app:destination="@id/ordersManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -64,11 +67,20 @@
         android:id="@+id/orderManageDetailFragment"
         android:name="com.ed.shuneladmin.OrderManageDetailFragment"
         android:label="fragment_order_manage_detail"
-        tools:layout="@layout/fragment_order_manage_detail" />
+        tools:layout="@layout/fragment_order_manage_detail" >
+        <action
+            android:id="@+id/action_orderManageDetailFragment_to_modifyReceiverDetailFragment"
+            app:destination="@id/modifyReceiverDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/noticeListAdimFragment"
         android:name="com.ed.shuneladmin.noticeListAdimFragment"
         android:label="fragment_notice_list_adim"
         tools:layout="@layout/fragment_notice_list_adim" />
+    <fragment
+        android:id="@+id/modifyReceiverDetailFragment"
+        android:name="com.ed.shuneladmin.ModifyReceiverDetailFragment"
+        android:label="fragment_modify_receiver_detail"
+        tools:layout="@layout/fragment_modify_receiver_detail" />
 
 </navigation>

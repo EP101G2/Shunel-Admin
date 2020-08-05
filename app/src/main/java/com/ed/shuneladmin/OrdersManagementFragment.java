@@ -148,7 +148,6 @@ public class OrdersManagementFragment extends Fragment {
             if (Common.networkConnected(activity)) {
 //                get data from orders servlet
                 String url = Common.URL_SERVER + "Orders_Servlet";
-//                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "getOrdersForManage");
                 String jsonOut = jsonObject.toString();
