@@ -74,5 +74,7 @@
     <string name="addproduct">新增商品</string>
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
+    <string name="insertsuccess">新增商品成功</string>
+    <string name="insertfail">新增商品失敗</string>
 
 </resources>

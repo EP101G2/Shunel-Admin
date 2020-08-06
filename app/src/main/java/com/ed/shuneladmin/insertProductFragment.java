@@ -37,14 +37,10 @@ public class insertProductFragment extends Fragment {
     EditText nameOfProduct,colorOfProduct,priceOfProduct,detailOfProduct,categoryOfProduct,statusOfProduct;
     Product product;
     Button btaddproduct;
-    Spinner spinnerOfcategory;
     Common common;
     CommonTask insertProduct;
-    List<String> categoryList;
-    ArrayAdapter<String> adapter;
 
 
-    TextView tvtest;
 
     public insertProductFragment() {
         // Required empty public constructor
@@ -74,22 +70,13 @@ public class insertProductFragment extends Fragment {
         categoryOfProduct = view.findViewById(R.id.categoryOfProduct);
         statusOfProduct = view.findViewById(R.id.statusOfProduct);
         btaddproduct = view.findViewById(R.id.btaddproduct);
-        spinnerOfcategory = view.findViewById(R.id.spinnerOfcategory);
-        tvtest = view.findViewById(R.id.tvtest);
 
 
 
 
-        categoryList = new ArrayList<String>();
-        categoryList.add("戒指");
-        categoryList.add("項鍊");
-        categoryList.add("耳環");
-        categoryList.add("香氛項鍊");
-        categoryList.add("香氛耳環");
 
-        adapter = new ArrayAdapter<String>(activity,android.R.layout.simple_spinner_item,categoryList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerOfcategory.setAdapter(adapter);
+
+
 
 
         btaddproduct.setOnClickListener(new View.OnClickListener() {
@@ -106,27 +93,6 @@ public class insertProductFragment extends Fragment {
                     product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
 
 
-                    spinnerOfcategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                            product.setProduct_Category_ID(Integer.parseInt(adapter.getItem(position)));
-
-
-                            tvtest.setText("您当前选择的是："+adapter.getItem(position));
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                           // textView.setText("请选择您的城市");
-
-                        }
-                    });
-
-
-
-
-
 
 
                     String url = Common.URL_SERVER + "Prouct_Servlet";
@@ -137,7 +103,17 @@ public class insertProductFragment extends Fragment {
                     insertProduct = new CommonTask(url, jsonObject.toString());
 
                     try {
-                        insertProduct.execute().get();
+                        String rp =  insertProduct.execute().get();
+                        int count = Integer.parseInt(rp);
+
+                        if (count == 1) {
+
+                            Toast.makeText(activity, R.string.insertsuccess, Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(activity, R.string.insertfail, Toast.LENGTH_SHORT).show();
+                        }
+
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
