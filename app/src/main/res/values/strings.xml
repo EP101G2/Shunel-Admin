@@ -96,11 +96,8 @@
     <string name="addproduct">新增商品</string>
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
-<<<<<<< HEAD
     <string name="insertsuccess">新增商品成功</string>
     <string name="insertfail">新增商品失敗</string>
-=======
     <string name="modify">修改</string>
->>>>>>> b25a6879df0d6a8463a0e376ea737e7a2e23dc95
 
 </resources>

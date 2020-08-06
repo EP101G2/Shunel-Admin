@@ -16,22 +16,12 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
 
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="55dp">
-=======
-
-        android:layout_marginTop="100dp"
-
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
->>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
 
 
         <com.google.android.material.tabs.TabLayout

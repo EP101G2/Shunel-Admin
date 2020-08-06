@@ -31,14 +31,11 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
-<<<<<<< HEAD
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
-=======
 
     private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
     private ImageView ivLogout, ivAdmin;
 
->>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
 
 
     public HomeFragment() {
