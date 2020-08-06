@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,6 +84,14 @@ public class OrderManageDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        bundle data from last page
+        final NavController navController = Navigation.findNavController(view);
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getSerializable("Orders") == null) {
+            Common.showToast(activity, R.string.textnofound);
+            navController.popBackStack();
+            return;
+        }
 //        setting words
         tvAccountIdDet = view.findViewById(R.id.tvAccountIdDet);
         tvOrderIdDet = view.findViewById(R.id.tvOrderIdDet);
@@ -153,6 +162,7 @@ public class OrderManageDetailFragment extends Fragment {
         });
     }
 
+//    Adapter for rvOrderDetProduct
     private class OrderManageDetAdapter extends RecyclerView.Adapter<OrderManageDetAdapter.PageViewHolder> {
         private LayoutInflater inflater;
         Context context;
