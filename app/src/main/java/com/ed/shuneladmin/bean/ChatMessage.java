@@ -19,11 +19,10 @@ public class ChatMessage {
     private int id;
     private int imageView;
 
+    private int flag;
 
 
-
-
-    public ChatMessage(String type, String sender, String receiver, String message, int chatRoom, Timestamp date, int id) {
+    public ChatMessage(String type, String sender, String receiver, String message, int chatRoom, Timestamp date, int id, int flag) {
         this.type = type;
         this.sender = sender;
         this.receiver = receiver;
@@ -31,7 +30,19 @@ public class ChatMessage {
         this.chatRoom = chatRoom;
         this.date = date;
         this.id = id;
+        this.flag = flag;
     }
+
+    public ChatMessage(String type, String sender, String receiver, String message, int chatRoom, String base64,int flag) {
+        this.type = type;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.chatRoom = chatRoom;
+        this.base64 = base64;
+        this.flag = flag;
+    }
+
 
 
     public ChatMessage(String type, String sender, String receiver, String message, int chatRoom) {
@@ -54,8 +65,6 @@ public class ChatMessage {
 //  D
 
 
-
-
     public ChatMessage() {
         super();
     }
@@ -74,13 +83,9 @@ public class ChatMessage {
     }
 
 
-
-
     public void setRead(String read) {
         this.read = read;
     }
-
-
 
 
     public int getChatRoom() {
@@ -88,17 +93,9 @@ public class ChatMessage {
     }
 
 
-
-
     public void setChatRoom(int chatRoom) {
         this.chatRoom = chatRoom;
     }
-
-
-
-
-
-
 
 
     public String getSender() {
@@ -152,4 +149,11 @@ public class ChatMessage {
         this.date = date;
     }
 
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 }

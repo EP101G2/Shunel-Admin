@@ -47,8 +47,11 @@ public class ChatWebSocketClient extends WebSocketClient {
         ChatMessage jsonObject = gson.fromJson(message, ChatMessage.class);
         // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
         String type = jsonObject.getType();
-        sendMessageBroadcast(type, message);
 
+        if(type.equals("image")){
+            type = "chat";
+        }
+        sendMessageBroadcast(type, message);
         Log.d(TAG, "onMessage: " + message);
 
     }

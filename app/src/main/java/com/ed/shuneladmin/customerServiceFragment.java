@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,8 +104,7 @@ public class customerServiceFragment extends Fragment {
     private String base61ToStr;
     private ChatImageView imageTask;
     private int imageID;
-
-
+    Bitmap bitmap = null;
 
     public customerServiceFragment() {
         // Required empty public constructor
@@ -195,6 +195,14 @@ public class customerServiceFragment extends Fragment {
                 }.getType();
                 messages = gson.fromJson(jsonIn, listType);
 
+                for (ChatMessage chat: messages) {
+                    if (chat.getType().equals("image")){
+                        chat.setBase64(String.valueOf(chat.getId()));
+                        chat.setFlag(1);
+                        Log.e("3123","==============================="+chat.getBase64());
+                    }
+                }
+
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -230,10 +238,20 @@ public class customerServiceFragment extends Fragment {
                 // 將欲傳送訊息轉成JSON後送出
                 Date time = new Date();
                 String dateTime = simple.format(new Date());
-                chatMessage = new ChatMessage("chat", user_Name, member, message, chat_ID);
+//                chatMessage = new ChatMessage("chat", user_Name, member, message, chat_ID);
+
+                if (image != null) {
+                    chatMessage = new ChatMessage("image", user_Name,member,message,chat_ID,base61ToStr,0);
+                    image=null;
+                } else {
+                    chatMessage = new ChatMessage("chat", user_Name, member, message, chat_ID);
+                }
+
+
+
                 String chatMessageJson = new Gson().toJson(chatMessage);
                 chatWebSocketClient.send(chatMessageJson);
-                sendChatDB(chatMessage);
+//                sendChatDB(chatMessage);
                 Log.d("btSend:", "output: " + chatMessageJson);
 
                 // 將欲傳送訊息顯示在TextView上
@@ -337,14 +355,19 @@ public class customerServiceFragment extends Fragment {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
             String sender = chatMessage.getSender();
+//            imageID=chatMessage.getId();
             // 接收到聊天訊息，若發送者與目前聊天對象相同，就將訊息顯示在TextView
+            chatMessage.setFlag(1);
             chatMessageList.add(chatMessage);
+            Log.d("=============", "///////////////////////////////////"+chatMessage.getBase64());
+
             messageFragment adpter = (messageFragment) rv.getAdapter();
             if (adpter != null) {
                 adpter.setListforMsg(chatMessageList);
                 adpter.notifyDataSetChanged();
             }
-            Log.d("=============", message);
+
+//            Log.d("=============", "///////////////////////////////////"+imageID+chatMessage.getType()+chatMessage.getSender()+chatMessage.getReceiver()+chatMessage.getId());
         }
     };
 
@@ -443,34 +466,46 @@ public class customerServiceFragment extends Fragment {
                 if (CM.getType().equals("chat")) {
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
                     messageHolder.messageTxt.setText(CM.getMessage());
-                   if (CM.getDate()!=null){
-                       messageHolder.myTime.setText(DateToStr(CM.getDate()));
-                   }else {
-                       messageHolder.myTime.setText(s);
-                   }
+                    if (CM.getDate() != null) {
+                        messageHolder.myTime.setText(DateToStr(CM.getDate()));
+                    } else {
+                        messageHolder.myTime.setText(s);
+                    }
 
 
                 } else {
                     SentImageHolder sentImageHolder = (SentImageHolder) holder;
-                    String url = Common.URL_SERVER + "Chat_Servlet";
-                    imageTask = new ChatImageView(url, imageID, imageSize, ((SentImageHolder) holder).imageView);
-                    imageTask.execute();
+                    if (CM.getFlag() ==1){
+                        String url = Common.URL_SERVER + "Chat_Servlet";
+                        imageTask = new ChatImageView(url, Integer.parseInt(CM.getBase64()), imageSize, ((SentImageHolder) holder).imageView);
+                        imageTask.execute();
+                    }else {
+                        sentImageHolder.imageView.setImageBitmap(bitmap);
+                    }
+
+
                 }
             } else {
                 if (CM.getType().equals("chat")) {
                     ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
                     messageHolder.nameTxt.setText(CM.getSender());
                     messageHolder.messageTxt.setText(CM.getMessage());
-                    if (CM.getDate()!=null){
+                    if (CM.getDate() != null) {
                         messageHolder.theirTime.setText(DateToStr(CM.getDate()));
-                    }else{
+                    } else {
                         messageHolder.theirTime.setText(s);
                     }
-                }else {
+                } else {
+                    Log.e(TAG,"-------------------1-------------------------------");
                     ReceivedImageHolder receivedImageHolder = (ReceivedImageHolder) holder;
-                    String url = Common.URL_SERVER + "Chat_Servlet";
-                    imageTask = new ChatImageView(url, imageID, imageSize, ((ReceivedImageHolder) holder).imageView);
-                    imageTask.execute();
+
+                        String url = Common.URL_SERVER + "Chat_Servlet";
+                        imageTask = new ChatImageView(url, Integer.parseInt(CM.getBase64()), imageSize, ((ReceivedImageHolder) holder).imageView);
+                        imageTask.execute();
+                    Log.e(TAG,"-------------------2-------------------------------");
+
+
+
                 }
 
             }
@@ -495,7 +530,7 @@ public class customerServiceFragment extends Fragment {
 
 
         private class SentMessageHolder extends MyViewholder {
-            TextView messageTxt,myTime;
+            TextView messageTxt, myTime;
 
             public SentMessageHolder(@NonNull View itemView) {
                 super(itemView);
@@ -505,11 +540,11 @@ public class customerServiceFragment extends Fragment {
         }
 
         private class ReceivedMessageHolder extends MyViewholder {
-            TextView nameTxt, messageTxt,theirTime;
+            TextView nameTxt, messageTxt, theirTime;
 
             public ReceivedMessageHolder(@NonNull View itemView) {
                 super(itemView);
-                theirTime=itemView.findViewById(R.id.theirTime);
+                theirTime = itemView.findViewById(R.id.theirTime);
                 nameTxt = itemView.findViewById(R.id.name);
                 messageTxt = itemView.findViewById(R.id.message_mybody);
             }
@@ -539,6 +574,7 @@ public class customerServiceFragment extends Fragment {
             }
         }
     }
+
     public static String DateToStr(Date date) {
 
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -554,7 +590,7 @@ public class customerServiceFragment extends Fragment {
         if (resultUri == null) {
             return;
         }
-        Bitmap bitmap = null;
+
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
                 bitmap = BitmapFactory.decodeStream(
@@ -568,8 +604,10 @@ public class customerServiceFragment extends Fragment {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             image = out.toByteArray();
+
+            base61ToStr=Base64.encodeToString(image, Base64.DEFAULT);
 //            base61ToStr = Base64.encodeToString(image, Base64.DEFAULT);
-            Log.e(TAG, "234567890-" + base61ToStr);
+//            Log.e(TAG, "234567890-" + base61ToStr);
 
         } catch (IOException e) {
             Log.e(TAG, e.toString());
@@ -608,10 +646,33 @@ public class customerServiceFragment extends Fragment {
         }
     }
 
-//    private Bitmap getBitmapFromString(String image) {
-//        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
-//        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    private Bitmap getBitmapFromString(String image) {
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+
+
+//    private String imageToStr(byte[] image){
+//        /*btmapToStr*/
+//        Bitmap bitmap = null;
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//        image = out.toByteArray();
+//        base61ToStr = Base64.encodeToString(image, Base64.DEFAULT);
+//
+//        return base61ToStr;
 //    }
+
+    private Bitmap btyeToBitmap(byte[] image){
+        if (image.length != 0) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
+        } else {
+            return null;
+        }
+
+    }
+
 }
 
 

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminNewDetailFragment">
+
+
+    <TextView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appbar"
+        android:gravity="center"
+        android:text="@string/NewAdmin"
+        android:textColor="#FFFFFF"
+
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="46dp"
+        android:text="@string/adminId"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintEnd_toStartOf="@+id/tvAdminNo"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/name"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvAccountId"
+        app:layout_constraintEnd_toStartOf="@+id/tvAdminName"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAccountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/accountId"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvAccountPassword"
+        app:layout_constraintEnd_toStartOf="@+id/tvAdminId"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAccountPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/password"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPosition"
+        app:layout_constraintEnd_toStartOf="@+id/tvAdminIdPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="276dp"
+        android:text="@string/position"
+        android:textColor="#B3E1D9"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btModify"
+        app:layout_constraintEnd_toStartOf="@+id/tvAdminIdPosition"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAdminNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="TextView"
+        android:textColor="#0000FF"
+        android:background="@drawable/backgroundadminnew"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvAdminName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvAdminName"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tvAdminName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#0000FF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/tvAdminId"
+        app:layout_constraintStart_toStartOf="@+id/tvAdminId"
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/tvAdminIdPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#0000FF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAccountPassword"
+        app:layout_constraintEnd_toEndOf="@+id/tvAdminIdPosition"
+        app:layout_constraintStart_toStartOf="@+id/tvAdminIdPosition"
+        app:layout_constraintTop_toTopOf="@+id/tvAccountPassword" />
+
+    <TextView
+        android:id="@+id/tvAdminIdPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
+        android:text="TextView"
+        android:textColor="#0000FF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPosition"
+        app:layout_constraintEnd_toEndOf="@+id/btModify"
+        app:layout_constraintTop_toTopOf="@+id/tvPosition"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvAdminId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#0000FF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAccountId"
+        app:layout_constraintEnd_toEndOf="@+id/tvAdminIdPassword"
+        app:layout_constraintStart_toStartOf="@+id/tvAdminIdPassword"
+        app:layout_constraintTop_toTopOf="@+id/tvAccountId" />
+
+    <Button
+
+        android:id="@+id/btCancel"
+
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/background2"
+        android:text="@string/cancel"
+        android:textColor="#B3E1D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btModify"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPosition"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+
+        android:id="@+id/btModify"
+
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/backgroundlogin"
+        android:text="@string/modify"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
