@@ -74,6 +74,9 @@ public class OrdersManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        get data
+        orderMainList = getOrders();
+        showOrders(orderMainList);
 //        setting recycler view
         rvOrderMain = view.findViewById(R.id.rvOrderMain);
         rvOrderMain.setLayoutManager(new LinearLayoutManager(activity));
@@ -210,22 +213,24 @@ public class OrdersManagementFragment extends Fragment {
                 tvTotalPriceText = itemView.findViewById(R.id.tvTotalPriceText);
                 tvOrderStatusText = itemView.findViewById(R.id.tvOrderStatusText);
             }
-        }//ok
+        }
 
         @Override
-        public void onBindViewHolder(@NonNull OrderMainAdapter.PageViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull OrderMainAdapter.PageViewHolder holder, int position){
             final Order_Main orderMain = orderMainList.get(position);
             holder.tvOrderDate.setText(orderMain.getOrder_Main_Order_Date().toString());
             holder.tvOrderModifyDate.setText(orderMain.getOrder_Main_Modify_Date().toString());
             holder.tvOrderId.setText(String.valueOf(orderMain.getOrder_ID()));
-            holder.tvAccountId.setText(String.valueOf(orderMain.getAccount_ID()));
+            holder.tvAccountId.setText(orderMain.getAccount_ID().toString());
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
             holder.tvOrderStatus.setText(String.valueOf(orderMain.getOrder_Main_Order_Status()));
 //            navigate to detail fragment
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Orders", orderMain);
+                    Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment, bundle);
                 }
             });
         }

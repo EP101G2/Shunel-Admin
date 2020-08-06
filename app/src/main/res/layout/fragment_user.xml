@@ -23,17 +23,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUser"
         android:layout_width="409dp"
         android:layout_height="673dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/accountId"
+        android:textColor="#A5DAD0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/name"
+        android:textColor="#A5DAD0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

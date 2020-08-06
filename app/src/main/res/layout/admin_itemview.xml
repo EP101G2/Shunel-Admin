@@ -25,7 +25,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
-            android:text="@string/id"
+            android:text="@string/adminId"
             android:textColor="#0000FF"
             android:textSize="22sp" />
 
@@ -44,8 +44,10 @@
             android:id="@+id/btEdit"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="16dp"
             android:background="@drawable/backgroundbutton"
+
             android:shadowColor="#D8EACD"
             android:text="@string/edit"
             android:textColorHint="#FFFFFF" />

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
@@ -84,7 +83,7 @@ public class UserFragment extends Fragment {
                     // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
                     for (User_Account user_account : data) {
 //                        Log.e("1234567890",user_account.getAccount_User_Name());
-                        if (user_account.getAccount_ID().toUpperCase().contains(newText.toUpperCase())) {
+                        if (user_account.getAccount_ID().toUpperCase().contains(newText.toUpperCase())|| user_account.getAccount_User_Name().toUpperCase().contains(newText.toUpperCase())) {
                             searchUserAccount.add(user_account);
                         }
                     }
@@ -186,7 +185,7 @@ public class UserFragment extends Fragment {
             public MyViewHolder(View view) {
                 super(view);
                 tvId = view.findViewById(R.id.tvId);
-                tvName = view.findViewById(R.id.tvName);
+                tvName = view.findViewById(R.id.etAccountId);
                 btEdit = view.findViewById(R.id.btEdit);
             }
         }
