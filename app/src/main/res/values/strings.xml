@@ -25,8 +25,8 @@
     <string name="name">姓名</string>
     <string name="id">帳號</string>
     <string name="edit">編輯</string>
-    <string name="textNoUserAccountFound">沒有會員資料</string>
 
+    <string name="textNoUserAccountFound">沒有會員資料</string>
     <string name="order_id_text">訂單編號：</string>
     <string name="text_order_id" />
     <string name="text_hint">Null</string>
@@ -38,6 +38,22 @@
 
     <string name="admin">管理者</string>
     <string name="logoutsuccess">登出成功</string>
+    <string name="accountId">帳號</string>
+    <string name="manageAdmin">員工帳號管理</string>
+    <string name="adminId">編號</string>
+    <string name="NewAdmin">新增管理員</string>
+    <string name="typeYourNmae">&#160;&#160;&#160;&#160;請輸入姓名</string>
+    <string name="typePassword">&#160;&#160;&#160;&#160;請輸入密碼</string>
+    <string name="retypePassword">&#160;&#160;&#160;&#160;重新輸入密碼</string>
+    <string name="typeAcountId">&#160;&#160;&#160;&#160;請輸入帳號</string>
+    <string name="password">密碼</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="position">職位</string>
+    <string name="lastStep">上一步</string>
+    <string name="textInsertFail">輸入失敗</string>
+    <string name="registerSuccess">註冊成功</string>
+
 
     <string name="text_order_status_text">訂單狀態：</string>
     <string name="text_order_status" />
@@ -80,5 +96,6 @@
     <string name="addproduct">新增商品</string>
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
+    <string name="modify">修改</string>
 
 </resources>

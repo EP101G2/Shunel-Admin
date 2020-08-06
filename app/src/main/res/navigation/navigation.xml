@@ -46,7 +46,11 @@
         android:id="@+id/userFragment"
         android:name="com.ed.shuneladmin.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_userdetailFragment"
+            app:destination="@id/userdetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/member_newsFragment"
         android:name="com.ed.shuneladmin.Member_newsFragment"
@@ -67,7 +71,14 @@
         android:id="@+id/adminFragment"
         android:name="com.ed.shuneladmin.AdminFragment"
         android:label="fragment_admin"
-        tools:layout="@layout/fragment_admin" />
+        tools:layout="@layout/fragment_admin" >
+        <action
+            android:id="@+id/action_adminFragment_to_adminNewFragment"
+            app:destination="@id/adminNewFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_adminNewDetailFragment"
+            app:destination="@id/adminNewDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/ordersManagementFragment"
@@ -75,6 +86,25 @@
         android:label="fragment_orders_management"
 
         tools:layout="@layout/fragment_orders_management" />
+    <fragment
+        android:id="@+id/userdetailFragment"
+        android:name="com.ed.shuneladmin.UserdetailFragment"
+        android:label="fragment_userdetail"
+        tools:layout="@layout/fragment_userdetail" />
+    <fragment
+        android:id="@+id/adminNewFragment"
+        android:name="com.ed.shuneladmin.AdminNewFragment"
+        android:label="fragment_admin_new"
+        tools:layout="@layout/fragment_admin_new" >
+        <action
+            android:id="@+id/action_adminNewFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminNewDetailFragment"
+        android:name="com.ed.shuneladmin.AdminNewDetailFragment"
+        android:label="fragment_admin_new_detail"
+        tools:layout="@layout/fragment_admin_new_detail" />
 
         <action
             android:id="@+id/action_ordersManagementFragment_to_orderManageDetailFragment"

@@ -20,8 +20,10 @@ import com.ed.shuneladmin.Task.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
     public static int flag;
     private ImageView ivAdmin, ivLogout;
+
     private Activity activity;
 
 
@@ -34,16 +36,16 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         final NavController navController = Navigation.findNavController(this, R.id.homeFragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        ivLogout = findViewById(R.id.ivLogout);
-        ivAdmin = findViewById(R.id.ivAdmin);
-
-
-        ivLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logout();
-            }
-        });
+//        ivLogout = findViewById(R.id.ivLogout);
+//
+//
+//
+//        ivLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Logout();
+//            }
+//        });
 
 
 //        ivAdmin.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +60,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void Logout() {
-        Common.getPreherences(activity).edit().clear().apply();
-        Intent intent = new Intent();
-        intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
-        startActivity(intent);
-//        if (MainActivity.preferences.edit())
-
-
-    }
+//    private void Logout() {
+//        Common.getPreherences(activity).edit().clear().apply();
+//        Intent intent = new Intent();
+//        intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
+//        startActivity(intent);
+////        if (MainActivity.preferences.edit())
+//
+//
+//    }
 
 }
