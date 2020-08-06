@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
-    private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
+    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
     public HomeFragment() {
@@ -88,7 +89,7 @@ public class HomeFragment extends Fragment {
 
 
     private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(activity);
+        ViewPagerAdapter adapter = new ViewPagerAdapter((FragmentActivity) activity);
         return adapter;
 
     }
