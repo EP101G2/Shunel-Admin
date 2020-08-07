@@ -169,7 +169,7 @@
         android:text="@string/cancel"
         android:textColor="#B3E1D9"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btModify"
+        app:layout_constraintEnd_toStartOf="@+id/btConfirm"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spPosition"
@@ -177,7 +177,7 @@
 
     <Button
 
-        android:id="@+id/btModify"
+        android:id="@+id/btConfirm"
 
         android:layout_width="150dp"
         android:layout_height="40dp"
