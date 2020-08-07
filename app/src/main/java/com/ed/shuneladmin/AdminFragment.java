@@ -186,7 +186,7 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+Navigation.findNavController(v).navigate(R.id.action_adminFragment_to_adminNewDetailFragment);
             }
         });
     }
