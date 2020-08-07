@@ -99,5 +99,6 @@
     <string name="insertsuccess">新增商品成功</string>
     <string name="insertfail">新增商品失敗</string>
     <string name="modify">修改</string>
+    <string name="notice">通知</string>
 
 </resources>
