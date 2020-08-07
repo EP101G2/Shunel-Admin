@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -212,7 +213,7 @@ public class UserFragment extends Fragment {
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
             private TextView tvId, tvName, tvPhone, tvAddress;
-            private ImageButton btOpen;
+            private ImageView btOpen;
             private ConstraintLayout clDetail;
 
             public MyViewHolder(View view) {
