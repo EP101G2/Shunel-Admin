@@ -29,7 +29,11 @@ public class HomeFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
+
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+
+
+
     private ImageView ivLogout, ivAdmin;
 
 
