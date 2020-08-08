@@ -7,16 +7,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD
+
 
 import androidx.fragment.app.FragmentActivity;
 
 import androidx.navigation.Navigation;
 
-=======
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
->>>>>>> a8db4a66d3137e1bced9f4a927549432f77663b3
+
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -36,17 +36,9 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
-<<<<<<< HEAD
-    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
-
-=======
-
-
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
-
->>>>>>> a8db4a66d3137e1bced9f4a927549432f77663b3
     private ImageView ivLogout, ivAdmin;
 
 

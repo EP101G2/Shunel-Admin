@@ -16,27 +16,14 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        android:layout_marginTop="100dp"
-=======
->>>>>>> 1b2aa4fcdf5790f2b65c6ced8980aabf28be47de
-
->>>>>>> a8db4a66d3137e1bced9f4a927549432f77663b3
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toBottomOf="@+id/view">
-=======
-        tools:layout_editor_absoluteY="55dp">
-<<<<<<< HEAD
-=======
 
->>>>>>> 1b2aa4fcdf5790f2b65c6ced8980aabf28be47de
->>>>>>> a8db4a66d3137e1bced9f4a927549432f77663b3
+        app:layout_constraintTop_toBottomOf="@+id/view">
+        tools:layout_editor_absoluteY="55dp">
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

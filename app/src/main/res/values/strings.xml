@@ -99,17 +99,15 @@
     <string name="insertsuccess">新增商品成功</string>
     <string name="insertfail">新增商品失敗</string>
     <string name="modify">修改</string>
-<<<<<<< HEAD
     <string name="delet">刪除</string>
     <string name="hintNT">輸入訊息標題</string>
     <string name="hintND">輸入訊息內文</string>
-=======
+
     <string name="notice">通知</string>
     <string name="modifyAdmin">修改管理員</string>
     <string name="name2">姓名:</string>
     <string name="memberAccount">會員帳號:</string>
     <string name="takepicture">拍照</string>
     <string name="picture">從相簿取照片</string>
->>>>>>> a8db4a66d3137e1bced9f4a927549432f77663b3
 
 </resources>
