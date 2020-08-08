@@ -87,12 +87,12 @@
     <string name="textUpdateFail">修改失敗</string>
     <string name="textUpdateSuccess">修改成功</string>
 
-    <string name="productname">商品名稱</string>
-    <string name="productcolor">顏色</string>
+    <string name="productname">商品名稱:</string>
+    <string name="productcolor">顏色:</string>
     <string name="productprice">價格</string>
-    <string name="productdetail">詳情</string>
-    <string name="productCategory">類別</string>
-    <string name="productStatus">狀態</string>
+    <string name="productdetail">詳情:</string>
+    <string name="productCategory">類別:</string>
+    <string name="productStatus">狀態:</string>
     <string name="addproduct">新增商品</string>
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
@@ -105,5 +105,7 @@
     <string name="memberAccount">會員帳號:</string>
     <string name="takepicture">拍照</string>
     <string name="picture">從相簿取照片</string>
+    <string name="productid">商品ID:</string>
+    <string name="productempty">查無商品</string>
 
 </resources>
