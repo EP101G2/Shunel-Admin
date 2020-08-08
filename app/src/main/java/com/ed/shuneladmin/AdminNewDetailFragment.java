@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
@@ -28,6 +30,7 @@ public class AdminNewDetailFragment extends Fragment {
     private EditText etName, etAccountId, etNewPassword;
     private Button btCancel, btConfirm;
     private Admin admin;
+    private Spinner spPosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,15 +56,26 @@ public class AdminNewDetailFragment extends Fragment {
         etNewPassword = view.findViewById(R.id.etNewPassword);
         btCancel = view.findViewById(R.id.btCancel);
         btConfirm = view.findViewById(R.id.btConfirm);
+        spPosition= view.findViewById(R.id.spPosition);
 
 
-        String url = Common.URL_SERVER + "Admin";
-        int  id = admin.getAdmin_ID();
-        tvAdminNo.setText(String.valueOf(id));
-        etName.setText(admin.getAdmin_Name());
-        etAccountId.setText(admin.getAdmin_User_Name());
-        etNewPassword.setText(admin.getAdmin_User_Password());
 
+
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getSerializable("admin") == null) {
+
+            navController.popBackStack();
+            return;
+        }
+        admin = (Admin) bundle.getSerializable("admin");
+        showAdmin();
+
+        final String[] postions = {"管理員", "一般職員"};
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+                android.R.layout.simple_spinner_item, postions);
+        /* 指定點選時彈出來的選單樣式 */
+        arrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
 
 
         btConfirm.setOnClickListener(new View.OnClickListener() {
@@ -80,4 +94,24 @@ public class AdminNewDetailFragment extends Fragment {
             }
         });
     }
+
+    private void showAdmin() {
+        tvAdminNo.setText(String.valueOf(admin.getAdmin_ID()));
+        etName.setText(admin.getAdmin_Name());
+        etAccountId.setText(admin.getAdmin_User_Name());
+        etNewPassword.setText(admin.getAdmin_User_Password());
+        String sp = admin.getAdmin_User_Position();
+
+        switch(sp){
+
+            case "管理員":
+                spPosition.setSelection(0);
+                break;
+            case"一般職員":
+                spPosition.setSelection(1);
+                 break;
+        }
+
+    }
+
 }
