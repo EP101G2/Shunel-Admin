@@ -123,7 +123,11 @@
         android:id="@+id/noticeListAdimFragment"
         android:name="com.ed.shuneladmin.noticeListAdimFragment"
         android:label="fragment_notice_list_adim"
-        tools:layout="@layout/fragment_notice_list_adim" />
+        tools:layout="@layout/fragment_notice_list_adim" >
+        <action
+            android:id="@+id/action_noticeListAdimFragment_to_noticeAdminFragment"
+            app:destination="@id/noticeAdminFragment" />
+    </fragment>
     <fragment
         android:id="@+id/modifyReceiverDetailFragment"
         android:name="com.ed.shuneladmin.ModifyReceiverDetailFragment"

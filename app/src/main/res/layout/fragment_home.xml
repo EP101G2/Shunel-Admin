@@ -16,11 +16,12 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/view">
         tools:layout_editor_absoluteY="55dp">
 
 
@@ -28,8 +29,8 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -45,7 +46,6 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/appbar"
         android:gravity="center"
         android:text="@string/admin"

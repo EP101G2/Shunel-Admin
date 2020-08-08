@@ -14,26 +14,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="10dp"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/tvUpdateSaleN"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="?attr/actionBarDivider"
             android:gravity="center"
-            android:text="@string/edit"
-            android:textColor="@color/normal_text_color"
+            android:text="@string/delet"
             android:textSize="18sp" />
 
         <SearchView
+            android:id="@+id/SearchSaleN"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+        </SearchView>
+
+        <ImageView
+            android:id="@+id/ivAddSaleN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="4dp"
+            android:src="@android:drawable/ic_menu_edit" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNoticeAdim"
+        android:id="@+id/rvAdimSaleN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/dividerHorizontal"

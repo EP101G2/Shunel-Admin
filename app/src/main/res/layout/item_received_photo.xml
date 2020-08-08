@@ -21,7 +21,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:layout_below="@id/nameTxt"
-        android:id="@+id/imageView"
+        android:id="@+id/ivCategoryN"
         android:src="@drawable/ic_launcher_foreground"
         android:layout_marginRight="64dp"
         android:layout_marginLeft="4dp" />

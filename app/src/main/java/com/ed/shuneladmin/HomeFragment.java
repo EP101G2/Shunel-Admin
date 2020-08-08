@@ -7,8 +7,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+
+import androidx.fragment.app.FragmentActivity;
+
+import androidx.navigation.Navigation;
+
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
+
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -30,7 +38,7 @@ public class HomeFragment extends Fragment {
     ViewPager2 viewPager;
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
-  //  private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
+
     private ImageView ivLogout, ivAdmin;
 
 

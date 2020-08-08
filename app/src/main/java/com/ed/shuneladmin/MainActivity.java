@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-
-
 //    /**
 //     * 递归调用，对所有的子Fragment生效
 //     *
@@ -97,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 //    private void Logout() {
 //        Common.getPreherences(activity).edit().clear().apply();
 //        Intent intent = new Intent();

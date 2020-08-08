@@ -69,7 +69,7 @@ public class NoticeAdminFragment extends Fragment {
     private void findViews(View view) {
         edNoticeTitle = view.findViewById(R.id.edNoticeTitle);
         edNoticeDetail = view.findViewById(R.id.edNoticeDetail);
-        spNoticeCategory = view.findViewById(R.id.spNoticeCategory);
+//        spNoticeCategory = view.findViewById(R.id.spNoticeCategory);
         btSendNotice = view.findViewById(R.id.btSendNotice);
 
 
