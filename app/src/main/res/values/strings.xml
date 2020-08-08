@@ -97,5 +97,8 @@
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
     <string name="modify">修改</string>
+    <string name="hint_rec_name" />
+    <string name="hint_rec_phone" />
+    <string name="hint_rec_address" />
 
 </resources>
