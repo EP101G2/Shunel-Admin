@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,9 +45,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.yalantis.ucrop.UCrop;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -562,7 +558,7 @@ public class customerServiceFragment extends Fragment {
             public SentImageHolder(@NonNull View itemView) {
                 super(itemView);
 
-                imageView = itemView.findViewById(R.id.imageView);
+                imageView = itemView.findViewById(R.id.ivCategoryN);
             }
         }
 
@@ -572,7 +568,7 @@ public class customerServiceFragment extends Fragment {
 
             public ReceivedImageHolder(@NonNull View itemView) {
                 super(itemView);
-                imageView = itemView.findViewById(R.id.imageView);
+                imageView = itemView.findViewById(R.id.ivCategoryN);
                 nameTxt = itemView.findViewById(R.id.nameTxt);
                 theirTime = imageView.findViewById(R.id.theirTime);
             }

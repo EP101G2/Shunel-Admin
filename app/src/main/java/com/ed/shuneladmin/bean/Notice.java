@@ -12,6 +12,12 @@ public class Notice implements Serializable {
     private int CATEGORY_MESSAGE_ID;
 
 
+
+
+    //for android
+    private boolean isOpen;
+
+
     public Notice(int notice_ID, String notice_Content, String notice_Title, Timestamp notice_time, int NOTICE_CATEGORY_ID, int CATEGORY_MESSAGE_ID) {
         Notice_ID = notice_ID;
         Notice_Content = notice_Content;
@@ -67,5 +73,13 @@ public class Notice implements Serializable {
 
     public void setCATEGORY_MESSAGE_ID(int CATEGORY_MESSAGE_ID) {
         this.CATEGORY_MESSAGE_ID = CATEGORY_MESSAGE_ID;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 }

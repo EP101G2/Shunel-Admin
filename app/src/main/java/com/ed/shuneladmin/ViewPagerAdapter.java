@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         //帶建立的fragment
         switch (position){
             case 0: //系統
-                return new NoticeAdminFragment();
+                return new noticeListAdimFragment();
 //                        LabelFragment();
             case 1: //促銷
                 return new AdminFragment();
