@@ -64,9 +64,12 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-
 //<<<<<<< HEAD
-
+//
+////<<<<<<< HEAD
+//
+//=======
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 //    /**
 //     * 递归调用，对所有的子Fragment生效
 //     *
@@ -98,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+//<<<<<<< HEAD
+////=======
 //=======
+//
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 //    private void Logout() {
 //        Common.getPreherences(activity).edit().clear().apply();
 //        Intent intent = new Intent();
@@ -108,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //    }
+//<<<<<<< HEAD
 //>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
+//=======
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 
 }

@@ -58,7 +58,7 @@ private String result;
     etReTypeNewPassword=view.findViewById(R.id.etReTypeNewPassword);
     btCancel=view.findViewById(R.id.btCancel);
 
-    btConfirm=view.findViewById(R.id.btModify);
+    btConfirm=view.findViewById(R.id.btConfirm);
     spPosition=view.findViewById(R.id.spPosition);
         /* 也可使用List */
         final String[] postions = {"管理員", "一般職員"};

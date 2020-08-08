@@ -7,8 +7,21 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+//<<<<<<< HEAD
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
+//=======
+
+
+import androidx.fragment.app.FragmentActivity;
+
+import androidx.navigation.Navigation;
+
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
+
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -29,6 +42,7 @@ public class HomeFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager2 viewPager;
 //<<<<<<< HEAD
+//<<<<<<< HEAD
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 //=======
 //
@@ -36,6 +50,13 @@ public class HomeFragment extends Fragment {
     private ImageView ivLogout, ivAdmin;
 //
 //>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
+//=======
+//    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+
+
+//    private ImageView ivLogout;
+
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 
 
     public HomeFragment() {
@@ -60,18 +81,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivLogout = view.findViewById(R.id.ivLogout);
-        ivAdmin = view.findViewById(R.id.ivAdmin);
+
 
         ivLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logout();
-            }
-        });
-        ivAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
             }
         });
 

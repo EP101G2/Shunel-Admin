@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_userFragment_to_userdetailFragment"
             app:destination="@id/userdetailFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/member_newsFragment"
@@ -123,7 +126,11 @@
         android:id="@+id/noticeListAdimFragment"
         android:name="com.ed.shuneladmin.noticeListAdimFragment"
         android:label="fragment_notice_list_adim"
-        tools:layout="@layout/fragment_notice_list_adim" />
+        tools:layout="@layout/fragment_notice_list_adim" >
+        <action
+            android:id="@+id/action_noticeListAdimFragment_to_noticeAdminFragment"
+            app:destination="@id/noticeAdminFragment" />
+    </fragment>
     <fragment
         android:id="@+id/modifyReceiverDetailFragment"
         android:name="com.ed.shuneladmin.ModifyReceiverDetailFragment"

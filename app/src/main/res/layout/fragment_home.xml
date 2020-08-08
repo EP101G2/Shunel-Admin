@@ -31,14 +31,19 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        >-->
 <!--&gt;>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef-->
+<!--=======-->
+
+<!--        app:layout_constraintTop_toBottomOf="@+id/view">-->
+<!--        tools:layout_editor_absoluteY="55dp">-->
+<!--&gt;>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea-->
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -54,7 +59,6 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/appbar"
         android:gravity="center"
         android:text="@string/admin"
@@ -65,17 +69,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivAdmin"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivLogout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/admin" />
 
     <ImageView
         android:id="@+id/ivLogout"
@@ -91,3 +84,4 @@
     <!--  建立viewPage Jack 7.22  -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -183,10 +183,13 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
         holder.tvName.setText(admin.getAdmin_Name());
 
 //            holder.btEdit.setVisibility(View.GONE);
+
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("admin", admin);
+                Navigation.findNavController(view).navigate(R.id.action_adminFragment_to_adminNewDetailFragment, bundle);
             }
         });
     }

@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,9 +45,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.yalantis.ucrop.UCrop;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -195,14 +191,18 @@ public class customerServiceFragment extends Fragment {
                 }.getType();
                 messages = gson.fromJson(jsonIn, listType);
 
-                for (ChatMessage chat: messages) {
-                    if (chat.getType().equals("image")){
-                        chat.setBase64(String.valueOf(chat.getId()));
-                        chat.setFlag(1);
-                        Log.e("3123","==============================="+chat.getBase64());
-                    }
-                }
 
+                if (messages !=null){
+                    for (ChatMessage chat : messages) {
+                        if (chat.getType().equals("image")) {
+                            chat.setBase64(String.valueOf(chat.getId()));
+                            chat.setFlag(1);
+                            Log.e("3123", "===============================" + chat.getBase64());
+                        }
+                    }
+                }else {
+                    return null;
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -558,7 +558,7 @@ public class customerServiceFragment extends Fragment {
             public SentImageHolder(@NonNull View itemView) {
                 super(itemView);
 
-                imageView = itemView.findViewById(R.id.imageView);
+                imageView = itemView.findViewById(R.id.ivCategoryN);
             }
         }
 
@@ -568,7 +568,7 @@ public class customerServiceFragment extends Fragment {
 
             public ReceivedImageHolder(@NonNull View itemView) {
                 super(itemView);
-                imageView = itemView.findViewById(R.id.imageView);
+                imageView = itemView.findViewById(R.id.ivCategoryN);
                 nameTxt = itemView.findViewById(R.id.nameTxt);
                 theirTime = imageView.findViewById(R.id.theirTime);
             }
