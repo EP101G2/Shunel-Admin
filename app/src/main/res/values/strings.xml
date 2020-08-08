@@ -97,5 +97,8 @@
     <string name="textTakePicture">拍照</string>
     <string name="textNoCameraApp">textNoCameraApp</string>
     <string name="modify">修改</string>
+    <string name="delet">刪除</string>
+    <string name="hintNT">輸入訊息標題</string>
+    <string name="hintND">輸入訊息內文</string>
 
 </resources>

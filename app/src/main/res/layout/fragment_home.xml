@@ -16,30 +16,18 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
-
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="55dp">
-=======
-
-        android:layout_marginTop="100dp"
-
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
->>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
-
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -55,7 +43,6 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/appbar"
         android:gravity="center"
         android:text="@string/admin"
