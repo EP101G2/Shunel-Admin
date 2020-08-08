@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="600dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +120,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/ivshowpicture"
                     android:layout_width="186dp"
                     android:layout_height="110dp"
                     android:layout_marginBottom="32dp"
@@ -188,20 +188,13 @@
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <Spinner
-                    android:id="@+id/spinnerOfcategory"
-                    android:layout_width="68dp"
-                    android:layout_height="48dp"
-                    app:layout_constraintEnd_toStartOf="@+id/categoryOfProduct"
-                    app:layout_constraintTop_toTopOf="@+id/categoryOfProduct" />
-
-                <TextView
-                    android:id="@+id/tvtest"
-                    android:layout_width="234dp"
-                    android:layout_height="27dp"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                <ImageView
+                    android:id="@+id/ivinsertbuttom"
+                    android:layout_width="41dp"
+                    android:layout_height="43dp"
+                    android:src="@drawable/add"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivshowpicture"
+                    app:layout_constraintEnd_toEndOf="@+id/ivshowpicture" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

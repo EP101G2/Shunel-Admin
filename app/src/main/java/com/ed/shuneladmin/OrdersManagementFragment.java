@@ -95,32 +95,36 @@ public class OrdersManagementFragment extends Fragment {
         });
 
 //        setting search view
-        svOrders = view.findViewById(R.id.searchView);
+        svOrders = view.findViewById(R.id.svOrders);
         svOrders.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
                 OrderMainAdapter adapter = (OrderMainAdapter) rvOrderMain.getAdapter(); //強迫子型recyclerview.getadapter轉型成父型friendadapter
-                if (adapter != null) { //先檢查是否為空值：空值會執行錯誤
-                    // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
-                    if (newText.isEmpty()) { //空字串“” =/ 空值 null ＝/ 空白字串"/s"; 空值呼叫方法會造成執行錯誤：nullpointer exception
-                        adapter.setOrders(orderMainList);
-                    } else {
-                        List<Order_Main> searchOrders = new ArrayList<>();
-                        // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
-                        for (Order_Main orderMain : orderMainList) { //get searched data from origin data
+                try{
+                    if (adapter != null) { //先檢查是否為空值：空值會執行錯誤
+                        // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
+                        if (newText.isEmpty()) { //空字串“” =/ 空值 null ＝/ 空白字串"/s"; 空值呼叫方法會造成執行錯誤：nullpointer exception
+                            adapter.setOrders(orderMainList);
+                        } else {
+                            List<Order_Main> searchOrders = new ArrayList<>();
+                            // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
+                            for (Order_Main orderMain : orderMainList) { //get searched data from origin data
 //                            search by account id
-                            if (orderMain.getAccount_ID().toUpperCase().contains(newText.toUpperCase())) { //ignore upper/lower case: all input change into upper case
-                                searchOrders.add(orderMain);
-                            }
+                                if (orderMain.getAccount_ID().toUpperCase().contains(newText.toUpperCase())) { //ignore upper/lower case: all input change into upper case
+                                    searchOrders.add(orderMain);
+                                }
 //                            search by orderId
-                            else if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
-                                searchOrders.add(orderMain);
+                                else if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
+                                    searchOrders.add(orderMain);
+                                }
                             }
+                            adapter.setOrders(searchOrders);
                         }
-                        adapter.setOrders(searchOrders);
+                        adapter.notifyDataSetChanged(); //重刷畫面
+                        return true;
                     }
-                    adapter.notifyDataSetChanged(); //重刷畫面
-                    return true;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
                 return false;
             }
@@ -132,16 +136,20 @@ public class OrdersManagementFragment extends Fragment {
     }
 
     private void showOrders(List<Order_Main> orderMainList) {
-        if (orderMainList == null || orderMainList.isEmpty()) {
-            Common.showToast(activity, R.string.textnofound);
-        }
-        OrderMainAdapter orderMainAdapter = (OrderMainAdapter) rvOrderMain.getAdapter();
-        // 如果spotAdapter不存在就建立新的，否則續用舊有的
-        if (orderMainAdapter == null) {
-            rvOrderMain.setAdapter(new OrderMainAdapter(activity, orderMainList));
-        } else {
-            orderMainAdapter.setOrders(orderMainList);
-            orderMainAdapter.notifyDataSetChanged();
+        try{
+            if (orderMainList == null || orderMainList.isEmpty()) {
+                Common.showToast(activity, R.string.textnofound);
+            }
+            OrderMainAdapter orderMainAdapter = (OrderMainAdapter) rvOrderMain.getAdapter();
+            // 如果spotAdapter不存在就建立新的，否則續用舊有的
+            if (orderMainAdapter == null) {
+                rvOrderMain.setAdapter(new OrderMainAdapter(activity, orderMainList));
+            } else {
+                orderMainAdapter.setOrders(getOrders());//get new
+                orderMainAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,7 +159,7 @@ public class OrdersManagementFragment extends Fragment {
             if (Common.networkConnected(activity)) {
 //                get data from orders servlet
                 String url = Common.URL_SERVER + "Orders_Servlet";
-//                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "getOrdersForManage");
                 String jsonOut = jsonObject.toString();
@@ -160,8 +168,9 @@ public class OrdersManagementFragment extends Fragment {
                     String jsonIn = ordersListGetTask.execute().get();
                     Type listType = new TypeToken<List<Order_Main>>() {
                     }.getType();
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                     orderMainList = gson.fromJson(jsonIn, listType);
+                    Log.e(TAG, jsonIn);
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
@@ -195,23 +204,23 @@ public class OrdersManagementFragment extends Fragment {
 
     //    inner class PageViewHolder for the holding of recycler view
         class PageViewHolder extends RecyclerView.ViewHolder {
-            TextView tvOrderDate, tvOrderModifyDate, tvOrderId, tvAccountId, tvTotalPrice, tvOrderStatus;
-            TextView tvOrderDateText, tvOrderModifyDateText, tvOrderIdText, tvAccountIdText, tvTotalPriceText, tvOrderStatusText;
+            TextView tvOrderDate, tvOrderModifyDate, tvOrderId, tvAccountIdOrders, tvTotalPrice, tvOrderStatus;
+//            TextView tvOrderDateText, tvOrderModifyDateText, tvOrderIdText, tvAccountIdText, tvTotalPriceText, tvOrderStatusText;
             public PageViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvOrderDate = itemView.findViewById(R.id.tvOrderDate);
                 tvOrderModifyDate = itemView.findViewById(R.id.tvOrderModifyDate);
                 tvOrderId = itemView.findViewById(R.id.tvOrderId);
-                tvAccountId = itemView.findViewById(R.id.tvAccountId);
+                tvAccountIdOrders = itemView.findViewById(R.id.tvAccountIdOrders);
                 tvTotalPrice = itemView.findViewById(R.id.tvTotalPrice);
                 tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
 
-                tvOrderDateText = itemView.findViewById(R.id.tvOrderDateText);
-                tvOrderModifyDateText = itemView.findViewById(R.id.tvOrderModifyDateText);
-                tvOrderIdText = itemView.findViewById(R.id.tvOrderIdText);
-                tvAccountIdText = itemView.findViewById(R.id.tvAccountIdText);
-                tvTotalPriceText = itemView.findViewById(R.id.tvTotalPriceText);
-                tvOrderStatusText = itemView.findViewById(R.id.tvOrderStatusText);
+//                tvOrderDateText = itemView.findViewById(R.id.tvOrderDateText);
+//                tvOrderModifyDateText = itemView.findViewById(R.id.tvOrderModifyDateText);
+//                tvOrderIdText = itemView.findViewById(R.id.tvOrderIdText);
+//                tvAccountIdText = itemView.findViewById(R.id.tvAccountIdText);
+//                tvTotalPriceText = itemView.findViewById(R.id.tvTotalPriceText);
+//                tvOrderStatusText = itemView.findViewById(R.id.tvOrderStatusText);
             }
         }
 
@@ -221,9 +230,12 @@ public class OrdersManagementFragment extends Fragment {
             holder.tvOrderDate.setText(orderMain.getOrder_Main_Order_Date().toString());
             holder.tvOrderModifyDate.setText(orderMain.getOrder_Main_Modify_Date().toString());
             holder.tvOrderId.setText(String.valueOf(orderMain.getOrder_ID()));
-            holder.tvAccountId.setText(orderMain.getAccount_ID().toString());
+            holder.tvAccountIdOrders.setText(orderMain.getAccount_ID());
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
             holder.tvOrderStatus.setText(String.valueOf(orderMain.getOrder_Main_Order_Status()));
+            Log.e(TAG,"======"+orderMain.getOrder_ID());
+
+
 //            navigate to detail fragment
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

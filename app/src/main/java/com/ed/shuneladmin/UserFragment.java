@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -40,6 +43,7 @@ public class UserFragment extends Fragment {
     private SearchView searchView;
 
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,20 +60,17 @@ public class UserFragment extends Fragment {
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        searchView =view.findViewById(R.id.searchView);
+        searchView = view.findViewById(R.id.searchView);
         rvUser = view.findViewById(R.id.rvUser);
         data = user_accounts();
-        showUserAccount(data);
+
         Log.e("_______", data + "");
         rvUser.setAdapter(new UserAdapter(activity, data));
         rvUser.setLayoutManager(new LinearLayoutManager(activity));
-
-
-
+        showUserAccount(data);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -83,7 +84,7 @@ public class UserFragment extends Fragment {
                     // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
                     for (User_Account user_account : data) {
 //                        Log.e("1234567890",user_account.getAccount_User_Name());
-                        if (user_account.getAccount_ID().toUpperCase().contains(newText.toUpperCase())|| user_account.getAccount_User_Name().toUpperCase().contains(newText.toUpperCase())) {
+                        if (user_account.getAccount_ID().toUpperCase().contains(newText.toUpperCase()) || user_account.getAccount_User_Name().toUpperCase().contains(newText.toUpperCase())) {
                             searchUserAccount.add(user_account);
                         }
                     }
@@ -122,17 +123,18 @@ public class UserFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
 
-            Log.e("---------8",user_account+"");
+            Log.e("---------8", user_account + "");
             return user_account;
         } else {
             Common.showToast(activity, R.string.textNoNetwork);
         }
-        Log.e("12345",user_account+"");
+        Log.e("12345", user_account + "");
         return user_account;
 
     }
 
     private class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
+        private boolean[] userExpanded;
         LayoutInflater layoutInflater;
         Context context;
         List<User_Account> userAccounts;
@@ -142,9 +144,11 @@ public class UserFragment extends Fragment {
         }
 
         public UserAdapter(Context context, List<User_Account> user_accounts) {
+
             layoutInflater = LayoutInflater.from(context);    //加載ＬＡＹＯＵＴＩＮＦＬＡＴＯＲ
             this.context = context;
             this.userAccounts = user_accounts;
+            userExpanded = new boolean[user_accounts.size()];
         }
 
 
@@ -157,19 +161,48 @@ public class UserFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder holder,int position) {
             final User_Account user_account = userAccounts.get(position);
             holder.tvId.setText(user_account.getAccount_ID());              //setText()裡塞我要使用的方法
             holder.tvName.setText(user_account.getAccount_User_Name());
 
-//            holder.btEdit.setVisibility(View.GONE);
-            holder.btEdit.setOnClickListener(new View.OnClickListener() {
+            holder.tvPhone.setText(user_account.getAccount_Phone());
+
+            holder.tvAddress.setText(user_account.getAccount_Address());
+
+//            holder.btOpen.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.clDetail.setVisibility(userExpanded[position] ? v.VISIBLE : v.GONE);
+//                }
+//            });
+
+
+            holder.clDetail.setVisibility(
+                    userExpanded[position] ? View.VISIBLE : View.GONE);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    expand(holder.getAdapterPosition());
 
                 }
+
             });
 
+
+            if (userExpanded[position]){
+                holder.btOpen.setImageResource(R.drawable.up);
+            }else {
+                holder.btOpen.setImageResource(R.drawable.down);
+            }
+
+
+        }
+
+
+        private void expand(int position) {
+            userExpanded[position] = !userExpanded[position];
+            notifyDataSetChanged();
         }
 
         @Override
@@ -179,14 +212,18 @@ public class UserFragment extends Fragment {
 
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView tvId, tvName;
-            private Button btEdit;
+            private TextView tvId, tvName, tvPhone, tvAddress;
+            private ImageView btOpen;
+            private ConstraintLayout clDetail;
 
             public MyViewHolder(View view) {
                 super(view);
                 tvId = view.findViewById(R.id.tvId);
-                tvName = view.findViewById(R.id.etAccountId);
-                btEdit = view.findViewById(R.id.btEdit);
+                tvName = view.findViewById(R.id.tvName);
+                tvPhone = view.findViewById(R.id.tvPhone);
+                tvAddress = view.findViewById(R.id.tvAddress);
+                btOpen = view.findViewById(R.id.btOpen);
+                clDetail = view.findViewById(R.id.clDetail);
             }
         }
     }
@@ -204,7 +241,6 @@ public class UserFragment extends Fragment {
             Adapter.notifyDataSetChanged();
         }
     }
-
 
 
 }
