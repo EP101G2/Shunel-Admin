@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,7 @@ public class UserFragment extends Fragment {
     private CommonTask UserTask;
     private List<User_Account> data;
     private SearchView searchView;
+    private ImageView ivAdmin;
 
 
 
@@ -65,7 +67,17 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         searchView = view.findViewById(R.id.searchView);
         rvUser = view.findViewById(R.id.rvUser);
+        ivAdmin = view.findViewById(R.id.ivAdmin);
         data = user_accounts();
+
+        ivAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_userFragment_to_adminFragment);
+            }
+        });
+
+
 
         Log.e("_______", data + "");
         rvUser.setAdapter(new UserAdapter(activity, data));

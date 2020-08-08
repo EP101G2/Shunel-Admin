@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class AdminNewDetailFragment extends Fragment {
     private Button btCancel, btConfirm;
     private Admin admin;
     private Spinner spPosition;
-
+    private String result;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,20 @@ public class AdminNewDetailFragment extends Fragment {
         /* 指定點選時彈出來的選單樣式 */
         arrayAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
+        spPosition.setAdapter(arrayAdapter);
+        spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Admin admin =(Admin) parent.getItemAtPosition(position);
+                result =  parent.getItemAtPosition(position).toString();
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

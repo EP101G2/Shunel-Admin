@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
-    private ImageView ivLogout, ivAdmin;
+    private ImageView ivLogout;
 
 
 
@@ -65,18 +65,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivLogout = view.findViewById(R.id.ivLogout);
-        ivAdmin = view.findViewById(R.id.ivAdmin);
+
 
         ivLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logout();
-            }
-        });
-        ivAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
             }
         });
 
