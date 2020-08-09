@@ -146,5 +146,10 @@
         android:name="com.ed.shuneladmin.insertProductFragment"
         android:label="fragment_insert_product"
         tools:layout="@layout/fragment_insert_product" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.ed.shuneladmin.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
 
 </navigation>

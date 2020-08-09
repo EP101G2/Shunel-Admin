@@ -60,4 +60,7 @@ dependencies {
 /*------------------------------------------------------------------*/
     //拍照裁減
     implementation 'com.github.yalantis:ucrop:2.2.5'
+/*------------------------------------------------------------------*/
+    /*統計圖表 Jack 8.8   父親節快樂  */
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
