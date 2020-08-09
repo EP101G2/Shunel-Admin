@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".productFragment">
 
-    <ImageView
-        android:id="@+id/insertProduct"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="340dp"
-        android:layout_marginLeft="340dp"
-        android:layout_marginTop="592dp"
-        android:src="@drawable/add"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="68dp"
+        android:src="@drawable/ic_add"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>

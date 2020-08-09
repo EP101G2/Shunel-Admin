@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/appbar"
-        android:gravity="center"
+        android:gravity="fill_vertical"
         android:text="@string/order_detail_manage"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -231,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_hint"
-                android:text="@string/phone" />
+                android:text="@string/rec_phone" />
         </LinearLayout>
 
         <LinearLayout
@@ -253,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_hint"
-                android:text="@string/address" />
+                android:text="@string/rec_address" />
         </LinearLayout>
     </LinearLayout>
 
@@ -264,10 +264,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.75">
 
         <Button
+<<<<<<< HEAD
             android:id="@+id/btLogin"
+=======
+            android:id="@+id/btCancelOMD"
+>>>>>>> efa470780a831369bb4e6c0039101250622a7403
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -277,7 +282,7 @@
             android:textColor="@color/normal_text_color" />
 
         <Button
-            android:id="@+id/btSave"
+            android:id="@+id/btSaveOMD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
