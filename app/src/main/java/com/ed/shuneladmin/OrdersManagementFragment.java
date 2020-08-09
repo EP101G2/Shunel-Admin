@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.Order_Main;
-import com.ed.shuneladmin.bean.User_Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -223,8 +222,9 @@ public class OrdersManagementFragment extends Fragment {
             holder.tvOrderId.setText(String.valueOf(orderMain.getOrder_ID()));
             holder.tvAccountIdOrders.setText(orderMain.getAccount_ID());
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
-            holder.tvOrderStatus.setText(String.valueOf(orderMain.getOrder_Main_Order_Status()));
+            holder.tvOrderStatus.setText(orderStatusText(orderMain.getOrder_Main_Order_Status()));//apply method orderStatusText
             Log.e(TAG,"--onBindViewHolder-->"+orderMain.getOrder_ID());
+
 
 
 //            navigate to detail fragment
@@ -237,8 +237,26 @@ public class OrdersManagementFragment extends Fragment {
                 }
             });
         }
+//            setting text for order status
+    private String orderStatusText(int status) {
+            String statusText = "";
+            if (status == 0){
+                statusText = "未付款";
+            }else if (status == 1){
+                statusText = "未出貨";
+            }else if (status == 2){
+                statusText = "已出貨";
+            }else if (status == 3){
+                statusText = "已送達";
+            }else if (status == 4){
+                statusText = "已取消";
+            }else if (status == 5){
+                statusText = "已退貨";
+            }
+            return statusText;
+    }
 
-        @Override
+    @Override
         public int getItemCount() {
             try {
                 if (orderMainList != null) {
