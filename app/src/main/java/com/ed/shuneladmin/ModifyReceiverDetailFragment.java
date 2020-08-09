@@ -59,7 +59,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
             Common.showToast(activity, R.string.textnofound);
             navController.popBackStack();
             return;
-        }else if (bundle != null){
+        }else{
             String name = bundle.getString("name");
             String phone = bundle.getString("phone");
             String address = bundle.getString("address");
@@ -94,7 +94,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
                 if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "update");//變作ＪＳＯＮ自串 //build case "update" in servlet(check)
+                    jsonObject.addProperty("action", "update");//case "update" in servlet(check)
                     jsonObject.addProperty("Receiver", new Gson().toJson(orderMain));
                     int count = 0;
                     try {
@@ -106,7 +106,6 @@ public class ModifyReceiverDetailFragment extends Fragment {
                     if (count == 0) {
                         Common.showToast(activity, R.string.textUpdateFail);
                     } else {
-
                         Common.showToast(activity, R.string.textUpdateSuccess);
                     }
                 } else {
