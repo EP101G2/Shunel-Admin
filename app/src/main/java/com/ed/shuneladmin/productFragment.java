@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.adapter.ProductAdapter;
 import com.ed.shuneladmin.bean.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -34,10 +36,10 @@ import java.util.concurrent.ExecutionException;
  */
 public class productFragment extends Fragment {
     Activity activity;
-    ImageView insertProduct;
     private List<Product> product;
     private RecyclerView recyclerView;
     private CommonTask productGetAllTask;
+    FloatingActionButton btAdd ;
 
     public productFragment() {
         // Required empty public constructor
@@ -73,8 +75,7 @@ public class productFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        insertProduct = view.findViewById(R.id.insertProduct);
-
+        btAdd = view.findViewById(R.id.btAdd);
         showtest();
     }
 
@@ -82,7 +83,8 @@ public class productFragment extends Fragment {
 
 
     private void showtest() {
-        insertProduct.setOnClickListener(new View.OnClickListener() {
+
+        btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.insertProductFragment);

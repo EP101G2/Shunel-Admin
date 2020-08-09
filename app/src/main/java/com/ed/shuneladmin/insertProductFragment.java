@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Product;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -56,21 +57,22 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class insertProductFragment extends Fragment {
+    private int flag = 0;
     private final static String TAG = "insertProductFragment";
     Activity activity;
-    EditText nameOfProduct,colorOfProduct,priceOfProduct,detailOfProduct,categoryOfProduct,statusOfProduct;
+    EditText nameOfProduct, colorOfProduct, priceOfProduct, detailOfProduct, categoryOfProduct, statusOfProduct;
     Product product;
     Button btaddproduct;
     Common common;
     CommonTask insertProduct;
-    ImageView ivinsertbuttom,ivshowpicture;
+    ImageView ivinsertbuttom, ivshowpicture;
+    ImageTask imageTask;
     private byte[] image;
     private Uri contentUri;
     private static final int REQ_TAKE_PICTURE = 0;
     private static final int REQ_PICK_IMAGE = 1;
     private static final int REQ_CROP_PICTURE = 2;
     private AlertDialog dialog;
-
 
 
     public insertProductFragment() {
@@ -105,21 +107,40 @@ public class insertProductFragment extends Fragment {
         ivshowpicture = view.findViewById(R.id.ivshowpicture);
 
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            flag = 0; //有bundle  修改商品
+            btaddproduct.setText(R.string.update);
+            product = (Product) bundle.getSerializable("product");
+            nameOfProduct.setText(product.getProduct_Name());
+            colorOfProduct.setText(product.getProduct_Color());
+            priceOfProduct.setText(String.valueOf(product.getProduct_Price()));
+            detailOfProduct.setText(product.getProduct_Ditail());
+            categoryOfProduct.setText(String.valueOf(product.getProduct_Category_ID()));
+            statusOfProduct.setText(String.valueOf(product.getProduct_Status()));
+
+            imageTask
 
 
+        } else {
+            flag = 1; //沒bundle
+            btaddproduct.setText(R.string.insertproduct);
+
+
+        }
 
         ivinsertbuttom.setOnClickListener(new View.OnClickListener() {  //按下拍照的圖示後會跳出dialog
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                v = LayoutInflater.from(activity).inflate(R.layout.dialog_insertpicture,null);
+                v = LayoutInflater.from(activity).inflate(R.layout.dialog_insertpicture, null);
                 alertDialog.setView(v);
 
                 dialog = alertDialog.create();
                 dialog.show();
 
 
-                TextView ivtakepicture,tvalbum;
+                TextView ivtakepicture, tvalbum;
                 ivtakepicture = v.findViewById(R.id.ivtakepicture);
                 tvalbum = v.findViewById(R.id.tvalbum);
                 ivtakepicture.setOnClickListener(new View.OnClickListener() { //拍照
@@ -157,29 +178,35 @@ public class insertProductFragment extends Fragment {
         });
 
 
-
-
-
         btaddproduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (Common.networkConnected(activity)){
-                    product = new Product();
-                    product.setProduct_Name(nameOfProduct.getText().toString());
-                    product.setProduct_Color(colorOfProduct.getText().toString());
-                    product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
-                    product.setProduct_Ditail(detailOfProduct.getText().toString());
-                    product.setProduct_Category_ID(Integer.parseInt(categoryOfProduct.getText().toString()));
-                    product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
-
-
-
+                if (Common.networkConnected(activity)) {
+                    //product = new Product();
+                    if (flag == 0) {   //flag = 0 修改商品
+                        product.setProduct_ID(product.getProduct_ID());
+                        product.setProduct_Name(nameOfProduct.getText().toString());
+                        product.setProduct_Color(colorOfProduct.getText().toString());
+                        product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
+                        product.setProduct_Ditail(detailOfProduct.getText().toString());
+                        product.setProduct_Category_ID(Integer.parseInt(categoryOfProduct.getText().toString()));
+                        product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
+                    } else {
+                        product = new Product();
+                        product.setProduct_Name(nameOfProduct.getText().toString());
+                        product.setProduct_Color(colorOfProduct.getText().toString());
+                        product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
+                        product.setProduct_Ditail(detailOfProduct.getText().toString());
+                        product.setProduct_Category_ID(Integer.parseInt(categoryOfProduct.getText().toString()));
+                        product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
+                    }
 
                     String url = Common.URL_SERVER + "Prouct_Servlet";
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "insertProduct");
-                    jsonObject.addProperty("product",new Gson().toJson(product));
+                    jsonObject.addProperty("action", flag == 1 ? "insertProduct" : "updateProduct");
+                    jsonObject.addProperty("product", new Gson().toJson(product));
+                    jsonObject.addProperty("flag", flag);
                     if (image != null) {
                         jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
                     }
@@ -187,15 +214,15 @@ public class insertProductFragment extends Fragment {
                     insertProduct = new CommonTask(url, jsonObject.toString());
 
                     try {
-                        String rp =  insertProduct.execute().get();
+                        String rp = insertProduct.execute().get();
                         int count = Integer.parseInt(rp);
 
                         if (count == 1) {
 
-                            Toast.makeText(activity, R.string.insertsuccess, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, flag ==1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
 
-                        }else {
-                            Toast.makeText(activity, R.string.insertfail, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(activity, flag ==1 ?  R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (ExecutionException e) {
@@ -208,15 +235,8 @@ public class insertProductFragment extends Fragment {
                 }
 
 
-
-
-
-
             }
         });
-
-
-
 
 
     }
@@ -277,10 +297,6 @@ public class insertProductFragment extends Fragment {
             ivshowpicture.setImageResource(R.drawable.no_image);
         }
     }
-
-
-
-
 
 
 }

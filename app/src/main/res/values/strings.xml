@@ -111,5 +111,9 @@
     <string name="picture">從相簿取照片</string>
     <string name="productid">商品ID:</string>
     <string name="productempty">查無商品</string>
+    <string name="update">修改商品</string>
+    <string name="insertproduct">新增商品</string>
+    <string name="updatesuccess">修改成功</string>
+    <string name="updatefail">修改失敗</string>
 
 </resources>
