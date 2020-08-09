@@ -9,8 +9,6 @@
 
     <!--  建立viewPage Jack 7.22  -->
 
-<<<<<<< HEAD
-=======
     <LinearLayout
 
 
@@ -57,7 +55,6 @@
 
     </LinearLayout>
 
->>>>>>> 406d37e89c190569c0bd23f54e2a0edfe238051e
     <TextView
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -84,34 +81,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logout" />
 
-    <LinearLayout
 
 
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
 
 
-        app:layout_constraintTop_toBottomOf="@id/view">
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-    </LinearLayout>
 
     <!--  建立viewPage Jack 7.22  -->
 

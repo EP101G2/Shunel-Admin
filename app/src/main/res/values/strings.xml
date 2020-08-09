@@ -113,11 +113,11 @@
     <string name="memberAccount">會員帳號:</string>
     <string name="takepicture">拍照</string>
     <string name="picture">從相簿取照片</string>
-<<<<<<< HEAD
+
     <string name="textDelete">刪除</string>
     <string name="textDeleteFail">刪除失敗</string>
     <string name="textDeleteSuccess">刪除成功</string>
-=======
+
     <string name="rec_phone" />
     <string name="rec_address" />
     <string name="productid">商品ID:</string>
@@ -126,6 +126,5 @@
     <string name="insertproduct">新增商品</string>
     <string name="updatesuccess">修改成功</string>
     <string name="updatefail">修改失敗</string>
->>>>>>> efa470780a831369bb4e6c0039101250622a7403
 
 </resources>
