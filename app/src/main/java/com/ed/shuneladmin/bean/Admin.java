@@ -25,6 +25,10 @@ public class Admin implements Serializable {
     public Admin(String name, String password, String accountId, String result) {
     }
 
+    public Admin() {
+
+    }
+
 
     //方法區
 

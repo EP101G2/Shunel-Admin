@@ -105,8 +105,12 @@ public class AdminNewDetailFragment extends Fragment {
                 String accountId = etAccountId.getText().toString();
                 String password = etNewPassword.getText().toString();
 
-
-                admin = new Admin(name, password,accountId,result);
+                Log.e("1234567890",name+"");
+                admin.setAdmin_Name(name);
+                admin.setAdmin_User_Name(accountId);
+                admin.setAdmin_User_Password(password);
+                admin.setAdmin_ID(admin.getAdmin_ID());
+                admin.setAdmin_User_Position(result);
 
 
                 if (Common.networkConnected(activity)) {

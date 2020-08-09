@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -205,7 +206,9 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("admin", admin);
-                Navigation.findNavController(view).navigate(R.id.action_adminFragment_to_adminNewDetailFragment, bundle);
+                NavController navController = Navigation.findNavController(activity,R.id.homeFragment);
+                navController.navigate(R.id.adminNewDetailFragment,bundle);
+//                Navigation.findNavController(view).navigate(R.id.action_adminFragment_to_adminNewDetailFragment, bundle);
             }
         });
 
