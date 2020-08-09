@@ -27,6 +27,10 @@ public class Notice implements Serializable {
         this.CATEGORY_MESSAGE_ID = CATEGORY_MESSAGE_ID;
     }
 
+    public Notice() {
+
+    }
+
     public int getNotice_ID() {
         return Notice_ID;
     }

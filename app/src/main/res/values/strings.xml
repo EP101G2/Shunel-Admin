@@ -74,7 +74,7 @@
     <string name="text_phone">電話：</string>
     <string name="phone">電話:</string>
     <string name="text_address">地址：</string>
-    <string name="address" >地址：</string>
+    <string name="address">地址：</string>
     <string name="text_cancel">取消修改</string>
     <string name="text_save">儲存變更</string>
     <string name="product_name" />
@@ -89,7 +89,7 @@
 
     <string name="productname">商品名稱:</string>
     <string name="productcolor">顏色:</string>
-    <string name="productprice">價格</string>
+    <string name="productprice">價格:</string>
     <string name="productdetail">詳情:</string>
     <string name="productCategory">類別:</string>
     <string name="productStatus">狀態:</string>
@@ -114,10 +114,16 @@
     <string name="takepicture">拍照</string>
     <string name="picture">從相簿取照片</string>
 <<<<<<< HEAD
+
     <string name="textDelete">刪除</string>
     <string name="textDeleteFail">刪除失敗</string>
     <string name="textDeleteSuccess">刪除成功</string>
+
 =======
+    <string name="textDelete">刪除</string>
+    <string name="textDeleteFail">刪除失敗</string>
+    <string name="textDeleteSuccess">刪除成功</string>
+>>>>>>> c156e95098623851fb4093edeebc385c0d7c45ab
     <string name="rec_phone" />
     <string name="rec_address" />
     <string name="productid">商品ID:</string>
@@ -126,6 +132,11 @@
     <string name="insertproduct">新增商品</string>
     <string name="updatesuccess">修改成功</string>
     <string name="updatefail">修改失敗</string>
->>>>>>> efa470780a831369bb4e6c0039101250622a7403
+<<<<<<< HEAD
+=======
+    <string name="shelvesproduct">下架</string>
+    <string name="onsaleproduct">上架</string>
+    <string name="promotion">促銷</string>
+>>>>>>> c156e95098623851fb4093edeebc385c0d7c45ab
 
 </resources>

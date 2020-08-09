@@ -24,6 +24,9 @@ import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.bean.Notice;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import static android.content.ContentValues.TAG;
@@ -40,8 +43,9 @@ public class NoticeAdminFragment extends Fragment {
     private Button btSendNotice;
     private String Title, Detail;
 //    private String choice = "";
+    Notice notice;
     private CommonTask noticeAdminTask;
-    private TextView tvUpdateNPageT;
+    private TextView tvAddNPageT;
     private  NavController navController;
 
     @Override
@@ -80,7 +84,7 @@ public class NoticeAdminFragment extends Fragment {
         edNoticeDetail = view.findViewById(R.id.edNoticeDetail);
 //        spNoticeCategory = view.findViewById(R.id.spNoticeCategory);//spinner
         btSendNotice = view.findViewById(R.id.btSendNotice);
-        tvUpdateNPageT = view.findViewById(R.id.tvUpdateNPageT);
+        tvAddNPageT = view.findViewById(R.id.tvAddNPageT);
 
 
     }
@@ -89,16 +93,27 @@ public class NoticeAdminFragment extends Fragment {
         switch (MainActivity.flag) {
             case 0:
                 String textSale = "新增促銷訊息";
-                tvUpdateNPageT.append(textSale);
+                tvAddNPageT.append(textSale);
 
 //                }
                 break;
 
             case 1:
                 String textSystem = "新增系統訊息";
-                tvUpdateNPageT.append(textSystem);
+                tvAddNPageT.append(textSystem);
 //                }
                 break;
+
+            case 2:
+                String textUpdateSale = "修改促銷訊息";
+                tvAddNPageT.setText(textUpdateSale);
+                Bundle bundle = getArguments();
+                if (bundle != null) {
+                    notice = (Notice) bundle.getSerializable("NoitceAdim");
+                    edNoticeTitle.setText(notice.getNotice_Title());
+                    edNoticeDetail.setText(notice.getNotice_Content());
+                }
+
 
         }
 
@@ -119,6 +134,7 @@ public class NoticeAdminFragment extends Fragment {
                 if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "Notice_Servlet";
                     JsonObject jsonObject = new JsonObject();
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                     switch (MainActivity.flag) {
                         case 0:
                             Log.e("促銷訊息", "===" +MainActivity.flag);
@@ -138,6 +154,18 @@ public class NoticeAdminFragment extends Fragment {
                             Log.e("系統訊息", "===" + jsonObject.toString());
                             Common.showToast(activity,"系統訊息已送出");
                             break;
+
+                        case 2:
+                            String title = edNoticeTitle.getText().toString();
+                            String detail = edNoticeDetail.getText().toString();
+                            notice.setNotice_Title(title);
+                            notice.setNotice_Content(detail);
+                            Log.e("修改促消訊息", "===" +MainActivity.flag);
+                            jsonObject.addProperty("action", "update");
+                            jsonObject.addProperty("notice",gson.toJson(notice));
+                            Log.e("系統訊息", "===" + jsonObject.toString());
+                            Common.showToast(activity,"修改促銷訊息已送出");
+                            break;
                     }
                     noticeAdminTask = new CommonTask(url, jsonObject.toString());
                     String jsonIn = "";
@@ -152,6 +180,7 @@ public class NoticeAdminFragment extends Fragment {
                 }
 
                navController.popBackStack();
+
             }
         })
 
