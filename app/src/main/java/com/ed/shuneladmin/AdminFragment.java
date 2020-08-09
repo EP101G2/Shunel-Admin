@@ -2,21 +2,26 @@ package com.ed.shuneladmin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -29,6 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +43,11 @@ public class AdminFragment extends Fragment {
     private static final String TAG = "---AdminFragment---";
     private Activity activity;
     private RecyclerView rvAdmin;
-    private CommonTask AdminTask;
+    private CommonTask adminTask;
     private List<Admin> data;
     private SearchView searchView;
     private ImageView ivAdd;
+    private CommonTask adminDeleteTask;
 
 
     @Override
@@ -62,8 +69,9 @@ public class AdminFragment extends Fragment {
         searchView =view.findViewById(R.id.searchView2);
         rvAdmin = view.findViewById(R.id.rvAdmin);
         ivAdd=view.findViewById(R.id.ivAdd);
-        data=getadmins();
+        data=getAdmins();
         Log.e("_______", data + "");
+
         rvAdmin.setAdapter(new AdminAdapter(activity, data));        //控制所有元件
         rvAdmin.setLayoutManager(new LinearLayoutManager(activity));
 
@@ -107,7 +115,7 @@ public class AdminFragment extends Fragment {
 
 
 
-    private List<Admin> getadmins() {
+    private List<Admin> getAdmins() {
 
 
         List<Admin> admin = null;
@@ -117,15 +125,14 @@ public class AdminFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");//變作ＪＳＯＮ自串
             String jsonOut = jsonObject.toString();
-            AdminTask = new CommonTask(url, jsonOut);
+            adminTask = new CommonTask(url, jsonOut);
             try {
-                String jsonIn = AdminTask.execute().get();
+                String jsonIn = adminTask.execute().get();
                 Type listType = new TypeToken<List<Admin>>() {
                 }.getType();
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 //                參考Android web範例：jsonex
                 admin = gson.fromJson(jsonIn, listType);
-
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -152,7 +159,7 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
     public AdminAdapter(Context context, List<Admin> admins) {
         layoutInflater = LayoutInflater.from(context);    //加載ＬＡＹＯＵＴＩＮＦＬＡＴＯＲ
         this.context = context;
-        this.admins = getadmins();
+        this.admins = getAdmins();
     }
 
     @NonNull
@@ -181,8 +188,17 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
         final Admin admin = admins.get(position);
         holder.tvId.setText(String.valueOf(admin.getAdmin_ID()));              //setText()裡塞我要使用的方法
         holder.tvName.setText(admin.getAdmin_Name());
+        String pos = Common.getPreherences(activity).getString("position","def");
+        Log.e("0000", pos+"");
+        if (pos.equals("管理員")){
+            holder.btEdit.setVisibility(View.VISIBLE);
+        }else {
+            holder.btEdit.setVisibility(View.INVISIBLE);
+        }
 
 //            holder.btEdit.setVisibility(View.GONE);
+
+
 
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +206,57 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("admin", admin);
                 Navigation.findNavController(view).navigate(R.id.action_adminFragment_to_adminNewDetailFragment, bundle);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public boolean onLongClick(final View view) {
+                PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
+                popupMenu.inflate(R.menu.popup_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+//                            case R.id.update:
+//                                Bundle bundle = new Bundle();
+//                                bundle.putSerializable("spot", spot);
+//                                Navigation.findNavController(view)
+//                                        .navigate(R.id.action_spotListFragment_to_spotUpdateFragment, bundle);
+//                                break;
+                            case R.id.delete:
+                                if (Common.networkConnected(activity)) {
+                                    String url = Common.URL_SERVER + "Admin";
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.addProperty("action", "Delete");
+                                    jsonObject.addProperty("adminId", admin.getAdmin_ID());
+                                    int count = 0;
+                                    try {
+                                        adminDeleteTask = new CommonTask(url, jsonObject.toString());
+                                        String result = adminDeleteTask.execute().get();
+                                        count = Integer.parseInt(result);
+                                    } catch (Exception e) {
+                                        Log.e(TAG, e.toString());
+                                    }
+                                    if (count == 0) {
+                                        Common.showToast(activity, R.string.textDeleteFail);
+                                    } else {
+                                        admins.remove(admin);
+                                        AdminAdapter.this.notifyDataSetChanged();
+                                        // 外面spots也必須移除選取的spot
+                                        AdminFragment.this.data.remove(admin);
+                                        Common.showToast(activity, R.string.textDeleteSuccess);
+                                    }
+                                } else {
+                                    Common.showToast(activity, R.string.textNoNetwork);
+                                }
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+                return true;
             }
         });
     }

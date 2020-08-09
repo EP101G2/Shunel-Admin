@@ -1,7 +1,6 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,10 +21,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
+import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.bean.Admin;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 public class AdminNewDetailFragment extends Fragment {
+    private final static String TAG = "---NewDeFragment---";
     private Activity activity;
     private TextView tvAdminNo;
     private EditText etName, etAccountId, etNewPassword;
@@ -55,7 +58,7 @@ public class AdminNewDetailFragment extends Fragment {
         etName = view.findViewById(R.id.etName);
         etAccountId = view.findViewById(R.id.etAccountId);
         etNewPassword = view.findViewById(R.id.etNewPassword);
-        btCancel = view.findViewById(R.id.btCancel);
+        btCancel = view.findViewById(R.id.btLogin);
         btConfirm = view.findViewById(R.id.btConfirm);
         spPosition= view.findViewById(R.id.spPosition);
 
@@ -69,10 +72,9 @@ public class AdminNewDetailFragment extends Fragment {
             return;
         }
         admin = (Admin) bundle.getSerializable("admin");
-        showAdmin();
 
-        final String[] postions = {"管理員", "一般職員"};
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+        String[] postions = {"管理員", "一般職員"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_spinner_item, postions);
         /* 指定點選時彈出來的選單樣式 */
         arrayAdapter.setDropDownViewResource(
@@ -92,11 +94,49 @@ public class AdminNewDetailFragment extends Fragment {
             }
         });
 
+
+        showAdmin();
+
+
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 String name = etName.getText().toString();
+                String accountId = etAccountId.getText().toString();
+                String password = etNewPassword.getText().toString();
 
+
+                admin = new Admin(name, password,accountId,result);
+
+
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL_SERVER + "Admin";//連server端先檢查網址
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "Update");//變作ＪＳＯＮ自串
+                    jsonObject.addProperty("admin", new Gson().toJson(admin));
+
+                    int count = 0;
+                    try {
+                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                        count = Integer.parseInt(result);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (count == 0) {
+                        Common.showToast(activity, R.string.textUpdateFail);
+                    } else {
+                        savePreferences();
+                        Common.showToast(activity, R.string.textUpdateSuccess);
+                    }
+                } else {
+                    Common.showToast(activity, R.string.textNoNetwork);
+                }
+                /* 回前一個Fragment */
+                navController.popBackStack();
             }
+
+
+
         });
 
 
@@ -107,6 +147,17 @@ public class AdminNewDetailFragment extends Fragment {
                 navController.popBackStack();
             }
         });
+    }
+
+    private void savePreferences() {
+        //置入name屬性的字串
+        Common.getPreherences(activity).edit().putString("name",etName.getText().toString()).apply();
+        Common.getPreherences(activity).edit().putString("id",etAccountId.getText().toString()).apply();
+        Common.getPreherences(activity).edit().putString("password",etNewPassword.getText().toString()).apply();
+        Common.getPreherences(activity).edit().putString("position",spPosition.toString()).apply();
+
+        Log.i(TAG, "-------------------------------------------------------------");
+
     }
 
     private void showAdmin() {

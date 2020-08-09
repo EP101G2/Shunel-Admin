@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +70,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
         etRecAddress.setText(orderMain.getOrder_Main_Address());
 
 //        set button
-        btCancel = view.findViewById(R.id.btCancel);
+        btCancel = view.findViewById(R.id.btLogin);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
