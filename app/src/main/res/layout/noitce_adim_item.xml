@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btEdit2"
+            android:id="@+id/btUpdateND"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_marginEnd="6dp"
