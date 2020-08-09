@@ -55,6 +55,7 @@
 
     </LinearLayout>
 
+
     <TextView
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -71,6 +72,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/ivAdim"
+        android:layout_width="45dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogout"
+        app:layout_constraintEnd_toStartOf="@+id/ivLogout"
+        app:layout_constraintTop_toTopOf="@+id/ivLogout"
+        app:srcCompat="@drawable/admin" />
+
+    <ImageView
         android:id="@+id/ivLogout"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -82,8 +94,7 @@
         app:srcCompat="@drawable/logout" />
 
 
-
-
+   
 
 
     <!--  建立viewPage Jack 7.22  -->

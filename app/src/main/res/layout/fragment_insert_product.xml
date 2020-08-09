@@ -27,13 +27,11 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="50dp"
                     android:text="@string/productCategory"
                     android:textSize="18dp"
-                    app:layout_constraintEnd_toStartOf="@+id/categoryOfProduct"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/categoryOfProduct" />
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -87,25 +85,25 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginTop="60dp"
                     android:text="@string/productStatus"
                     android:textSize="18dp"
-                    app:layout_constraintEnd_toStartOf="@+id/statusOfProduct"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/statusOfProduct" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="36dp"
                     android:text="@string/productcolor"
                     android:textSize="18dp"
-                    app:layout_constraintEnd_toStartOf="@+id/colorOfProduct"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/colorOfProduct" />
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <EditText
                     android:id="@+id/detailOfProduct"
@@ -113,20 +111,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="217dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/categoryOfProduct"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivshowpicture" />
 
                 <ImageView
                     android:id="@+id/ivshowpicture"
-                    android:layout_width="186dp"
-                    android:layout_height="110dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_width="313dp"
+                    android:layout_height="156dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="188dp"
                     android:src="@drawable/no_image"
-                    app:layout_constraintBottom_toTopOf="@+id/nameOfProduct"
+                    app:layout_constraintBottom_toTopOf="@+id/detailOfProduct"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.746"
+                    app:layout_constraintStart_toEndOf="@+id/statusRadioGroup"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,30 +144,6 @@
                     app:layout_constraintEnd_toStartOf="@+id/priceOfProduct"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/priceOfProduct" />
-
-                <EditText
-                    android:id="@+id/statusOfProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/btaddproduct"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <EditText
-                    android:id="@+id/categoryOfProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/statusOfProduct"
-                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <EditText
                     android:id="@+id/nameOfProduct"
@@ -182,6 +161,7 @@
                     android:id="@+id/btaddproduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="28dp"
                     android:text="@string/addproduct"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +175,87 @@
                     android:src="@drawable/add"
                     app:layout_constraintBottom_toBottomOf="@+id/ivshowpicture"
                     app:layout_constraintEnd_toEndOf="@+id/ivshowpicture" />
+
+                <RadioGroup
+                    android:id="@+id/categoryRadioGroup"
+                    android:layout_width="319dp"
+                    android:layout_height="76dp"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginLeft="76dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.23">
+
+                    <RadioButton
+                        android:id="@+id/ring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="戒指" />
+
+                    <RadioButton
+                        android:id="@+id/earring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="耳環" />
+
+                    <RadioButton
+                        android:id="@+id/necklace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="項鍊" />
+
+                    <RadioButton
+                        android:id="@+id/fragranceEarring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-180dp"
+                        android:layout_marginTop="40dp"
+                        android:text="香氛耳環" />
+
+                    <RadioButton
+                        android:id="@+id/fragranceNecklace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="40dp"
+                        android:text="香氛項鍊" />
+
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/statusRadioGroup"
+                    android:layout_width="200dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginLeft="80dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@+id/textView10"
+                    app:layout_constraintTop_toTopOf="@+id/textView10">
+
+                    <RadioButton
+                        android:id="@+id/shelvesProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/shelvesproduct" />
+
+                    <RadioButton
+                        android:id="@+id/onSaleProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/onsaleproduct" />
+
+                    <RadioButton
+                        android:id="@+id/promotionProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/promotion" />
+
+                </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
