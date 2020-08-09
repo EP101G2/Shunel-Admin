@@ -56,16 +56,20 @@ public class noticeListAdimFragment extends Fragment {
     SearchView SearchSaleN;
     private adimSaleNAdapter noticeAdimSaleAdapter;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        initData();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        showSalelist(noticeAdimSaleList);
+//    }
+
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
+        noticeAdimSaleList = getData();
     }
 
     @Override
@@ -98,10 +102,8 @@ public class noticeListAdimFragment extends Fragment {
     }
 
     private void initData() {
-        noticeAdimSaleList = getData();
-
         rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));
-
+        noticeAdimSaleList = getData();
         showSalelist(noticeAdimSaleList);
 
 
