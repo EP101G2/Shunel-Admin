@@ -94,11 +94,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-<<<<<<< HEAD
-            android:id="@+id/btLogin"
-=======
             android:id="@+id/btCancelMRD"
->>>>>>> efa470780a831369bb4e6c0039101250622a7403
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"

@@ -268,11 +268,8 @@
         app:layout_constraintVertical_bias="0.75">
 
         <Button
-<<<<<<< HEAD
-            android:id="@+id/btLogin"
-=======
+
             android:id="@+id/btCancelOMD"
->>>>>>> efa470780a831369bb4e6c0039101250622a7403
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
