@@ -7,6 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+//<<<<<<< HEAD
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
+//=======
 
 
 import androidx.fragment.app.FragmentActivity;
@@ -17,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -36,11 +41,26 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
+<<<<<<< HEAD
     private int[] label={R.string.Promotion,R.string.system,R.string.chat};
-
-
+=======
+//<<<<<<< HEAD
+//<<<<<<< HEAD
+    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+//=======
+//
+//    private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
     private ImageView ivLogout, ivAdmin;
+//
+//>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
+//=======
+//    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+>>>>>>> 406d37e89c190569c0bd23f54e2a0edfe238051e
 
+
+//    private ImageView ivLogout;
+
+//>>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
 
 
     public HomeFragment() {
@@ -64,6 +84,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+<<<<<<< HEAD
 //        ivLogout = view.findViewById(R.id.ivLogout);
 //        ivAdmin = view.findViewById(R.id.ivAdmin);
 //
@@ -79,6 +100,17 @@ public class HomeFragment extends Fragment {
 //                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
 //            }
 //        });
+=======
+        ivLogout = view.findViewById(R.id.ivLogout);
+
+
+        ivLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logout();
+            }
+        });
+>>>>>>> 406d37e89c190569c0bd23f54e2a0edfe238051e
 
 
         findViews(view);
