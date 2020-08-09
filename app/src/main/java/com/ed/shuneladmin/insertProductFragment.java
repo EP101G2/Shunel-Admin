@@ -119,7 +119,7 @@ public class insertProductFragment extends Fragment {
             categoryOfProduct.setText(String.valueOf(product.getProduct_Category_ID()));
             statusOfProduct.setText(String.valueOf(product.getProduct_Status()));
 
-            imageTask
+            //imageTask
 
 
         } else {
