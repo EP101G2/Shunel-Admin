@@ -108,22 +108,9 @@ public class OrderManageDetailFragment extends Fragment {
         rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderDetailList));
 
 //        setting spinner, change status
-//        spChangeStatus.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                parent.setVisibility(View.VISIBLE);
-//                status = parent.getSelectedItemPosition();//??
-//                Log.e(TAG, "=="+status);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                parent.setVisibility(View.VISIBLE);
-//            }
-//        }); // 匿名內部 class
         int oriStatus = orderMain.getOrder_Main_Order_Status();
         spChangeStatus = view.findViewById(R.id.spChangeStatus);
-        spChangeStatus.setSelection(0, true);
+        spChangeStatus.setSelection(oriStatus, true);
         String[] statusCategory = {"未付款", "未出貨", "已出貨", "已送達", "已取消", "已退貨"};
 //        spinner's adapter
         ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, statusCategory);
