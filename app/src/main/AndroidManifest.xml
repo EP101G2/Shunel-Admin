@@ -19,7 +19,8 @@
         android:theme="@style/Theme.Design.Light.NoActionBar">
 
 
-        <activity android:name=".PayActivity" /> <!-- 拍照 -->
+        <activity android:name=".PayActivity"
+            /> <!-- 拍照 -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -52,7 +53,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
     </application>

@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
-    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+    private int[] label={R.string.Promotion,R.string.system,R.string.chat};
 
 
     private ImageView ivLogout, ivAdmin;
@@ -64,21 +64,21 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ivLogout = view.findViewById(R.id.ivLogout);
-        ivAdmin = view.findViewById(R.id.ivAdmin);
-
-        ivLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logout();
-            }
-        });
-        ivAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
-            }
-        });
+//        ivLogout = view.findViewById(R.id.ivLogout);
+//        ivAdmin = view.findViewById(R.id.ivAdmin);
+//
+//        ivLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Logout();
+//            }
+//        });
+//        ivAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
+//            }
+//        });
 
 
         findViews(view);
