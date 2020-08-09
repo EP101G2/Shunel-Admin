@@ -114,7 +114,7 @@ public class OrdersManagementFragment extends Fragment {
                                     searchOrders.add(orderMain);
                                 }
 //                            search by orderId
-                                else if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
+                                if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
                                     searchOrders.add(orderMain);
                                 }
                             }
@@ -168,7 +168,6 @@ public class OrdersManagementFragment extends Fragment {
                     String jsonIn = ordersListGetTask.execute().get();
                     Type listType = new TypeToken<List<Order_Main>>() {
                     }.getType();
-//                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                     orderMainList = gson.fromJson(jsonIn, listType);
                     Log.e(TAG, jsonIn);
                 } catch (Exception e) {
@@ -205,7 +204,6 @@ public class OrdersManagementFragment extends Fragment {
     //    inner class PageViewHolder for the holding of recycler view
         class PageViewHolder extends RecyclerView.ViewHolder {
             TextView tvOrderDate, tvOrderModifyDate, tvOrderId, tvAccountIdOrders, tvTotalPrice, tvOrderStatus;
-//            TextView tvOrderDateText, tvOrderModifyDateText, tvOrderIdText, tvAccountIdText, tvTotalPriceText, tvOrderStatusText;
             public PageViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvOrderDate = itemView.findViewById(R.id.tvOrderDate);
@@ -214,13 +212,6 @@ public class OrdersManagementFragment extends Fragment {
                 tvAccountIdOrders = itemView.findViewById(R.id.tvAccountIdOrders);
                 tvTotalPrice = itemView.findViewById(R.id.tvTotalPrice);
                 tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
-
-//                tvOrderDateText = itemView.findViewById(R.id.tvOrderDateText);
-//                tvOrderModifyDateText = itemView.findViewById(R.id.tvOrderModifyDateText);
-//                tvOrderIdText = itemView.findViewById(R.id.tvOrderIdText);
-//                tvAccountIdText = itemView.findViewById(R.id.tvAccountIdText);
-//                tvTotalPriceText = itemView.findViewById(R.id.tvTotalPriceText);
-//                tvOrderStatusText = itemView.findViewById(R.id.tvOrderStatusText);
             }
         }
 
@@ -233,7 +224,7 @@ public class OrdersManagementFragment extends Fragment {
             holder.tvAccountIdOrders.setText(orderMain.getAccount_ID());
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
             holder.tvOrderStatus.setText(String.valueOf(orderMain.getOrder_Main_Order_Status()));
-            Log.e(TAG,"======"+orderMain.getOrder_ID());
+            Log.e(TAG,"--onBindViewHolder-->"+orderMain.getOrder_ID());
 
 
 //            navigate to detail fragment

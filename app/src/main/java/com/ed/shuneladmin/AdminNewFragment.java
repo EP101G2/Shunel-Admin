@@ -56,13 +56,13 @@ private String result;
     etAccountId= view.findViewById(R.id.etAccountId);
     etNewPassword=view.findViewById(R.id.etNewPassword);
     etReTypeNewPassword=view.findViewById(R.id.etReTypeNewPassword);
-    btCancel=view.findViewById(R.id.btCancel);
+    btCancel=view.findViewById(R.id.btLogin);
 
     btConfirm=view.findViewById(R.id.btConfirm);
     spPosition=view.findViewById(R.id.spPosition);
         /* 也可使用List */
-        final String[] postions = {"管理員", "一般職員"};
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+        String[] postions = {"管理員", "一般職員"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_spinner_item, postions);
         /* 指定點選時彈出來的選單樣式 */
         arrayAdapter.setDropDownViewResource(
@@ -73,7 +73,7 @@ private String result;
         spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Admin admin =(Admin) parent.getItemAtPosition(position);
+
                  result =  parent.getItemAtPosition(position).toString();
 
             }

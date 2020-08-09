@@ -11,7 +11,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,8 +33,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,7 +90,7 @@ public class OrderManageDetailFragment extends Fragment {
         tvReceiverName = view.findViewById(R.id.tvReceiverName);
         tvReceiverPhone = view.findViewById(R.id.tvReceiverPhone);
         tvReceiverAddress = view.findViewById(R.id.tvReceiverAddress);
-//        bundle data from last page //THIS DOESN'T WORK!!!!!
+//        bundle data from last page
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getSerializable("Orders") == null) {
@@ -138,6 +134,7 @@ public class OrderManageDetailFragment extends Fragment {
 
 
 //        setting buttons
+
         btCancel = view.findViewById(R.id.btCancelOMD);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,9 +144,10 @@ public class OrderManageDetailFragment extends Fragment {
         });
 //save changed status and upload to server
         btSave = view.findViewById(R.id.btSaveOMD);
-        btSave.setOnClickListener(new View.OnClickListener() {
+        btSave.setOnClickListener(  new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int orderId = Integer.parseInt(tvOrderIdDet.getText().toString());
                 status = spChangeStatus.getSelectedItemPosition();
                 String jsonIn = "";
                 try {
@@ -159,6 +157,7 @@ public class OrderManageDetailFragment extends Fragment {
                         Log.e("updateStatus", "==" + status);
                         jsonObject.addProperty("action", "updateStatus");
                         jsonObject.addProperty("status", new Gson().toJson(status));
+                        jsonObject.addProperty("orderId", new Gson().toJson(orderId));
                         ordersListDetGetTask = new CommonTask(url, jsonObject.toString());
                         try {
                             jsonIn = ordersListDetGetTask.execute().get();

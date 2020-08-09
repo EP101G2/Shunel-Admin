@@ -92,27 +92,51 @@ public class noticeListAdimFragment extends Fragment {
     private void initData() {
         noticeAdimSaleList = getData();
 
-        for(Notice notice : noticeAdimSaleList){
-            notice.setOpen(false);
-        }
         rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));
-        rvAdimSaleN.setAdapter(new adimSaleNAdapter(activity, noticeAdimSaleList));
+
+        showSalelist(noticeAdimSaleList);
 
 
     }
 
     private void setLinstener() {
 
+        SearchSaleN.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
+                if (newText.isEmpty()) {
+                    showSalelist(noticeAdimSaleList);
+                } else {
+                    List<Notice> SearchSaleAll = new ArrayList<>();
+                    // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
+                    for (Notice notice : noticeAdimSaleList)
+                        if (notice.getNotice_Content().toUpperCase().contains(newText.toUpperCase()) || notice.getNotice_Title().toUpperCase().contains(newText.toUpperCase())) {
+                            SearchSaleAll.add(notice);
+                        }
+                    showSalelist(SearchSaleAll);
+                }
+                return true;
+            }
+        });
 
 
         tvUpdateSaleN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(Notice notice : noticeAdimSaleList){
-                    notice.setOpen(!notice.isOpen());
-                }
+
                 noticeAdimSaleAdapter = (adimSaleNAdapter) rvAdimSaleN.getAdapter();
-                noticeAdimSaleAdapter.setList(noticeAdimSaleList);
+                boolean[] Expanded = noticeAdimSaleAdapter.getExpanded();
+                for(int i = 0 ; i < Expanded.length ; i++){
+                    Expanded[i] = !Expanded[i];
+                }
+                noticeAdimSaleAdapter.setExpanded(Expanded);
+
                 noticeAdimSaleAdapter.notifyDataSetChanged();
 
             }
@@ -122,12 +146,29 @@ public class noticeListAdimFragment extends Fragment {
         ivAddSaleN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.flag = 0;
                 NavController navController = Navigation.findNavController(activity, R.id.homeFragment);
                 navController.navigate(R.id.noticeAdminFragment);
             }
 
 
         });
+
+    }
+
+    private void showSalelist(List<Notice> nList) {
+        if (nList == null || nList.isEmpty()) {
+            Common.showToast(activity, R.string.noNotice);
+        }
+        noticeAdimSaleAdapter = (adimSaleNAdapter) rvAdimSaleN.getAdapter();
+        // 如果spotAdapter不存在就建立新的，否則續用舊有的
+        if (noticeAdimSaleAdapter == null) {
+            rvAdimSaleN.setAdapter(new adimSaleNAdapter(activity, noticeAdimSaleList));
+        } else {
+
+            noticeAdimSaleAdapter.setList(nList);
+            noticeAdimSaleAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -156,7 +197,6 @@ public class noticeListAdimFragment extends Fragment {
     }
 
 
-
     private class adimSaleNAdapter extends RecyclerView.Adapter<adimSaleNAdapter.MyViewHolder> {
         Context context;
         List<Notice> noticeList;
@@ -168,10 +208,20 @@ public class noticeListAdimFragment extends Fragment {
             Expanded = new boolean[noticeList.size()];
         }
 
-        void setList( List<Notice> noticeList){
+        void setList(List<Notice> noticeList) {
+
+
             this.noticeList = noticeList;
+
         }
 
+        boolean[] getExpanded(){
+            return  this.Expanded;
+        }
+
+        void setExpanded(boolean[] Expanded){
+            this.Expanded = Expanded;
+        }
 //        private  void  expand(int position){
 //            Expanded[position] = noticeList.get(position).isOpen();
 //            Expanded[position] = !Expanded[position];
@@ -188,14 +238,13 @@ public class noticeListAdimFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Expanded[position] = noticeList.get(position).isOpen();
             final Notice notice = noticeAdimSaleList.get(position);
             int notice_id = notice.getNotice_ID();
             holder.tvNoticeT.setText(notice.getNotice_Title());
             holder.tvNoticeD.setText(notice.getNotice_Content());
-            Log.e("---------",notice.getNotice_time().toString()+"---");
+            Log.e("---------", notice.getNotice_time().toString() + "---");
             holder.tvDateN.setText(notice.getNotice_time().toString());
-            holder.cbNotice.setVisibility(Expanded[position]? View.VISIBLE:View.GONE);
+            holder.cbNotice.setVisibility(Expanded[position] ? View.VISIBLE : View.GONE);
         }
 
         @Override
