@@ -103,8 +103,9 @@
     <string name="hint_rec_phone" />
     <string name="hint_rec_address" />
     <string name="delet">刪除</string>
-    <string name="hintNT">輸入訊息標題</string>
-    <string name="hintND">輸入訊息內文</string>
+    <string name="hintNT">&#160;&#160;輸入訊息標題</string>
+    <string name="hintND">&#160;&#160;輸入訊息內文</string>
+    <string name="noNotice">沒有訊息</string>
 
     <string name="notice">通知</string>
     <string name="modifyAdmin">修改管理員</string>

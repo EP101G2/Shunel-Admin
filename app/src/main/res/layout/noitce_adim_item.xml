@@ -51,12 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
             android:maxEms="12"
             android:singleLine="true"
             android:text="TextView"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/ivCategoryN"
-            app:layout_constraintTop_toTopOf="@+id/ivCategoryN" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvNoticeD"
@@ -83,13 +84,13 @@
 
         <ImageView
             android:id="@+id/ivCategoryN"
-            android:layout_width="69dp"
-            android:layout_height="68dp"
+            android:layout_width="50dp"
+            android:layout_height="53dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cbNotice"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cbNotice"
-            app:layout_constraintTop_toTopOf="@+id/cbNotice"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/saleitem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
