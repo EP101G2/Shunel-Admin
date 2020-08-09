@@ -11,7 +11,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,8 +33,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,6 +134,7 @@ public class OrderManageDetailFragment extends Fragment {
 
 
 //        setting buttons
+
         btCancel = view.findViewById(R.id.btCancelOMD);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
