@@ -73,7 +73,7 @@
     <string name="receiver_name" />
     <string name="text_phone">電話：</string>
     <string name="phone">電話:</string>
-    <string name="text_address">地址:</string>
+    <string name="text_address">地址：</string>
     <string name="address" >地址：</string>
     <string name="text_cancel">取消修改</string>
     <string name="text_save">儲存變更</string>
@@ -99,11 +99,9 @@
     <string name="insertsuccess">新增商品成功</string>
     <string name="insertfail">新增商品失敗</string>
     <string name="modify">修改</string>
-<<<<<<< HEAD
     <string name="hint_rec_name" />
     <string name="hint_rec_phone" />
     <string name="hint_rec_address" />
-=======
     <string name="delet">刪除</string>
     <string name="hintNT">輸入訊息標題</string>
     <string name="hintND">輸入訊息內文</string>
@@ -114,6 +112,7 @@
     <string name="memberAccount">會員帳號:</string>
     <string name="takepicture">拍照</string>
     <string name="picture">從相簿取照片</string>
->>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea
+    <string name="rec_phone" />
+    <string name="rec_address" />
 
 </resources>
