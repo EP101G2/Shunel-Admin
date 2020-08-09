@@ -9,36 +9,35 @@
 
     <!--  建立viewPage Jack 7.22  -->
 
-<<<<<<< HEAD
 
-=======
     <LinearLayout
 
 
         android:id="@+id/linearLayout2"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="55dp">
-<!--=======-->
+        app:layout_constraintTop_toBottomOf="@+id/view">
+        <!--=======-->
 
-<!--        android:layout_marginTop="100dp"-->
+        <!--        android:layout_marginTop="100dp"-->
 
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        >-->
-<!--&gt;>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef-->
-<!--=======-->
+        <!--        android:orientation="vertical"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        >-->
+        <!--&gt;>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef-->
+        <!--=======-->
 
-<!--        app:layout_constraintTop_toBottomOf="@+id/view">-->
-<!--        tools:layout_editor_absoluteY="55dp">-->
-<!--&gt;>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/view">-->
+        <!--        tools:layout_editor_absoluteY="55dp">-->
+        <!--&gt;>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea-->
 
 
         <com.google.android.material.tabs.TabLayout
@@ -59,7 +58,8 @@
     </LinearLayout>
 
 
->>>>>>> d91722d19b543af712d82bbf3943d2d157b86539
+    >>>>>>> d91722d19b543af712d82bbf3943d2d157b86539
+
     <TextView
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -97,18 +97,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logout" />
 
-<<<<<<< HEAD
-    <LinearLayout
-
-
-        android:id="@+id/linearLayout2"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-=======
->>>>>>> d91722d19b543af712d82bbf3943d2d157b86539
-
-   
+    =======
+    >>>>>>> d91722d19b543af712d82bbf3943d2d157b86539
 
 
     <!--  建立viewPage Jack 7.22  -->
