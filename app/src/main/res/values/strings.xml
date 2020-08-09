@@ -7,7 +7,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="member">會員管理</string>
+    <string name="member">人員管理</string>
     <string name="product">商品管理</string>
     <string name="price">銷售總額</string>
     <string name="news">消息</string>
@@ -74,7 +74,7 @@
     <string name="text_phone">電話：</string>
     <string name="phone">電話:</string>
     <string name="text_address">地址:</string>
-    <string name="address" >地址：</string>
+    <string name="address">地址：</string>
     <string name="text_cancel">取消修改</string>
     <string name="text_save">儲存變更</string>
     <string name="product_name" />
@@ -99,6 +99,9 @@
     <string name="insertsuccess">新增商品成功</string>
     <string name="insertfail">新增商品失敗</string>
     <string name="modify">修改</string>
+    <string name="hint_rec_name" />
+    <string name="hint_rec_phone" />
+    <string name="hint_rec_address" />
     <string name="delet">刪除</string>
     <string name="hintNT">輸入訊息標題</string>
     <string name="hintND">輸入訊息內文</string>

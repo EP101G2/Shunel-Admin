@@ -56,22 +56,22 @@ public class ModifyReceiverDetailFragment extends Fragment {
 
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
-        if (bundle == null || bundle.getSerializable("Receiver") == null) {
+        if (bundle == null) {
             Common.showToast(activity, R.string.textnofound);
             navController.popBackStack();
             return;
+        }else if (bundle != null){
+            String name = bundle.getString("name");
+            String phone = bundle.getString("phone");
+            String address = bundle.getString("address");
+//        take the bundled words as hint strings
+            etRecName.setHint(name);
+            etRecPhone.setHint(phone);
+            etRecAddress.setHint(address);
         }
 
-        orderMain = (Order_Main) bundle.getSerializable("Receiver");
-        String url = Common.URL_SERVER + "Orders_Servlet";
-        int  orderId = orderMain.getOrder_ID();
-
-        etRecName.setText(orderMain.getOrder_Main_Receiver());
-        etRecPhone.setText(orderMain.getOrder_Main_Phone());
-        etRecAddress.setText(orderMain.getOrder_Main_Address());
-
 //        set button
-        btCancel = view.findViewById(R.id.btCancel);
+        btCancel = view.findViewById(R.id.btCancelMRD);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
             }
         });
 
-        btSave = view.findViewById(R.id.btSave);
+        btSave = view.findViewById(R.id.btSaveMRD);
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

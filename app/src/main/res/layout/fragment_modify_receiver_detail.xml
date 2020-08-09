@@ -27,6 +27,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4">
 
+        <TextView
+            android:id="@+id/tvRecNameT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/text_receiver_name" />
+
         <EditText
             android:id="@+id/etRecName"
             android:layout_width="match_parent"
@@ -34,33 +41,47 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:hint="@string/name"
+            android:hint="@string/hint_rec_name"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="@string/receiver_name" />
+
+        <TextView
+            android:id="@+id/tvRecPhoneT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/text_phone" />
 
         <EditText
             android:id="@+id/etRecPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:hint="@string/hint_phone"
+            android:hint="@string/hint_rec_phone"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="@string/phone" />
+
+        <TextView
+            android:id="@+id/tvRecAddT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/text_address" />
 
         <EditText
             android:id="@+id/etRecAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:hint="@string/hint_address"
+            android:hint="@string/hint_rec_address"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="@string/address" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btCancel"
+            android:id="@+id/btCancelMRD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -83,7 +104,7 @@
             android:textColor="@color/normal_text_color" />
 
         <Button
-            android:id="@+id/btSave"
+            android:id="@+id/btSaveMRD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_userFragment_to_userdetailFragment"
             app:destination="@id/userdetailFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/member_newsFragment"
@@ -143,5 +146,10 @@
         android:name="com.ed.shuneladmin.insertProductFragment"
         android:label="fragment_insert_product"
         tools:layout="@layout/fragment_insert_product" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.ed.shuneladmin.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
 
 </navigation>

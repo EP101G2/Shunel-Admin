@@ -16,5 +16,7 @@
         android:icon="@drawable/member"
         android:id="@+id/userFragment"/>
     <item android:title="@string/price"
-        android:icon="@drawable/price"/>
+        android:icon="@drawable/price"
+        android:id="@+id/statisticsFragment"
+        />
 </menu>
