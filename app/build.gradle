@@ -63,4 +63,8 @@ dependencies {
 /*------------------------------------------------------------------*/
     /*統計圖表 Jack 8.8   父親節快樂  */
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+/*------------------------------------------------------------------*/
+    /*日歷套件 Jack 8.9     */
+
+    implementation 'com.github.Othershe:CalendarView:1.2.1'
 }

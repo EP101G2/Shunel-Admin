@@ -115,6 +115,7 @@
     <string name="picture">從相簿取照片</string>
 
 
+
     <string name="textDelete">刪除</string>
     <string name="textDeleteFail">刪除失敗</string>
     <string name="textDeleteSuccess">刪除成功</string>
@@ -127,7 +128,7 @@
     <string name="insertproduct">新增商品</string>
     <string name="updatesuccess">修改成功</string>
     <string name="updatefail">修改失敗</string>
-
+    <string name="chiocdate">選擇日期</string>
 
     <string name="shelvesproduct">下架</string>
     <string name="onsaleproduct">上架</string>

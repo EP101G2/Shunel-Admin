@@ -12,8 +12,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="match_parent"
         android:orientation="vertical">
+=======
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed" />
+>>>>>>> 6464a59678282588128ccac611953bb65a256171
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,6 +82,7 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+<<<<<<< HEAD
         <fragment
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -71,6 +92,47 @@
             app:navGraph="@navigation/homepage" />
 
     </LinearLayout>
+=======
+
+    <TextView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/appbar"
+        android:gravity="center"
+        android:text="@string/admin"
+        android:textColor="#FFFFFF"
+
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivAdim"
+        android:layout_width="45dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogout"
+        app:layout_constraintEnd_toStartOf="@+id/ivLogout"
+        app:layout_constraintTop_toTopOf="@+id/ivLogout"
+        app:srcCompat="@drawable/admin" />
+
+    <ImageView
+        android:id="@+id/ivLogout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logout" />
+
+
+>>>>>>> 6464a59678282588128ccac611953bb65a256171
 
 
     <!--  建立viewPage Jack 7.22  -->
