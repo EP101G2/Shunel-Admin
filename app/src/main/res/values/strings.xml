@@ -74,7 +74,7 @@
     <string name="text_phone">電話：</string>
     <string name="phone">電話:</string>
     <string name="text_address">地址：</string>
-    <string name="address" >地址：</string>
+    <string name="address">地址：</string>
     <string name="text_cancel">取消修改</string>
     <string name="text_save">儲存變更</string>
     <string name="product_name" />
@@ -121,5 +121,6 @@
     <string name="insertproduct">新增商品</string>
     <string name="updatesuccess">修改成功</string>
     <string name="updatefail">修改失敗</string>
+    <string name="chiocdate">選擇日期</string>
 
 </resources>

@@ -9,55 +9,7 @@
 
     <!--  建立viewPage Jack 7.22  -->
 
-<<<<<<< HEAD
-=======
-    <LinearLayout
 
-
-        android:id="@+id/linearLayout2"
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="55dp">
-<!--=======-->
-
-<!--        android:layout_marginTop="100dp"-->
-
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        >-->
-<!--&gt;>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef-->
-<!--=======-->
-
-<!--        app:layout_constraintTop_toBottomOf="@+id/view">-->
-<!--        tools:layout_editor_absoluteY="55dp">-->
-<!--&gt;>>>>>> 596b02847cb064046f97b2c5033dd5f892efa7ea-->
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-    </LinearLayout>
-
->>>>>>> 406d37e89c190569c0bd23f54e2a0edfe238051e
     <TextView
         android:id="@+id/view"
         android:layout_width="match_parent"
