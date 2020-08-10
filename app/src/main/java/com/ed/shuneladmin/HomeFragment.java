@@ -41,11 +41,11 @@ public class HomeFragment extends Fragment {
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
+    private int[] label={R.string.Promotion,R.string.system,R.string.chat};
 
 
 
 
-    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
     @Override
@@ -65,8 +65,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         ivLogout = view.findViewById(R.id.ivLogout);
         ivAdmin = view.findViewById(R.id.ivAdim);
 
@@ -85,8 +83,6 @@ public class HomeFragment extends Fragment {
                 Logout();
             }
         });
-
-
 
 
         findViews(view);

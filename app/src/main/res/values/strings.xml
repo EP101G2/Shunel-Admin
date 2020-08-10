@@ -128,6 +128,7 @@
     <string name="insertproduct">新增商品</string>
     <string name="updatesuccess">修改成功</string>
     <string name="updatefail">修改失敗</string>
+    <string name="chiocdate">選擇日期</string>
 
     <string name="shelvesproduct">下架</string>
     <string name="onsaleproduct">上架</string>
