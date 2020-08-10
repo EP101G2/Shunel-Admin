@@ -75,7 +75,7 @@ public class OrdersManagementFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 //        get data
         orderMainList = getOrders();
-        showOrders(orderMainList);
+        showOrders(getOrders());
 //        setting recycler view
         rvOrderMain = view.findViewById(R.id.rvOrderMain);
         rvOrderMain.setLayoutManager(new LinearLayoutManager(activity));
@@ -113,7 +113,7 @@ public class OrdersManagementFragment extends Fragment {
                                     searchOrders.add(orderMain);
                                 }
 //                            search by orderId
-                                if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
+                                else if (orderMain.getOrder_ID() == Integer.parseInt(newText)) { //turn newtext into int and compare to orderid
                                     searchOrders.add(orderMain);
                                 }
                             }
@@ -224,8 +224,7 @@ public class OrdersManagementFragment extends Fragment {
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
             holder.tvOrderStatus.setText(orderStatusText(orderMain.getOrder_Main_Order_Status()));//apply method orderStatusText
             Log.e(TAG,"--onBindViewHolder-->"+orderMain.getOrder_ID());
-
-
+            Log.e(TAG, "--OrderStatus-->"+orderMain.getOrder_Main_Order_Status());
 
 //            navigate to detail fragment
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +232,8 @@ public class OrdersManagementFragment extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Orders", orderMain);
+
+
                     Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment, bundle);
                 }
             });
@@ -240,6 +241,7 @@ public class OrdersManagementFragment extends Fragment {
 //            setting text for order status
     private String orderStatusText(int status) {
             String statusText = "";
+            Log.e(TAG, "status"+status);
             if (status == 0){
                 statusText = "未付款";
             }else if (status == 1){

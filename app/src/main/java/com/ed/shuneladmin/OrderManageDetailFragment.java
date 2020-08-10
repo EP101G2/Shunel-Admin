@@ -40,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -106,6 +108,11 @@ public class OrderManageDetailFragment extends Fragment {
         orderMain = (Order_Main) bundle.getSerializable("Orders");
         showOrderDetails();
 
+
+        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
+        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
+
 //        setting recycler view
         rvOrderDetProduct = view.findViewById(R.id.rvOrderDetProduct);
         rvOrderDetProduct.setLayoutManager(new LinearLayoutManager(activity));
@@ -131,12 +138,8 @@ public class OrderManageDetailFragment extends Fragment {
 
             }
         });
-//        spChangeStatus.setSelection(oriStatus,true);
-
-
 
 //        setting buttons
-
         btCancel = view.findViewById(R.id.btCancelOMD);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,32 +202,43 @@ public class OrderManageDetailFragment extends Fragment {
     }
 
     private void showOrderDetails() {
+//        List<Order_Main> orderDetList = new ArrayList<>();
         int id = orderMain.getOrder_ID();
         tvOrderIdDet.setText(String.valueOf(id));
         tvAccountIdDet.setText(orderMain.getAccount_ID());
         tvOrderDateDet.setText(String.valueOf(orderMain.getOrder_Main_Order_Date()));
-//        get receiver name, phone, address by orderId from server(not working, can't see Logcat)
-        String url = Common.URL_SERVER + "Orders_Servlet";
-        final Gson gson = new Gson();
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("action", "getOrderMain");
-        jsonObject.addProperty("orderID", new Gson().toJson(id));
-        ordersListDetGetTask = new CommonTask(url, jsonObject.toString());
+        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
+        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
+        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
 
-        try {
-            String jsonIn = ordersListDetGetTask.execute().get();
-            Log.e(TAG, jsonIn);
-
-            JsonObject jsonObjectRec = gson.fromJson(jsonIn, JsonObject.class);
-            final String result = jsonObjectRec.get("orderMain").getAsString();
-            final Order_Main orderMainRec = gson.fromJson(result, Order_Main.class);
-
-            tvReceiverName.setText(orderMainRec.getOrder_Main_Receiver());
-            tvReceiverPhone.setText(orderMainRec.getOrder_Main_Phone());
-            tvReceiverAddress.setText(orderMainRec.getOrder_Main_Address());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+////        get receiver name, phone, address by orderId from server(not working, can't see Logcat)
+//        String url = Common.URL_SERVER + "Orders_Servlet";
+//        final Gson gson = new Gson();
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("action", "getOrderMain");
+//        jsonObject.addProperty("orderID", new Gson().toJson(id));
+//        ordersListDetGetTask = new CommonTask(url, jsonObject.toString());
+//
+//        try {
+//            String jsonIn = ordersListDetGetTask.execute().get();
+//            Log.e(TAG, jsonIn);
+//
+////            Order_Mai orderDetail =
+////            Type listType = new TypeToken<List<Order_Main>>() {
+////            }.getType();
+////            orderDetList = gson.fromJson(jsonIn, listType);
+////            Log.e(TAG, jsonIn);
+//
+////            JsonObject jsonObjectRec = gson.fromJson(jsonIn, JsonObject.class);
+////            final String result = jsonObjectRec.get("orderMain").getAsString();
+//            final Order_Main orderMainRec = gson.fromJson(jsonIn, Order_Main.class);
+//
+//            tvReceiverName.setText(orderMainRec.getOrder_Main_Receiver());
+//            tvReceiverPhone.setText(orderMainRec.getOrder_Main_Phone());
+//            tvReceiverAddress.setText(orderMainRec.getOrder_Main_Address());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     //    Adapter for rvOrderDetProduct
@@ -250,9 +264,10 @@ public class OrderManageDetailFragment extends Fragment {
             return new OrderManageDetAdapter.PageViewHolder(view);
         }
 
-        class PageViewHolder extends RecyclerView.ViewHolder{
+        class PageViewHolder extends RecyclerView.ViewHolder {
             TextView tvProductName, tvProductPrice;
             ImageView ivOrderProductPic;
+
             public PageViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvProductName = itemView.findViewById(R.id.tvProductName);
@@ -272,7 +287,7 @@ public class OrderManageDetailFragment extends Fragment {
             orderDetProdImgTask = new ImageTask(url, productId, imageSize, holder.ivOrderProductPic);
             orderDetProdImgTask.execute();
             holder.tvProductName.setText(product.getProduct_Name()); // --delete ".get(position)"
-            holder.tvProductPrice.setText("$"+product.getProduct_Price());
+            holder.tvProductPrice.setText("$" + product.getProduct_Price());
 //            holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -285,7 +300,15 @@ public class OrderManageDetailFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            try {
+                if (productList != null) {
+                    Log.e(TAG, "itemCount:" + productList.size());
+                    return productList == null ? 0 : productList.size();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "null list");
+            }
+            return productList == null ? 0 : productList.size();
         }
     }
 }

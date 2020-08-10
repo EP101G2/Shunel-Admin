@@ -22,6 +22,8 @@ import com.ed.shuneladmin.bean.Order_Main;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 
 public class ModifyReceiverDetailFragment extends Fragment {
     private Activity activity;
@@ -64,15 +66,13 @@ public class ModifyReceiverDetailFragment extends Fragment {
             String phone = bundle.getString("phone");
             String address = bundle.getString("address");
 //        take the bundled words as hint strings
-            etRecName.setHint(name);
-            etRecPhone.setHint(phone);
-            etRecAddress.setHint(address);
+            etRecName.setText(name);
+            etRecPhone.setText(phone);
+            etRecAddress.setText(address);
         }
 
 //        set button
-
         btCancel = view.findViewById(R.id.btCancelMRD);
-
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,37 +82,43 @@ public class ModifyReceiverDetailFragment extends Fragment {
 
         btSave = view.findViewById(R.id.btSaveMRD);
         btSave.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                recName = etRecName.getText().toString();
-                recPhone = etRecPhone.getText().toString();
-                recAddress = etRecAddress.getText().toString();
-                orderMain.setOrder_Main_Receiver(recName);
-                orderMain.setOrder_Main_Phone(recPhone);
-                orderMain.setOrder_Main_Address(recAddress);
+                try{
+                    String order_Main_Receiver = etRecName.getText().toString();
+                    String order_Main_Phone = etRecPhone.getText().toString();
+                    String order_Main_Address = etRecAddress.getText().toString();
+                    Log.e(TAG, "getEditText -> "+order_Main_Receiver+"+"+order_Main_Phone+"+"+order_Main_Address);//ok
+
 //                save to db
-                if (Common.networkConnected(activity)) {
-                    String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "update");//case "update" in servlet(check)
-                    jsonObject.addProperty("Receiver", new Gson().toJson(orderMain));
-                    int count = 0;
-                    try {
-                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
-                        count = Integer.parseInt(result);
-                    } catch (Exception e) {
-                        Log.e(TAG, e.toString());
-                    }
-                    if (count == 0) {
-                        Common.showToast(activity, R.string.textUpdateFail);
+                    if (Common.networkConnected(activity)) {
+                        String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址
+                        orderMain.setReceiver(order_Main_Receiver, order_Main_Phone, order_Main_Address);
+
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "update");//case "update" in servlet(check)
+                        jsonObject.addProperty("Receiver", new Gson().toJson(orderMain));
+                        int count = 0;
+                        try {
+                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                            count = Integer.parseInt(result);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        if (count == 0) {
+                            Common.showToast(activity, R.string.textUpdateFail);
+                        } else {
+                            Common.showToast(activity, R.string.textUpdateSuccess);
+                        }
                     } else {
-                        Common.showToast(activity, R.string.textUpdateSuccess);
+                        Common.showToast(activity, R.string.textNoNetwork);
                     }
-                } else {
-                    Common.showToast(activity, R.string.textNoNetwork);
+                    /* 回前一個Fragment */
+                    navController.popBackStack();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                /* 回前一個Fragment */
-                navController.popBackStack();
             }
         });
     }
