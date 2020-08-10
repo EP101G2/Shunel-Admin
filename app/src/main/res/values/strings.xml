@@ -134,6 +134,8 @@
     <string name="onsaleproduct">上架</string>
     <string name="promotion">促銷</string>
     <string name="PickDate">選取日期</string>
+    <string name="NoticeAdmin">管理訊息</string>
+    <string name="memberNew">提問回覆</string>
 
 
 </resources>

@@ -71,12 +71,17 @@ public class NoticeAdminFragment extends Fragment {
 
         initData();
         /* 設置必要的系統服務元件如: Services、BroadcastReceiver */
-        setSystemServices();
+
         /* 設置View元件對應的linstener事件,讓UI可以與用戶產生互動 */
         setLinstener();
 
 
+
+
     }
+
+
+
 
 
     private void findViews(View view) {
@@ -88,6 +93,9 @@ public class NoticeAdminFragment extends Fragment {
 
 
     }
+
+
+
 
     private void initData() {
         switch (MainActivity.flag) {
@@ -119,6 +127,9 @@ public class NoticeAdminFragment extends Fragment {
 
 
     }
+
+
+
 
     private void setLinstener() {
 
@@ -204,9 +215,6 @@ public class NoticeAdminFragment extends Fragment {
 
     }
 
-    private void setSystemServices() {
-
-    }
 
 //    Spinner.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {//spinner
 //        @Override
