@@ -37,21 +37,16 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class HomeFragment extends Fragment {
 
     private Activity activity;
-
+    private ImageView ivLogout, ivAdmin;
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
     private int[] label={R.string.Promotion,R.string.system,R.string.chat};
-    private ImageView ivLogout, ivAdmin;
-
-
-//    private ImageView ivLogout;
 
 
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +66,15 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivLogout = view.findViewById(R.id.ivLogout);
+        ivAdmin = view.findViewById(R.id.ivAdim);
+
+
+        ivAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
+            }
+        });
 
 
         ivLogout.setOnClickListener(new View.OnClickListener() {

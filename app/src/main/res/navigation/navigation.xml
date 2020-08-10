@@ -68,11 +68,7 @@
         android:id="@+id/noticeAdminFragment"
         android:name="com.ed.shuneladmin.NoticeAdminFragment"
         android:label="fragment_notice_admin"
-        tools:layout="@layout/fragment_notice_admin" >
-        <action
-            android:id="@+id/action_noticeAdminFragment_to_noticeListAdimFragment"
-            app:destination="@id/noticeListAdimFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_notice_admin" />
     <fragment
 
         android:id="@+id/adminFragment"

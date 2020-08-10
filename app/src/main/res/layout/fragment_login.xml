@@ -38,7 +38,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/background2"
             android:hint="@string/typeAdminPassword"
-            app:layout_constraintBottom_toTopOf="@+id/btCancel"
+            app:layout_constraintBottom_toTopOf="@+id/btLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
 
         <Button
 
-            android:id="@+id/btCancel"
+            android:id="@+id/btLogin"
 
             android:layout_width="175dp"
             android:layout_height="45dp"

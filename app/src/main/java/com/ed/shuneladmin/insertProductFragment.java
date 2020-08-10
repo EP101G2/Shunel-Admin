@@ -29,6 +29,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,12 +69,16 @@ public class insertProductFragment extends Fragment {
     CommonTask insertProduct;
     ImageView ivinsertbuttom, ivshowpicture;
     ImageTask imageTask;
+    RadioButton shelvesProduct, onSaleProduct,promotionProduct,ring,necklace,earring,fragranceNecklace,fragranceEarring;
+    RadioGroup statusRadioGroup,categoryRadioGroup;
     private byte[] image;
     private Uri contentUri;
     private static final int REQ_TAKE_PICTURE = 0;
     private static final int REQ_PICK_IMAGE = 1;
     private static final int REQ_CROP_PICTURE = 2;
     private AlertDialog dialog;
+    private int ststus ,category;
+
 
 
     public insertProductFragment() {
@@ -94,18 +100,25 @@ public class insertProductFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameOfProduct = view.findViewById(R.id.nameOfProduct);
         colorOfProduct = view.findViewById(R.id.colorOfProduct);
         priceOfProduct = view.findViewById(R.id.priceOfProduct);
         detailOfProduct = view.findViewById(R.id.detailOfProduct);
-        categoryOfProduct = view.findViewById(R.id.categoryOfProduct);
-        statusOfProduct = view.findViewById(R.id.statusOfProduct);
         btaddproduct = view.findViewById(R.id.btaddproduct);
         ivinsertbuttom = view.findViewById(R.id.ivinsertbuttom);
         ivshowpicture = view.findViewById(R.id.ivshowpicture);
-
+        shelvesProduct = view.findViewById(R.id.shelvesProduct);
+        onSaleProduct = view.findViewById(R.id.onSaleProduct);
+        statusRadioGroup = view.findViewById(R.id.statusRadioGroup);
+        categoryRadioGroup = view.findViewById(R.id.categoryRadioGroup);
+        ring = view.findViewById(R.id.ring);
+        promotionProduct = view.findViewById(R.id.promotionProduct);
+        necklace= view.findViewById(R.id.necklace);
+        earring=view.findViewById(R.id.earring);
+        fragranceNecklace = view.findViewById(R.id.fragranceNecklace);
+        fragranceEarring = view.findViewById(R.id.fragranceEarring);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -116,10 +129,66 @@ public class insertProductFragment extends Fragment {
             colorOfProduct.setText(product.getProduct_Color());
             priceOfProduct.setText(String.valueOf(product.getProduct_Price()));
             detailOfProduct.setText(product.getProduct_Ditail());
-            categoryOfProduct.setText(String.valueOf(product.getProduct_Category_ID()));
-            statusOfProduct.setText(String.valueOf(product.getProduct_Status()));
 
-            //imageTask
+            category = product.getProduct_Category_ID();
+            ststus = product.getProduct_Status();
+
+            //===========進入修改頁面 若有bundle會設定 RadioButton On
+            switch (category){
+                case 1 :
+                    ring.setChecked(true);
+                    break;
+                case 2 :
+                    necklace.setChecked(true);
+                    break;
+                case 3 :
+                    earring.setChecked(true);
+                    break;
+                case 4 :
+                    fragranceNecklace.setChecked(true);
+                    break;
+                case 5 :
+                    fragranceEarring.setChecked(true);
+                    break;
+            }
+            switch (ststus){
+                case 0 :
+                    shelvesProduct.setChecked(true);
+                    break;
+                case 1 :
+                    onSaleProduct.setChecked(true);
+                    break;
+                case 2 :
+                    promotionProduct.setChecked(true);
+                    break;
+
+            }
+
+
+
+
+
+      //      ring.setChecked(true);
+
+
+//            categoryOfProduct.setText(String.valueOf(product.getProduct_Category_ID()));
+//            statusOfProduct.setText(String.valueOf(product.getProduct_Status()));
+
+            //顯示商品照片
+            String url = Common.URL_SERVER + "Prouct_Servlet";
+            int id = product.getProduct_ID();
+            int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+            Bitmap bitmap = null;
+            try {
+                bitmap = new ImageTask(url, id, imageSize).execute().get();
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (bitmap != null) {
+                ivshowpicture.setImageBitmap(bitmap);
+            } else {
+                ivshowpicture.setImageResource(R.drawable.no_image);
+            }
 
 
         } else {
@@ -176,6 +245,46 @@ public class insertProductFragment extends Fragment {
 
             }
         });
+        categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.ring://單選 戒指
+                        category = 1;
+                        break;
+                    case R.id.necklace: //單選 項鍊
+                        category = 2;
+                        break;
+                    case R.id.earring: //單選 耳環
+                        category = 3;
+                        break;
+                    case R.id.fragranceNecklace: //單選 香氛項鍊
+                        category = 4;
+                        break;
+                    case R.id.fragranceEarring: //單選 香氛耳環
+                        category = 5;
+                        break;
+                }
+
+            }
+        });
+
+        statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.shelvesProduct://單選 下架
+                        ststus = 0;
+                        break;
+                    case R.id.onSaleProduct: //單選 上架
+                        ststus = 1;
+                        break;
+                    case R.id.promotionProduct: //單選 促銷
+                        ststus = 2;
+                        break;
+                }
+            }
+        });
 
 
         btaddproduct.setOnClickListener(new View.OnClickListener() {
@@ -190,16 +299,17 @@ public class insertProductFragment extends Fragment {
                         product.setProduct_Color(colorOfProduct.getText().toString());
                         product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
                         product.setProduct_Ditail(detailOfProduct.getText().toString());
-                        product.setProduct_Category_ID(Integer.parseInt(categoryOfProduct.getText().toString()));
-                        product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
+                        product.setProduct_Category_ID(category);
+                        product.setProduct_Status(ststus);
                     } else {
                         product = new Product();
                         product.setProduct_Name(nameOfProduct.getText().toString());
                         product.setProduct_Color(colorOfProduct.getText().toString());
                         product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
                         product.setProduct_Ditail(detailOfProduct.getText().toString());
-                        product.setProduct_Category_ID(Integer.parseInt(categoryOfProduct.getText().toString()));
-                        product.setProduct_Status(Integer.parseInt(statusOfProduct.getText().toString()));
+                        product.setProduct_Category_ID(category);
+                        product.setProduct_Status(ststus);
+
                     }
 
                     String url = Common.URL_SERVER + "Prouct_Servlet";
@@ -219,10 +329,10 @@ public class insertProductFragment extends Fragment {
 
                         if (count == 1) {
 
-                            Toast.makeText(activity, flag ==1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Toast.makeText(activity, flag ==1 ?  R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, flag == 1 ? R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (ExecutionException e) {

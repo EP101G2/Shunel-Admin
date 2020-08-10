@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainer;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,11 +56,20 @@ public class noticeListAdimFragment extends Fragment {
     SearchView SearchSaleN;
     private adimSaleNAdapter noticeAdimSaleAdapter;
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        showSalelist(noticeAdimSaleList);
+//    }
+
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
+        noticeAdimSaleList = getData();
     }
 
     @Override
@@ -79,7 +89,9 @@ public class noticeListAdimFragment extends Fragment {
         /* 設置必要的系統服務元件如: Services、BroadcastReceiver */
         /* 設置View元件對應的linstener事件,讓UI可以與用戶產生互動 */
         setLinstener();
+
     }
+
 
 
     private void findViews(View view) {
@@ -90,10 +102,8 @@ public class noticeListAdimFragment extends Fragment {
     }
 
     private void initData() {
-        noticeAdimSaleList = getData();
-
         rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));
-
+        noticeAdimSaleList = getData();
         showSalelist(noticeAdimSaleList);
 
 
@@ -197,6 +207,7 @@ public class noticeListAdimFragment extends Fragment {
     }
 
 
+
     private class adimSaleNAdapter extends RecyclerView.Adapter<adimSaleNAdapter.MyViewHolder> {
         Context context;
         List<Notice> noticeList;
@@ -245,7 +256,19 @@ public class noticeListAdimFragment extends Fragment {
             Log.e("---------", notice.getNotice_time().toString() + "---");
             holder.tvDateN.setText(notice.getNotice_time().toString());
             holder.cbNotice.setVisibility(Expanded[position] ? View.VISIBLE : View.GONE);
+            holder.btUpdateND.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity.flag = 2;
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("NoitceAdim",notice);
+                    NavController navController = Navigation.findNavController(activity,R.id.homeFragment);
+                    navController.navigate(R.id.noticeAdminFragment, bundle);
+                }
+            });
+
         }
+
 
         @Override
         public int getItemCount() {
@@ -258,6 +281,7 @@ public class noticeListAdimFragment extends Fragment {
             TextView tvNoticeD;
             TextView tvDateN;
             CheckBox cbNotice;
+            Button btUpdateND;
 
             public MyViewHolder(View view) {
                 super(view);
@@ -266,6 +290,8 @@ public class noticeListAdimFragment extends Fragment {
                 tvNoticeD = view.findViewById(R.id.tvNoticeD);
                 tvDateN = view.findViewById(R.id.tvDateN);
                 cbNotice = view.findViewById(R.id.cbNotice);
+                btUpdateND =view.findViewById(R.id.btUpdateND);
+
 
             }
 
