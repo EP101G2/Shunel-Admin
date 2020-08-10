@@ -133,6 +133,7 @@
     <string name="shelvesproduct">下架</string>
     <string name="onsaleproduct">上架</string>
     <string name="promotion">促銷</string>
+    <string name="PickDate">選取日期</string>
 
 
 </resources>
