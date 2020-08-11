@@ -54,5 +54,14 @@
             android:hint="@string/text_hint"
             android:text="@string/product_price"
             android:textColor="@color/normal_text_color" />
+
+        <TextView
+            android:id="@+id/tvOrderedProductId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="228dp"
+            android:hint="@string/text_hint"
+            android:text="@string/ordered_product_id" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
