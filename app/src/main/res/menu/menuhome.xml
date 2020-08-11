@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/NoticeAdmin"
+        android:id="@+id/noticeListAdimFragment"
+        />
+    <item android:title="@string/memberNew"
+        android:id="@+id/customerServiceFragment"
+        />
+</menu>

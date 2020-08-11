@@ -14,6 +14,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -63,4 +69,7 @@ dependencies {
 /*------------------------------------------------------------------*/
     /*統計圖表 Jack 8.8   父親節快樂  */
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+/*------------------------------------------------------------------*/
+    /*日歷套件 Jack 8.9     */
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
 }

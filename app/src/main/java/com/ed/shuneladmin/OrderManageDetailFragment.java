@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
@@ -31,8 +32,15 @@ import com.ed.shuneladmin.bean.Order_Main;
 import com.ed.shuneladmin.bean.Product;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,11 +56,10 @@ public class OrderManageDetailFragment extends Fragment {
 //    private String mParam2;
 //    routine work
     private Activity activity;
-    private Integer counter;
     private TextView tvAccountIdDet, tvOrderIdDet, tvOrderDateDet, tvReceiverName, tvReceiverPhone, tvReceiverAddress;
     private Spinner spChangeStatus;
     private Button btCancel, btSave, btModifyOrderData;
-    private int status = 0;
+//    private int status = 0;
     private Order_Main orderMain;
     List<Order_Main> orderMainList;
     List<Order_Detail> orderDetailList;
@@ -102,26 +109,37 @@ public class OrderManageDetailFragment extends Fragment {
         showOrderDetails();
 
 
+        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
+        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
+
 //        setting recycler view
         rvOrderDetProduct = view.findViewById(R.id.rvOrderDetProduct);
         rvOrderDetProduct.setLayoutManager(new LinearLayoutManager(activity));
         rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderDetailList));
 
 //        setting spinner, change status
-        int oriStatus = orderMain.getOrder_Main_Order_Status();
+//        int oriStatus = orderMain.getOrder_Main_Order_Status();
         spChangeStatus = view.findViewById(R.id.spChangeStatus);
-        spChangeStatus.setSelection(oriStatus, true);
+//        spChangeStatus.setSelection(oriStatus, true);
         String[] statusCategory = {"未付款", "未出貨", "已出貨", "已送達", "已取消", "已退貨"};
 //        spinner's adapter
         ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, statusCategory);
         aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spChangeStatus.setAdapter(aAdapter);
-        spChangeStatus.setSelection(0,true);
+        spChangeStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                parent.getItemAtPosition(position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
 
 //        setting buttons
-
         btCancel = view.findViewById(R.id.btCancelOMD);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +153,7 @@ public class OrderManageDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int orderId = Integer.parseInt(tvOrderIdDet.getText().toString());
-                status = spChangeStatus.getSelectedItemPosition();
+                int status = spChangeStatus.getSelectedItemPosition();
                 String jsonIn = "";
                 try {
                     if (Common.networkConnected(activity)) {
@@ -184,6 +202,7 @@ public class OrderManageDetailFragment extends Fragment {
     }
 
     private void showOrderDetails() {
+//        List<Order_Main> orderDetList = new ArrayList<>();
         int id = orderMain.getOrder_ID();
         tvOrderIdDet.setText(String.valueOf(id));
         tvAccountIdDet.setText(orderMain.getAccount_ID());
@@ -191,6 +210,35 @@ public class OrderManageDetailFragment extends Fragment {
         tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
         tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
         tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+
+////        get receiver name, phone, address by orderId from server(not working, can't see Logcat)
+//        String url = Common.URL_SERVER + "Orders_Servlet";
+//        final Gson gson = new Gson();
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("action", "getOrderMain");
+//        jsonObject.addProperty("orderID", new Gson().toJson(id));
+//        ordersListDetGetTask = new CommonTask(url, jsonObject.toString());
+//
+//        try {
+//            String jsonIn = ordersListDetGetTask.execute().get();
+//            Log.e(TAG, jsonIn);
+//
+////            Order_Mai orderDetail =
+////            Type listType = new TypeToken<List<Order_Main>>() {
+////            }.getType();
+////            orderDetList = gson.fromJson(jsonIn, listType);
+////            Log.e(TAG, jsonIn);
+//
+////            JsonObject jsonObjectRec = gson.fromJson(jsonIn, JsonObject.class);
+////            final String result = jsonObjectRec.get("orderMain").getAsString();
+//            final Order_Main orderMainRec = gson.fromJson(jsonIn, Order_Main.class);
+//
+//            tvReceiverName.setText(orderMainRec.getOrder_Main_Receiver());
+//            tvReceiverPhone.setText(orderMainRec.getOrder_Main_Phone());
+//            tvReceiverAddress.setText(orderMainRec.getOrder_Main_Address());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     //    Adapter for rvOrderDetProduct
@@ -216,9 +264,10 @@ public class OrderManageDetailFragment extends Fragment {
             return new OrderManageDetAdapter.PageViewHolder(view);
         }
 
-        class PageViewHolder extends RecyclerView.ViewHolder{
+        class PageViewHolder extends RecyclerView.ViewHolder {
             TextView tvProductName, tvProductPrice;
             ImageView ivOrderProductPic;
+
             public PageViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvProductName = itemView.findViewById(R.id.tvProductName);
@@ -238,7 +287,7 @@ public class OrderManageDetailFragment extends Fragment {
             orderDetProdImgTask = new ImageTask(url, productId, imageSize, holder.ivOrderProductPic);
             orderDetProdImgTask.execute();
             holder.tvProductName.setText(product.getProduct_Name()); // --delete ".get(position)"
-            holder.tvProductPrice.setText("$"+product.getProduct_Price());
+            holder.tvProductPrice.setText("$" + product.getProduct_Price());
 //            holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -251,7 +300,15 @@ public class OrderManageDetailFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            try {
+                if (productList != null) {
+                    Log.e(TAG, "itemCount:" + productList.size());
+                    return productList == null ? 0 : productList.size();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "null list");
+            }
+            return productList == null ? 0 : productList.size();
         }
     }
 }

@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
@@ -62,7 +63,7 @@
             android:ems="10"
             android:hint="@string/hint_rec_phone"
             android:inputType="textPersonName"
-            android:text="@string/phone" />
+            android:text="@string/rec_phone" />
 
         <TextView
             android:id="@+id/tvRecAddT"
@@ -81,17 +82,18 @@
             android:ems="10"
             android:hint="@string/hint_rec_address"
             android:inputType="textPersonName"
-            android:text="@string/address" />
+            android:text="@string/rec_address" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.7">
 
         <Button
             android:id="@+id/btCancelMRD"

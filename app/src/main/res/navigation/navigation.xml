@@ -151,5 +151,10 @@
         android:name="com.ed.shuneladmin.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.ed.shuneladmin.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 
 </navigation>

@@ -13,21 +13,27 @@ public class Order_Main implements Serializable {
     private String order_Main_Address;
     private String order_Main_Phone;
     private Timestamp Order_Main_Order_Date;
-    private int order_Main_Order_Status;
+    private int order_Status;
     private Timestamp Order_Main_Modify_Date;
 
-public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, String order_Main_Receiver, String order_Main_Address, String order_Main_Phone,Timestamp order_Main_Order_Date, int order_Main_Order_Status, Timestamp order_Main_Modify_Date) {
-    super();
-    this.order_ID = order_ID;
-    this.account_ID = account_ID;
-    this.order_Main_Total_Price = order_Main_Total_Price;
-    this.order_Main_Receiver = order_Main_Receiver;
-    this.order_Main_Address = order_Main_Address;
-    this.order_Main_Phone = order_Main_Phone;
-    this.Order_Main_Order_Date = order_Main_Order_Date;
-    this.order_Main_Order_Status = order_Main_Order_Status;
-    this.Order_Main_Modify_Date = order_Main_Modify_Date;
+    public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, String order_Main_Receiver, String order_Main_Address, String order_Main_Phone,Timestamp order_Main_Order_Date, int order_Main_Order_Status, Timestamp order_Main_Modify_Date) {
+        super();
+        this.order_ID = order_ID;
+        this.account_ID = account_ID;
+        this.order_Main_Total_Price = order_Main_Total_Price;
+        this.order_Main_Receiver = order_Main_Receiver;
+        this.order_Main_Address = order_Main_Address;
+        this.order_Main_Phone = order_Main_Phone;
+        this.Order_Main_Order_Date = order_Main_Order_Date;
+        this.order_Status = order_Main_Order_Status;
+        this.Order_Main_Modify_Date = order_Main_Modify_Date;
     }
+//    public void setReceiver(String order_Main_Receiver, String order_Main_Phone, String order_Main_Address){
+//        super();//??
+//        this.order_Main_Receiver = order_Main_Receiver;
+//        this.order_Main_Phone = order_Main_Phone;
+//        this.order_Main_Address = order_Main_Address;
+//    }
 
     //    Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, String order_Main_Recriver,
 //               String order_Main_Address, String order_Main_Phone, Timestamp order_Main_Order_Date,
@@ -110,11 +116,11 @@ public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, S
     }
 
     public int getOrder_Main_Order_Status() {
-        return order_Main_Order_Status;
+        return order_Status;
     }
 
     public void setOrder_Main_Order_Status(int order_Main_Order_Status) {
-        this.order_Main_Order_Status = order_Main_Order_Status;
+        this.order_Status = order_Main_Order_Status;
     }
 
     public Timestamp getOrder_Main_Modify_Date() {
@@ -123,5 +129,11 @@ public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, S
 
     public void setOrder_Main_Modify_Date(Timestamp order_Main_Modify_Date) {
         Order_Main_Modify_Date = order_Main_Modify_Date;
+    }
+
+    public void setReceiver(String order_Main_Receiver, String order_Main_Phone, String order_Main_Address) {
+        this.order_Main_Receiver = order_Main_Receiver;
+        this.order_Main_Phone = order_Main_Phone;
+        this.order_Main_Address = order_Main_Address;
     }
 }
