@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPw, etId;
     private String id,password,position;
     private CommonTask loginTask;
+    private ImageView imageView2;
 
 
     @Override
@@ -45,6 +47,20 @@ public class LoginActivity extends AppCompatActivity {
         etId = findViewById(R.id.etId);
         etPw = findViewById(R.id.etPw);
         btLogin = findViewById(R.id.btLogin);
+        imageView2 = findViewById(R.id.imageView2);
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etId.setText("Admin001");
+                etPw.setText("1111");
+
+            }
+        });
+
+
+
+
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override

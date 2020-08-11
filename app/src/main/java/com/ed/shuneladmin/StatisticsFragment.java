@@ -1,19 +1,33 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarUtils;
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -26,6 +40,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,26 +50,38 @@ import java.util.List;
 
 /*----------------------------------------------統計圖表----------------------------------------------*/
 
-public class StatisticsFragment extends Fragment {
-
+public class StatisticsFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, OnSelectDateListener {
 
     /*************************************************************************
      * 常數數宣告區
      *************************************************************************/
     private static final String TAG = "StatisticsFragment";
     private Activity activity;
+
+
     /*************************************************************************
      * 變數數宣告區
      *************************************************************************/
+
+    Date myDate;
+
 
     /**************************** View元件變數 *********************************/
 
     LineChart lineChart;
 
+    private TextView tvStartDate;
+
+    private Button btn_PickDate;
+
+    private Button btn_SendDate;
+
+    private static int year, month, day;
 
     /**************************** Adapter元件變數 ******************************/
 
     /**************************** Array元件變數 ********************************/
+
 
     /**************************** 資料集合變數 *********************************/
 
@@ -100,7 +127,9 @@ public class StatisticsFragment extends Fragment {
 
     private void findViews(View view) {
         lineChart = view.findViewById(R.id.lineChart);
-
+        btn_SendDate = view.findViewById(R.id.btn_SendDate);
+        tvStartDate = view.findViewById(R.id.tvStartDate);
+        btn_PickDate = view.findViewById(R.id.btn_PickDate);
 
     }
 
@@ -134,6 +163,26 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setLinstener() {
+
+        btn_PickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRangePicker();
+            }
+        });
+
+
+        btn_SendDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//           發送到server
+
+
+            }
+        });
+
+
         /* 監聽是否點選chart內容值 */
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -142,7 +191,7 @@ public class StatisticsFragment extends Fragment {
              *  有entry物件就不太需要highlight物件 */
             public void onValueSelected(Entry entry, Highlight highlight) {
                 Log.d(TAG, "entry: " + entry.toString() + "; highlight: " + highlight.toString());
-                String text = (int)entry.getX() + "\n" + (int)entry.getY();
+                String text = (int) entry.getX() + "\n" + (int) entry.getY();
                 Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
             }
 
@@ -252,5 +301,87 @@ public class StatisticsFragment extends Fragment {
         super.onDestroy();
     }
 
+    /* 覆寫OnDateSetListener.onDateSet()以處理日期挑選完成事件。
+               日期挑選完成會呼叫此方法，並傳入選取的年月日 */
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        StatisticsFragment.year = year;
+        StatisticsFragment.month = month;
+        StatisticsFragment.day = dayOfMonth;
+    }
 
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onSelect(List<java.util.Calendar> calendars) {
+
+
+        Stream.of(calendars).forEach(calendar ->
+                tvStartDate.setText(String.valueOf(calendar.getTime()))
+        );
+
+        Stream.of(calendars).forEach(calendar ->
+                myDate = calendar.getTime()
+        );
+
+    }
+
+
+    private void openRangePicker() {
+        java.util.Calendar min = java.util.Calendar.getInstance();
+        min.add(java.util.Calendar.DAY_OF_MONTH, -5);
+
+        java.util.Calendar max = java.util.Calendar.getInstance();
+        max.add(java.util.Calendar.DAY_OF_MONTH, 3);
+
+        List<java.util.Calendar> selectedDays = new ArrayList<>();
+        selectedDays.add(min);
+        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
+        selectedDays.add(max);
+
+        DatePickerBuilder rangeBuilder = new DatePickerBuilder(activity, StatisticsFragment.this)
+                .setPickerType(CalendarView.RANGE_PICKER)
+                .setHeaderColor(R.color.defaultColor)
+                .setAbbreviationsBarColor(R.color.defaultColor)
+                .setAbbreviationsLabelsColor(android.R.color.white)
+                .setPagesColor(R.color.defaultColor)
+                .setSelectionColor(android.R.color.white)
+                .setSelectionLabelColor(R.color.colorPrimaryDark)
+//                .setTodayLabelColor(R.color.wallet_holo_blue_light)
+                .setDialogButtonsColor(android.R.color.white)
+                .setDaysLabelsColor(android.R.color.white)
+                .setAnotherMonthsDaysLabelsColor(R.color.design_default_color_primary_dark)
+                .setSelectedDays(selectedDays)
+                .setMaximumDaysRange(10)
+                .setDisabledDays(getDisabledDays());
+
+        com.applandeo.materialcalendarview.DatePicker rangePicker = rangeBuilder.build();
+        rangePicker.show();
+
+
+    }
+
+
+    private List<java.util.Calendar> getDisabledDays() {
+        java.util.Calendar firstDisabled = DateUtils.getCalendar();
+        firstDisabled.add(java.util.Calendar.DAY_OF_MONTH, 2);
+
+        java.util.Calendar secondDisabled = DateUtils.getCalendar();
+        secondDisabled.add(java.util.Calendar.DAY_OF_MONTH, 1);
+
+        java.util.Calendar thirdDisabled = DateUtils.getCalendar();
+        thirdDisabled.add(java.util.Calendar.DAY_OF_MONTH, 18);
+
+        List<java.util.Calendar> calendars = new ArrayList<>();
+        calendars.add(firstDisabled);
+        calendars.add(secondDisabled);
+        calendars.add(thirdDisabled);
+        return calendars;
+    }
 }
