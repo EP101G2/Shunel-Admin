@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
-<<<<<<< HEAD
     private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 //=======
 //
@@ -51,12 +50,9 @@ public class HomeFragment extends Fragment {
 //>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
 //=======
 //    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
-=======
-
->>>>>>> b92e13f5e63b782b5b12aa5835abc051e8f9f08b
 
 
-    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+ //   private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
     @Override
@@ -77,7 +73,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-<<<<<<< HEAD
 //        ivLogout = view.findViewById(R.id.ivLogout);
 //        ivAdmin = view.findViewById(R.id.ivAdmin);
 //
@@ -93,9 +88,6 @@ public class HomeFragment extends Fragment {
 //                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
 //            }
 //        });
-=======
->>>>>>> b92e13f5e63b782b5b12aa5835abc051e8f9f08b
-
         ivLogout = view.findViewById(R.id.ivLogout);
         ivAdmin = view.findViewById(R.id.ivAdim);
 
@@ -115,10 +107,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b92e13f5e63b782b5b12aa5835abc051e8f9f08b
 
 
         findViews(view);
