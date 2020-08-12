@@ -206,13 +206,13 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("admin", admin);
-<<<<<<< HEAD
+
                 Navigation.findNavController(view).navigate(R.id.noticeAdminFragment, bundle);
-=======
+
                 NavController navController = Navigation.findNavController(activity,R.id.homeFragment);
                 navController.navigate(R.id.adminNewDetailFragment,bundle);
 //                Navigation.findNavController(view).navigate(R.id.action_adminFragment_to_adminNewDetailFragment, bundle);
->>>>>>> 6464a59678282588128ccac611953bb65a256171
+
             }
         });
 

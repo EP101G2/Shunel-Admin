@@ -12,10 +12,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-<<<<<<< HEAD
+
         android:layout_height="match_parent"
         android:orientation="vertical">
-=======
+
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="vertical"
@@ -33,44 +33,6 @@
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
->>>>>>> 6464a59678282588128ccac611953bb65a256171
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#A5DCD0"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center|left|center_vertical"
-                android:text="@string/admin"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp" />
-
-            <ImageView
-                android:id="@+id/ivLogout"
-                android:layout_width="45dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="4dp"
-                app:srcCompat="@drawable/logout" />
-
-            <ImageView
-                android:id="@+id/ivAdim"
-                android:layout_width="45dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="4dp"
-                app:srcCompat="@drawable/admin" />
-        </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -82,7 +44,7 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-<<<<<<< HEAD
+
         <fragment
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -92,7 +54,6 @@
             app:navGraph="@navigation/homepage" />
 
     </LinearLayout>
-=======
 
     <TextView
         android:id="@+id/view"
@@ -132,8 +93,7 @@
         app:srcCompat="@drawable/logout" />
 
 
->>>>>>> 6464a59678282588128ccac611953bb65a256171
-
+>
 
     <!--  建立viewPage Jack 7.22  -->
 

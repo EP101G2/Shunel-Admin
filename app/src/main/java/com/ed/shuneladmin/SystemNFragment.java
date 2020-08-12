@@ -1,10 +1,8 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.ContentValues;
 import android.content.Context;
-import android.icu.text.Transliterator;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,12 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -40,46 +36,41 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class mainFragment extends Fragment {
-
+public class SystemNFragment extends Fragment {
 
     Activity activity;
-    TextView tvUpdateSaleN;
-    ImageView ivAddSaleN;
-    Button btUpdaeSaleN, checkN;
+    TextView tvDeleteSysN;
+    ImageView ivAddSysN;
+    Button  checkSysN;
     private CommonTask noticeAdimGetAllTask;
-    private List<Notice> noticeAdimSaleList, noticeCopyList;
-    RecyclerView rvAdimSaleN;
-    SearchView SearchSaleN;
-    private adimSaleNAdapter noticeAdimSaleAdapter;
+    private List<Notice> noticeAdimSystemList, noticeCopySystemList;
+    RecyclerView rvAdimSysN;
+    SearchView SearchSysN;
+    private adimSysAdapter noticeAdimSystemAdapter;
     Notice notice;
     List<Notice> noticeArrayList = new ArrayList<>();
 
     boolean flag = false;
 
 
-    public mainFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_system_n, container, false);
+
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -96,19 +87,19 @@ public class mainFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        ivAddSaleN = view.findViewById(R.id.ivAddSaleN);
-        tvUpdateSaleN = view.findViewById(R.id.tvdeleteSaleN);
-        rvAdimSaleN = view.findViewById(R.id.rvAdimSaleN);
-        SearchSaleN = view.findViewById(R.id.SearchSaleN);
-        checkN = view.findViewById(R.id.checkN);
-        rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));
+        ivAddSysN = view.findViewById(R.id.ivAddSystemN);
+        tvDeleteSysN = view.findViewById(R.id.tvdeleteSystemN);
+        rvAdimSysN = view.findViewById(R.id.rvAdimSystemN);
+        SearchSysN = view.findViewById(R.id.SearchSystemN);
+        checkSysN = view.findViewById(R.id.checksysN);
+        rvAdimSysN.setLayoutManager(new LinearLayoutManager(activity));
 
 
     }
 
     private void initData() {
-        noticeAdimSaleList = getData();
-        noticeCopyList = noticeAdimSaleList;//複製一個List取值
+        noticeAdimSystemList = getData();
+        noticeCopySystemList = noticeAdimSystemList;//複製一個List取值
 
         showSalelist(getData());
 //        noticeAdimSaleList = getData();
@@ -118,27 +109,26 @@ public class mainFragment extends Fragment {
 
     private void setLinstener() {
 
-        SearchSaleN.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchSysN.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
-                adimSaleNAdapter adapter = (adimSaleNAdapter) rvAdimSaleN.getAdapter();
+                adimSysAdapter adapter = (adimSysAdapter) rvAdimSysN.getAdapter();
                 try {
                     if (adapter != null) {
                         if (newText.isEmpty()) {
-                            noticeAdimSaleList = noticeCopyList;//再把值傳回來
-                            showSalelist(noticeAdimSaleList);
+                            noticeAdimSystemList = noticeCopySystemList;//再把值傳回來
+                            showSalelist(noticeAdimSystemList);
                         } else {
-                            List<Notice> SearchSaleAll = new ArrayList<>();
+                            List<Notice> SearchSystemAll = new ArrayList<>();
                             // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
-                            for (Notice notice : noticeAdimSaleList) {
+                            for (Notice notice : noticeAdimSystemList) {
                                 if (notice.getNotice_Content().toUpperCase().contains(newText.toUpperCase()) || notice.getNotice_Title().toUpperCase().contains(newText.toUpperCase())) {
-                                    Log.e(" SearchSaleN", "---------------------" + notice.getNotice_Content());
-                                    SearchSaleAll.add(notice);
+                                    SearchSystemAll.add(notice);
                                 }
                             }
-                            noticeAdimSaleList = SearchSaleAll;
-                            adapter.setList(noticeAdimSaleList);
+                            noticeAdimSystemList = SearchSystemAll;
+                            adapter.setList(noticeAdimSystemList);
                         }
 
                         adapter.notifyDataSetChanged();
@@ -157,7 +147,7 @@ public class mainFragment extends Fragment {
             }
         });
 
-        checkN.setOnClickListener(new View.OnClickListener() {
+        checkSysN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = Common.URL_SERVER + "Notice_Servlet";
@@ -171,8 +161,8 @@ public class mainFragment extends Fragment {
                     Log.e("", String.valueOf(jsonObject));
                 }
 
-                boolean[] Expanded = noticeAdimSaleAdapter.getExpanded();
-                boolean isOpen = noticeAdimSaleAdapter.getOpen();
+                boolean[] Expanded = noticeAdimSystemAdapter.getExpanded();
+                boolean isOpen = noticeAdimSystemAdapter.getOpen();
                 for (int i = 0; i < Expanded.length; i++) {
                     Expanded[i] = !Expanded[i];
                 }
@@ -191,7 +181,7 @@ public class mainFragment extends Fragment {
                     Common.showToast(activity,"刪除成功");
                     initData();
                     if (flag) {
-                        tvUpdateSaleN.setText(R.string.delet);
+                        tvDeleteSysN.setText(R.string.delet);
                         flag = !flag;
                     }
                 }
@@ -200,32 +190,32 @@ public class mainFragment extends Fragment {
 
 
 
-        tvUpdateSaleN.setOnClickListener(new View.OnClickListener() {
+        tvDeleteSysN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!flag) {
-                    tvUpdateSaleN.setText(R.string.cancel);
+                    tvDeleteSysN.setText(R.string.cancel);
                     flag = !flag;
                 }else {
-                    tvUpdateSaleN.setText(R.string.delet);
+                    tvDeleteSysN.setText(R.string.delet);
                     flag = false;
                 }
 
-                noticeAdimSaleAdapter = (adimSaleNAdapter) rvAdimSaleN.getAdapter();
-                boolean[] Expanded = noticeAdimSaleAdapter.getExpanded();
+                noticeAdimSystemAdapter = (adimSysAdapter) rvAdimSysN.getAdapter();
+                boolean[] Expanded = noticeAdimSystemAdapter.getExpanded();
 
                 for (int i = 0; i < Expanded.length; i++) {
                     Expanded[i] = !Expanded[i];
                 }
 
-                if (noticeAdimSaleAdapter.getOpen() == true ){
+                if (noticeAdimSystemAdapter.getOpen() == true ){
                     noticeArrayList.remove(notice);
                 }
 
-                noticeAdimSaleAdapter.setExpanded(Expanded);
-                noticeAdimSaleAdapter.notifyDataSetChanged();
-                checkN.setVisibility(View.GONE);
+                noticeAdimSystemAdapter.setExpanded(Expanded);
+                noticeAdimSystemAdapter.notifyDataSetChanged();
+                checkSysN.setVisibility(View.GONE);
                 noticeArrayList.remove(notice);
 
             }
@@ -234,10 +224,10 @@ public class mainFragment extends Fragment {
         });
 
 
-        ivAddSaleN.setOnClickListener(new View.OnClickListener() {
+        ivAddSysN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.flag = 0;
+                MainActivity.flag = 1;
                 NavController navController = Navigation.findNavController(activity, R.id.homeFragment);
                 navController.navigate(R.id.noticeAdminFragment);
             }
@@ -251,14 +241,13 @@ public class mainFragment extends Fragment {
         if (nList == null || nList.isEmpty()) {
             Common.showToast(activity, R.string.noNotice);
         }
-        noticeAdimSaleAdapter = (adimSaleNAdapter) rvAdimSaleN.getAdapter();
+        noticeAdimSystemAdapter = (adimSysAdapter) rvAdimSysN.getAdapter();
         // 如果spotAdapter不存在就建立新的，否則續用舊有的
-        if (noticeAdimSaleAdapter == null) {
-            rvAdimSaleN.setAdapter(new adimSaleNAdapter(activity, nList));
+        if (noticeAdimSystemAdapter == null) {
+            rvAdimSysN.setAdapter(new adimSysAdapter(activity, nList));
         } else {
-            Log.e(TAG, "00000000000");
-            noticeAdimSaleAdapter.setList(nList);
-            noticeAdimSaleAdapter.notifyDataSetChanged();
+            noticeAdimSystemAdapter.setList(nList);
+            noticeAdimSystemAdapter.notifyDataSetChanged();
         }
 
     }
@@ -269,7 +258,7 @@ public class mainFragment extends Fragment {
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "Notice_Servlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getSaleAll");
+            jsonObject.addProperty("action", "getSystemAll");
             String jsonOut = jsonObject.toString();
             noticeAdimGetAllTask = new CommonTask(url, jsonOut);
             try {
@@ -288,7 +277,7 @@ public class mainFragment extends Fragment {
     }
 
 
-    private class adimSaleNAdapter extends RecyclerView.Adapter<adimSaleNAdapter.MyViewHolder> {
+    private class adimSysAdapter extends RecyclerView.Adapter<adimSysAdapter.MyViewHolder> {
         Context context;
         List<Notice> noticeList;
         private boolean[] Expanded;
@@ -296,7 +285,7 @@ public class mainFragment extends Fragment {
 
 
 
-        public adimSaleNAdapter(Context context, List<Notice> noticeList) {
+        public adimSysAdapter(Context context, List<Notice> noticeList) {
             this.context = context;
             this.noticeList = noticeList;
             Expanded = new boolean[noticeList.size()];
@@ -332,14 +321,14 @@ public class mainFragment extends Fragment {
 
         @NonNull
         @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public adimSysAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.noitce_adim_item, parent, false);
-            return new MyViewHolder(view);
+            return new adimSysAdapter.MyViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull adimSaleNAdapter.MyViewHolder holder, final int position) {
-            final Notice notice = noticeAdimSaleList.get(position);
+        public void onBindViewHolder(@NonNull adimSysAdapter.MyViewHolder holder, final int position) {
+            final Notice notice = noticeAdimSystemList.get(position);
             final int notice_id = notice.getNotice_ID();
 
             holder.tvNoticeT.setText(notice.getNotice_Title());
@@ -359,11 +348,12 @@ public class mainFragment extends Fragment {
 
                     if (isChecked) {
                         noticeArrayList.add(notice);
-                        checkN.setVisibility(View.VISIBLE);
+                        checkSysN.setVisibility(View.VISIBLE);
+
                     } else  {
                         noticeArrayList.remove(notice);
                         if (noticeArrayList.size()==0){
-                            checkN.setVisibility(View.GONE);
+                            checkSysN.setVisibility(View.GONE);
                         }
 
                     }
@@ -374,7 +364,7 @@ public class mainFragment extends Fragment {
             holder.btUpdateND.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MainActivity.flag = 2;
+                    MainActivity.flag = 3;
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("NoitceAdim", notice);
                     NavController navController = Navigation.findNavController(activity, R.id.homeFragment);
@@ -387,8 +377,7 @@ public class mainFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            Log.e("TAG", "數量" + noticeAdimSaleList.size() + "-----------");
-            return noticeAdimSaleList == null ? 0 : noticeAdimSaleList.size();
+            return noticeAdimSystemList == null ? 0 : noticeAdimSystemList.size();
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -415,3 +404,5 @@ public class mainFragment extends Fragment {
         }
     }
 }
+
+

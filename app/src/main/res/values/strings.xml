@@ -115,7 +115,6 @@
     <string name="picture">從相簿取照片</string>
 
 
-
     <string name="textDelete">刪除</string>
     <string name="textDeleteFail">刪除失敗</string>
     <string name="textDeleteSuccess">刪除成功</string>
@@ -133,7 +132,8 @@
     <string name="shelvesproduct">下架</string>
     <string name="onsaleproduct">上架</string>
     <string name="promotion">促銷</string>
-    <string name="NoticeAdmin">管理訊息</string>
+    <string name="NoticeSystemAdmin">管理系統訊息</string>
+    <string name="NoticeSaleAdmin">管理促銷訊息</string>
     <string name="memberNew">提問回覆</string>
 
 
