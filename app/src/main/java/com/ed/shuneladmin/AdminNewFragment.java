@@ -123,7 +123,12 @@ btConfirm.setOnClickListener(new View.OnClickListener() {
         String password = etNewPassword.getText().toString();
         String accountId = etAccountId.getText().toString();
 
-        admin = new Admin(name, password,accountId,result);
+        admin = new Admin();
+        admin.setAdmin_Name(name);
+        admin.setAdmin_User_Name(accountId);
+        admin.setAdmin_User_Password(password);
+        admin.setAdmin_ID(admin.getAdmin_ID());
+        admin.setAdmin_User_Position(result);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", "Register");
         jsonObject.addProperty("admin", new Gson().toJson(admin));
