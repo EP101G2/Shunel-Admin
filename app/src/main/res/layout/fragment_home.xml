@@ -12,8 +12,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+<<<<<<< HEAD
+
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+=======
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="vertical"
@@ -31,6 +38,8 @@
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
+<<<<<<< HEAD
+=======
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,6 +77,7 @@
                 android:layout_marginRight="4dp"
                 app:srcCompat="@drawable/admin" />
         </LinearLayout>
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -79,6 +89,10 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
         <fragment
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -88,6 +102,10 @@
             app:navGraph="@navigation/homepage" />
 
     </LinearLayout>
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
 
     <TextView
         android:id="@+id/view"
@@ -127,7 +145,11 @@
 <!--        app:srcCompat="@drawable/logout" />-->
 
 
+<<<<<<< HEAD
+>
+=======
 
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
 
     <!--  建立viewPage Jack 7.22  -->
 

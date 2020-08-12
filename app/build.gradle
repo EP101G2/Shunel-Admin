@@ -20,6 +20,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -71,5 +73,12 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 /*------------------------------------------------------------------*/
     /*日歷套件 Jack 8.9     */
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+
+
+/*------------------------------------------------------------------*/
+    /*日歷套件 SAM     */
+    implementation 'com.applandeo:material-calendar-view:1.9.0-alpha03'
+    implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 }

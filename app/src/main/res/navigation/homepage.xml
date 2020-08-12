@@ -10,4 +10,9 @@
         android:name="com.ed.shuneladmin.mainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/fragment_systemN"
+        android:name="com.ed.shuneladmin.SystemNFragment"
+        android:label="fragment_system_n"
+        tools:layout="@layout/fragment_system_n" />
 </navigation>

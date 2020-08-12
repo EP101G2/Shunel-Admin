@@ -5,68 +5,105 @@ import java.sql.Timestamp;
 
 public class Promotion implements Serializable {
 
-    private int Promotion_ID;
-    private String Promotion_Name;
-    private int Prouct_ID;
-    private int Promotion_Price;
-    private Timestamp Promotion_Date_Start;
-    private Timestamp Promotion_Date_End;
+	private int Promotion_ID;
+	private String product_Name;
+	private int Product_ID;
+	private int Promotion_Price;
+	private int Product_Price;
+	private Timestamp Date_Start;
+	private Timestamp Date_End;
 
 
-    public Promotion(int promotion_ID, String promotion_Name, int prouct_ID, int promotion_Price, Timestamp promotion_Date_Start, Timestamp promotion_Date_End) {
-        Promotion_ID = promotion_ID;
-        Promotion_Name = promotion_Name;
-        Prouct_ID = prouct_ID;
-        Promotion_Price = promotion_Price;
-        Promotion_Date_Start = promotion_Date_Start;
-        Promotion_Date_End = promotion_Date_End;
-    }
 
-    public int getPromotion_ID() {
-        return Promotion_ID;
-    }
+	public Promotion() {
+	}
 
-    public void setPromotion_ID(int promotion_ID) {
-        Promotion_ID = promotion_ID;
-    }
+	// 促銷消息使用，不包含原先價格
+	public Promotion(int promotion_ID, String product_Name, int product_ID, int promotion_Price, Timestamp date_Start,
+			Timestamp date_End) {
+		super();
+		Promotion_ID = promotion_ID;
+		this.product_Name = product_Name;
+		Product_ID = product_ID;
+		Promotion_Price = promotion_Price;
+		Date_Start = date_Start;
+		Date_End = date_End;
+	}
 
-    public String getPromotion_Name() {
-        return Promotion_Name;
-    }
+	public Promotion(int promotion_ID, String product_Name, int product_ID, int promotion_Price, int product_Price,
+			Timestamp date_Start, Timestamp date_End) {
+		super();
+		Promotion_ID = promotion_ID;
+		this.product_Name = product_Name;
+		Product_ID = product_ID;
+		Promotion_Price = promotion_Price;
+		Product_Price = product_Price;
+		Date_Start = date_Start;
+		Date_End = date_End;
+	}
 
-    public void setPromotion_Name(String promotion_Name) {
-        Promotion_Name = promotion_Name;
-    }
+	public Promotion(int promotion_ID, int product_ID, int product_Price, Timestamp date_Start,Timestamp date_End) {
+		super();
+		Promotion_ID = promotion_ID;
+		Product_ID = product_ID;
+		Product_Price = product_Price;
+		Date_Start = date_Start;
+		Date_End = date_End;
+	}
 
-    public int getProuct_ID() {
-        return Prouct_ID;
-    }
+	public int getPromotion_ID() {
+		return Promotion_ID;
+	}
 
-    public void setProuct_ID(int prouct_ID) {
-        Prouct_ID = prouct_ID;
-    }
+	public void setPromotion_ID(int promotion_ID) {
+		Promotion_ID = promotion_ID;
+	}
 
-    public int getPromotion_Price() {
-        return Promotion_Price;
-    }
+	public String getProduct_Name() {
+		return product_Name;
+	}
 
-    public void setPromotion_Price(int promotion_Price) {
-        Promotion_Price = promotion_Price;
-    }
+	public void setProduct_Name(String product_Name) {
+		this.product_Name = product_Name;
+	}
 
-    public Timestamp getPromotion_Date_Start() {
-        return Promotion_Date_Start;
-    }
+	public int getProduct_ID() {
+		return Product_ID;
+	}
 
-    public void setPromotion_Date_Start(Timestamp promotion_Date_Start) {
-        Promotion_Date_Start = promotion_Date_Start;
-    }
+	public void setProduct_ID(int product_ID) {
+		Product_ID = product_ID;
+	}
 
-    public Timestamp getPromotion_Date_End() {
-        return Promotion_Date_End;
-    }
+	public int getPromotion_Price() {
+		return Promotion_Price;
+	}
 
-    public void setPromotion_Date_End(Timestamp promotion_Date_End) {
-        Promotion_Date_End = promotion_Date_End;
-    }
+	public void setPromotion_Price(int promotion_Price) {
+		Promotion_Price = promotion_Price;
+	}
+
+	public int getProduct_Price() {
+		return Product_Price;
+	}
+
+	public void setProduct_Price(int product_Price) {
+		Product_Price = product_Price;
+	}
+
+	public Timestamp getDate_Start() {
+		return Date_Start;
+	}
+
+	public void setDate_Start(Timestamp date_Start) {
+		Date_Start = date_Start;
+	}
+
+	public Timestamp getDate_End() {
+		return Date_End;
+	}
+
+	public void setDate_End(Timestamp date_End) {
+		Date_End = date_End;
+	}
 }

@@ -41,13 +41,26 @@ public class HomeFragment extends Fragment {
 
     private Activity activity;
     private ImageView ivLogout, ivAdmin;
+<<<<<<< HEAD
+
+=======
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
     private int[] label={R.string.Promotion,R.string.system,R.string.chat};
 
 
+//=======
+//
+//    private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
+//
+//>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
+//=======
+//    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
+
+ //   private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
 
@@ -68,6 +81,26 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+<<<<<<< HEAD
+=======
+
+//        ivLogout = view.findViewById(R.id.ivLogout);
+//        ivAdmin = view.findViewById(R.id.ivAdmin);
+//
+//        ivLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Logout();
+//            }
+//        });
+//        ivAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
+//            }
+//        });
+
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
 
         //建立bottom
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
@@ -89,6 +122,10 @@ public class HomeFragment extends Fragment {
 //                Logout();
 //            }
 //        });
+<<<<<<< HEAD
+
+=======
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
         ivLogout = view.findViewById(R.id.ivLogout);
         ivAdmin = view.findViewById(R.id.ivAdim);
 
@@ -108,6 +145,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d6970fd8e91f857aa48646dea7be5fc7e8d20131
 
         findViews(view);
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */

@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".mainFragment">
+    tools:context=".SystemNFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvdeleteSaleN"
+            android:id="@+id/tvdeleteSystemN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -25,7 +24,7 @@
             android:textSize="18sp" />
 
         <SearchView
-            android:id="@+id/SearchSaleN"
+            android:id="@+id/SearchSystemN"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -33,7 +32,7 @@
         </SearchView>
 
         <ImageView
-            android:id="@+id/ivAddSaleN"
+            android:id="@+id/ivAddSystemN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -44,16 +43,18 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAdimSaleN"
+        android:id="@+id/rvAdimSystemN"
         android:layout_width="match_parent"
         android:layout_height="530dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:backgroundTint="@color/cardview_light_background" >
+        android:backgroundTint="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutN">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
-        android:id="@+id/checkN"
+        android:id="@+id/checksysN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-4dp"
@@ -64,7 +65,7 @@
         android:layout_marginBottom="-8dp"
         android:text="@string/textSend"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/rvAdimSaleN"
+        app:layout_constraintBottom_toBottomOf="@+id/rvAdimSystemN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
