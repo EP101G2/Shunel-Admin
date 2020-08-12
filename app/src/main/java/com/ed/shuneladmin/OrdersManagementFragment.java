@@ -135,11 +135,13 @@ public class OrdersManagementFragment extends Fragment {
     }
 
     private void showOrders(List<Order_Main> orderMainList) {
+//        Log.e(TAG, "orderMainList: "+orderMainList); //get success
         try{
             if (orderMainList == null || orderMainList.isEmpty()) {
                 Common.showToast(activity, R.string.textnofound);
             }
             OrderMainAdapter orderMainAdapter = (OrderMainAdapter) rvOrderMain.getAdapter();
+//            nullPointerException //no mind?
             // 如果spotAdapter不存在就建立新的，否則續用舊有的
             if (orderMainAdapter == null) {
                 rvOrderMain.setAdapter(new OrderMainAdapter(activity, orderMainList));
@@ -168,7 +170,7 @@ public class OrdersManagementFragment extends Fragment {
                     Type listType = new TypeToken<List<Order_Main>>() {
                     }.getType();
                     orderMainList = gson.fromJson(jsonIn, listType);
-                    Log.e(TAG, jsonIn);
+//                    Log.e(TAG, jsonIn);
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
@@ -223,8 +225,8 @@ public class OrdersManagementFragment extends Fragment {
             holder.tvAccountIdOrders.setText(orderMain.getAccount_ID());
             holder.tvTotalPrice.setText(String.valueOf(orderMain.getOrder_Main_Total_Price()));
             holder.tvOrderStatus.setText(orderStatusText(orderMain.getOrder_Main_Order_Status()));//apply method orderStatusText
-            Log.e(TAG,"--onBindViewHolder-->"+orderMain.getOrder_ID());
-            Log.e(TAG, "--OrderStatus-->"+orderMain.getOrder_Main_Order_Status());
+//            Log.e(TAG,"--onBindViewHolder-->"+orderMain.getOrder_ID());
+//            Log.e(TAG, "--OrderStatus-->"+orderMain.getOrder_Main_Order_Status());
 
 //            navigate to detail fragment
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +243,7 @@ public class OrdersManagementFragment extends Fragment {
 //            setting text for order status
     private String orderStatusText(int status) {
             String statusText = "";
-            Log.e(TAG, "status"+status);
+//            Log.e(TAG, "status"+status);
             if (status == 0){
                 statusText = "未付款";
             }else if (status == 1){

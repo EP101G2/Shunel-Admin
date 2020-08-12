@@ -44,9 +44,7 @@ import java.util.List;
 public class OrderManageDetailFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String TAG = "---orderManageDet---";
-//    private static final String ARG_PARAM2 = "param2";
     // TODO: Rename and change types of parameters
     private String mParam1;
 //    private String mParam2;
@@ -58,7 +56,7 @@ public class OrderManageDetailFragment extends Fragment {
 //    private int status = 0;
     private Order_Main orderMain;
     private Order_Detail orderDetail;
-//    List<Order_Main> orderMainList;
+    List<Order_Main> orderMainList;
     List<Order_Detail> orderDetailList;
     List<Product> orderProductList;
     RecyclerView rvOrderDetProduct;
@@ -106,19 +104,17 @@ public class OrderManageDetailFragment extends Fragment {
         orderMain = (Order_Main) bundle.getSerializable("Orders");
         showOrderDetails();
 
-
-        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
-        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
-        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
+//        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
+//        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+//        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
 
 //        get data for recycle view
         orderDetailList = getOrderedProducts();
-        orderProductList = getProductByOrders();
-        showOrderedProducts(getProductByOrders());
+//        showOrderedProducts(orderDetailList);
 //        setting recycler view
         rvOrderDetProduct = view.findViewById(R.id.rvOrderDetProduct);
         rvOrderDetProduct.setLayoutManager(new LinearLayoutManager(activity));
-        rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderProductList));
+        rvOrderDetProduct.setAdapter(new OrderManageDetAdapter(getContext(), orderDetailList));
 
 //        setting spinner, change status
 //        int oriStatus = orderMain.getOrder_Main_Order_Status();
@@ -161,7 +157,7 @@ public class OrderManageDetailFragment extends Fragment {
                     if (Common.networkConnected(activity)) {
                         String url = Common.URL_SERVER + "Orders_Servlet";
                         JsonObject jsonObject = new JsonObject();
-                        Log.e("updateStatus", "==" + status);
+//                        Log.e("updateStatus", "==" + status);
                         jsonObject.addProperty("action", "updateStatus");
                         jsonObject.addProperty("status", new Gson().toJson(status));
                         jsonObject.addProperty("orderId", new Gson().toJson(orderId));
@@ -203,17 +199,19 @@ public class OrderManageDetailFragment extends Fragment {
         });
     }
 
-    private void showOrderedProducts(List<Product> orderedProducts) {
+    private void showOrderedProducts(List<Order_Detail> orderDetailList) {
+//        Log.e(TAG, "orderDetList: "+orderDetailList);//get ok
         try{
-            if (orderedProducts == null || orderedProducts.isEmpty()) {
+            if (orderDetailList == null || orderDetailList.isEmpty()) {
                 Common.showToast(activity, R.string.textnofound);
             }
             OrderManageDetAdapter orderManageDetAdapter = (OrderManageDetAdapter) rvOrderDetProduct.getAdapter();
+//            null pointer exception  //no mind?
             // 如果spotAdapter不存在就建立新的，否則續用舊有的
             if (orderManageDetAdapter == null) {
-                rvOrderDetProduct.setAdapter(new OrderManageDetailFragment.OrderManageDetAdapter(activity, orderedProducts));
+                rvOrderDetProduct.setAdapter(new OrderManageDetailFragment.OrderManageDetAdapter(activity, orderDetailList));
             } else {
-                orderManageDetAdapter.setOrderedProduct(getProductByOrders());//get new
+                orderManageDetAdapter.setOrderedProduct(getOrderedProducts());//get new
                 orderManageDetAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -222,23 +220,25 @@ public class OrderManageDetailFragment extends Fragment {
     }
 
     private List<Order_Detail> getOrderedProducts() {
-        List<Order_Detail> orderedProductList = new ArrayList<>();
+        List<Order_Detail> orderDetailList = new ArrayList<>();
+        int orderId = Integer.parseInt(tvOrderIdDet.getText().toString());
+//        Log.e(TAG, "get orderId: "+orderId);
         try {
             if (Common.networkConnected(activity)) {
 //                get data from orders servlet
                 String url = Common.URL_SERVER + "Orders_Servlet";
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "getProductForOrders");
-                jsonObject.addProperty("order_Id", orderMain.getOrder_ID());
+                jsonObject.addProperty("action", "getOrderedProducts");
+                jsonObject.addProperty("order_Id", orderId);
                 String jsonOut = jsonObject.toString();
                 ordersListDetGetTask = new CommonTask(url, jsonOut);
                 Log.e(TAG, "getOrderedProducts: out -> "+jsonOut);
                 try {
                     String jsonIn = ordersListDetGetTask.execute().get();
-                    Type listType = new TypeToken<List<Order_Main>>() {
+                    Type listType = new TypeToken<List<Order_Detail>>() {
                     }.getType();
-                    orderedProductList = new Gson().fromJson(jsonIn, listType);
-                    Log.e(TAG, "getOrderedProducts: in -> "+jsonIn);
+                    orderDetailList = new Gson().fromJson(jsonIn, listType);
+//                    Log.e(TAG, "getOrderedProducts: in -> "+jsonIn);
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
@@ -248,38 +248,9 @@ public class OrderManageDetailFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return orderedProductList;
-    }//ok
+        return orderDetailList;
+    }//get ok
 
-    private List<Product> getProductByOrders(){
-        List<Product> productList = new ArrayList<>();
-        try {
-            if (Common.networkConnected(activity)) {
-//                get data from orders servlet
-                String url = Common.URL_SERVER + "Prouct_Servlet";
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "getProductsByOrders");
-                jsonObject.addProperty("product_Id", orderDetail.getProduct_ID());
-                String jsonOut = jsonObject.toString();
-                ordersListDetGetTask = new CommonTask(url, jsonOut);
-                Log.e(TAG, "getProductsByOrder: out -> "+jsonOut);
-                try {
-                    String jsonIn = ordersListDetGetTask.execute().get();
-                    Type listType = new TypeToken<List<Order_Main>>() {
-                    }.getType();
-                    productList = new Gson().fromJson(jsonIn, listType);
-                    Log.e(TAG, "getProductsByOrder: in -> "+jsonIn);
-                } catch (Exception e) {
-                    Log.e(TAG, e.toString());
-                }
-            } else {
-                Common.showToast(activity, R.string.textNoNetwork);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return productList;
-    }
 
     private void showOrderDetails() {
         int id = orderMain.getOrder_ID();
@@ -289,20 +260,20 @@ public class OrderManageDetailFragment extends Fragment {
         tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
         tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
         tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
-    }
+    }//show ok
 
     //    Adapter for rvOrderDetProduct
     private class OrderManageDetAdapter extends RecyclerView.Adapter<OrderManageDetAdapter.PageViewHolder> {
         private LayoutInflater inflater;
         Context context;
         List<Order_Detail> orderDetailList;
-        List<Product> productList;
+//        List<Product> productList;
         private ImageTask orderDetProdImgTask;
 
-        public OrderManageDetAdapter(Context context, List<Product> orderProductlList) {
+        public OrderManageDetAdapter(Context context, List<Order_Detail> orderDetailList) {
             this.context = context;
+            this.orderDetailList = orderDetailList;
             inflater = LayoutInflater.from(context);
-            this.productList = orderProductlList;
         }
 
         @NonNull
@@ -312,8 +283,8 @@ public class OrderManageDetailFragment extends Fragment {
             return new OrderManageDetAdapter.PageViewHolder(view);
         }
 
-        public void setOrderedProduct(List<Product> orderedProductsList) {
-            this.productList = orderedProductsList;
+        public void setOrderedProduct(List<Order_Detail> orderDetailList) {
+            this.orderDetailList = orderDetailList;
         }
 
         class PageViewHolder extends RecyclerView.ViewHolder {
@@ -322,9 +293,9 @@ public class OrderManageDetailFragment extends Fragment {
 
             public PageViewHolder(@NonNull View itemView) {
                 super(itemView);
-                tvProductName = itemView.findViewById(R.id.tvProductName);
-                tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
-                tvOrderedProductId = itemView.findViewById(R.id.tvOrderedProductId);
+                tvProductName = itemView.findViewById(R.id.tvProductNameOM);
+                tvProductPrice = itemView.findViewById(R.id.tvProductPriceOM);
+//                tvOrderedProductId = itemView.findViewById(R.id.tvOrderedProductId);
                 ivOrderProductPic = itemView.findViewById(R.id.ivOrderProductPic);
             }
         }
@@ -332,17 +303,18 @@ public class OrderManageDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull OrderManageDetAdapter.PageViewHolder holder, int position) {
             final Order_Detail orderDetail = orderDetailList.get(position);
-            final Product product = productList.get(position);
-            holder.tvOrderedProductId.setText(String.valueOf(orderDetail.getProduct_ID()));
-            holder.tvProductName.setText(product.getProduct_Name()); // --delete ".get(position)"
-            holder.tvProductPrice.setText("$" + product.getProduct_Price());
+//            final Product product = productList.get(position);
+            Log.e(TAG, "orderDetail: "+orderDetail.getorderDetProductId());
+//            holder.tvOrderedProductId.setText(String.valueOf(orderDetail.getorderDetProductId()));
+            holder.tvProductName.setText(orderDetail.getorderDetProductName()); //
+            holder.tvProductPrice.setText("$" + orderDetail.getOrder_Detail_Buy_Price());
 
 //            get product pic through product ID
             String url = Common.URL_SERVER + "Prouct_Servlet";
-            int id = orderDetail.getProduct_ID();
+            int id = orderDetail.getorderDetProductId();
+            Log.e(TAG, "productId for img: "+id);
             int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
             Bitmap bitmap = null;
-//        int price = promotionProduct.getPromotion_Price();
             try {
                 bitmap = new ImageTask(url, id, imageSize).execute().get();
             } catch (Exception e) {
@@ -358,14 +330,14 @@ public class OrderManageDetailFragment extends Fragment {
         @Override
         public int getItemCount() {
             try {
-                if (productList != null) {
-                    Log.e(TAG, "itemCount:" + productList.size());
-                    return productList == null ? 0 : productList.size();
+                if (orderDetailList != null) {
+                    Log.e(TAG, "itemCount:" + orderDetailList.size());
+                    return orderDetailList == null ? 0 : orderDetailList.size();
                 }
             } catch (Exception e) {
                 Log.e(TAG, "null list");
             }
-            return productList == null ? 0 : productList.size();
-        }
+            return orderDetailList == null ? 0 : orderDetailList.size();
+        } //count correct
     }
 }

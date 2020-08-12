@@ -41,8 +41,6 @@ public class HomeFragment extends Fragment {
 
     private Activity activity;
     private ImageView ivLogout, ivAdmin;
-<<<<<<< HEAD
-=======
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
@@ -52,7 +50,6 @@ public class HomeFragment extends Fragment {
 
 
 
->>>>>>> 6464a59678282588128ccac611953bb65a256171
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +68,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
 
         //建立bottom
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
@@ -93,7 +89,6 @@ public class HomeFragment extends Fragment {
 //                Logout();
 //            }
 //        });
-=======
         ivLogout = view.findViewById(R.id.ivLogout);
         ivAdmin = view.findViewById(R.id.ivAdim);
 
@@ -113,7 +108,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
->>>>>>> 6464a59678282588128ccac611953bb65a256171
 
         findViews(view);
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
