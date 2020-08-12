@@ -88,6 +88,46 @@
             app:navGraph="@navigation/homepage" />
 
     </LinearLayout>
+<<<<<<< HEAD
+=======
+
+    <TextView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/appbar"
+        android:gravity="center"
+        android:text="@string/admin"
+        android:textColor="#FFFFFF"
+
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivAdim"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="34dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/ivLogout"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/ivLogout"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ivLogout"-->
+<!--        app:srcCompat="@drawable/admin" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivLogout"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/logout" />-->
+>>>>>>> 18620126a26a2422ca2eee78d88aeb031c4733e0
 
 
 
