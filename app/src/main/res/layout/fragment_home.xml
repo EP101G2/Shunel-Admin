@@ -88,8 +88,7 @@
             app:navGraph="@navigation/homepage" />
 
     </LinearLayout>
-<<<<<<< HEAD
-=======
+
 
     <TextView
         android:id="@+id/view"
@@ -127,7 +126,6 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:srcCompat="@drawable/logout" />-->
->>>>>>> 18620126a26a2422ca2eee78d88aeb031c4733e0
 
 
 

@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
 
 //        ivLogout = view.findViewById(R.id.ivLogout);
 //        ivAdmin = view.findViewById(R.id.ivAdmin);
@@ -94,8 +93,7 @@ public class HomeFragment extends Fragment {
 //                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
 //            }
 //        });
-=======
->>>>>>> 18620126a26a2422ca2eee78d88aeb031c4733e0
+
 
         //建立bottom
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
