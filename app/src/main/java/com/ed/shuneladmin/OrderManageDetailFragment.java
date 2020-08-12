@@ -267,12 +267,13 @@ public class OrderManageDetailFragment extends Fragment {
         private LayoutInflater inflater;
         Context context;
         List<Order_Detail> orderDetailList;
-//        List<Product> productList;
         private ImageTask orderDetProdImgTask;
+        private int imageSize;
 
         public OrderManageDetAdapter(Context context, List<Order_Detail> orderDetailList) {
             this.context = context;
             this.orderDetailList = orderDetailList;
+            imageSize = context.getResources().getDisplayMetrics().widthPixels / 4;
             inflater = LayoutInflater.from(context);
         }
 
@@ -303,27 +304,19 @@ public class OrderManageDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull OrderManageDetAdapter.PageViewHolder holder, int position) {
             final Order_Detail orderDetail = orderDetailList.get(position);
-//            final Product product = productList.get(position);
             Log.e(TAG, "orderDetail: "+orderDetail.getorderDetProductId());
-//            holder.tvOrderedProductId.setText(String.valueOf(orderDetail.getorderDetProductId()));
+
             holder.tvProductName.setText(orderDetail.getorderDetProductName()); //
             holder.tvProductPrice.setText("$" + orderDetail.getOrder_Detail_Buy_Price());
 
 //            get product pic through product ID
-            String url = Common.URL_SERVER + "Prouct_Servlet";
-            int id = orderDetail.getorderDetProductId();
-            Log.e(TAG, "productId for img: "+id);
-            int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
-            Bitmap bitmap = null;
             try {
-                bitmap = new ImageTask(url, id, imageSize).execute().get();
+                String url = Common.URL_SERVER + "Prouct_Servlet";
+                int productIdOMD = orderDetail.getorderDetProductId();
+                orderDetProdImgTask = new ImageTask(url, productIdOMD, imageSize, holder.ivOrderProductPic);
+                orderDetProdImgTask.execute();
             } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            if (bitmap != null) {
-                holder.ivOrderProductPic.setImageBitmap(bitmap);
-            } else {
-                holder.ivOrderProductPic.setImageResource(R.drawable.no_image);
+                e.printStackTrace();
             }
         }
 
