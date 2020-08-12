@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -35,20 +36,33 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarUtils;
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
 import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Product;
+import com.ed.shuneladmin.bean.Promotion;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.yalantis.ucrop.UCrop;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -58,12 +72,13 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class insertProductFragment extends Fragment {
+public class insertProductFragment extends Fragment implements OnSelectDateListener {
     private int flag = 0;
     private final static String TAG = "insertProductFragment";
     Activity activity;
-    EditText nameOfProduct, colorOfProduct, priceOfProduct, detailOfProduct, categoryOfProduct, statusOfProduct;
+    EditText nameOfProduct, colorOfProduct, priceOfProduct, detailOfProduct, categoryOfProduct, statusOfProduct,PromotionPrice;
     Product product;
+    Promotion promotion;
     Button btaddproduct;
     Common common;
     CommonTask insertProduct;
@@ -71,13 +86,16 @@ public class insertProductFragment extends Fragment {
     ImageTask imageTask;
     RadioButton shelvesProduct, onSaleProduct,promotionProduct,ring,necklace,earring,fragranceNecklace,fragranceEarring;
     RadioGroup statusRadioGroup,categoryRadioGroup;
+    ConstraintLayout promotiondetail;
+    TextView tvPromotionStart,tvPromotionEnd;
     private byte[] image;
     private Uri contentUri;
     private static final int REQ_TAKE_PICTURE = 0;
     private static final int REQ_PICK_IMAGE = 1;
     private static final int REQ_CROP_PICTURE = 2;
     private AlertDialog dialog;
-    private int ststus ,category;
+    private int ststus  ,category;
+    private Timestamp startDate , endDate;
 
 
 
@@ -119,6 +137,11 @@ public class insertProductFragment extends Fragment {
         earring=view.findViewById(R.id.earring);
         fragranceNecklace = view.findViewById(R.id.fragranceNecklace);
         fragranceEarring = view.findViewById(R.id.fragranceEarring);
+        promotiondetail = view.findViewById(R.id.promotiondetail);
+        tvPromotionStart = view.findViewById(R.id.tvPromotionStart);
+        tvPromotionEnd = view.findViewById(R.id.tvPromotionEnd);
+        PromotionPrice = view.findViewById(R.id.PromotionPrice);
+
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -268,29 +291,40 @@ public class insertProductFragment extends Fragment {
 
             }
         });
-
         statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.shelvesProduct://單選 下架
+                        promotiondetail.setVisibility(View.GONE);
                         ststus = 0;
                         break;
                     case R.id.onSaleProduct: //單選 上架
+                        promotiondetail.setVisibility(View.GONE);
                         ststus = 1;
                         break;
                     case R.id.promotionProduct: //單選 促銷
+                        openRangePicker();
+                        promotiondetail.setVisibility(View.VISIBLE);
                         ststus = 2;
                         break;
                 }
             }
         });
+        //==============點下促銷RadioButton 顯示促銷詳細資訊
+        promotiondetail.setVisibility(ststus == 2 ? View.VISIBLE : View.GONE);
 
+
+
+
+
+
+        //==============
 
         btaddproduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                JsonObject jsonObject = new JsonObject();
                 if (Common.networkConnected(activity)) {
                     //product = new Product();
                     if (flag == 0) {   //flag = 0 修改商品
@@ -312,10 +346,26 @@ public class insertProductFragment extends Fragment {
 
                     }
 
+                    if(ststus == 2) {
+                        int promotionPrice;
+                        if (!PromotionPrice.getText().toString().equals("")) {  // 促銷價格
+                            promotionPrice = Integer.parseInt(PromotionPrice.getText().toString());
+                            Promotion promotion = new Promotion();
+                            promotion.setPromotion_Price(promotionPrice);
+                            promotion.setDate_Start(startDate);
+                            promotion.setDate_End(endDate);
+                            jsonObject.addProperty("promotion", new Gson().toJson(promotion));
+
+                        } else {
+                            Toast.makeText(activity, "請輸入促銷價格", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                     String url = Common.URL_SERVER + "Prouct_Servlet";
-                    JsonObject jsonObject = new JsonObject();
+
                     jsonObject.addProperty("action", flag == 1 ? "insertProduct" : "updateProduct");
                     jsonObject.addProperty("product", new Gson().toJson(product));
+
                     jsonObject.addProperty("flag", flag);
                     if (image != null) {
                         jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
@@ -407,6 +457,59 @@ public class insertProductFragment extends Fragment {
             ivshowpicture.setImageResource(R.drawable.no_image);
         }
     }
+    private void openRangePicker() {
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_MONTH, -1);
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
 
+//        List<Calendar> selectedDays = new ArrayList<>();
+//        selectedDays.add(min);
+//        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
+//        selectedDays.add(max);
+
+        DatePickerBuilder rangeBuilder = new DatePickerBuilder(activity, this)
+                .setPickerType(CalendarView.RANGE_PICKER)
+                .setHeaderColor(R.color.sampleDark)
+                .setAbbreviationsBarColor(R.color.sampleLight)
+                .setAbbreviationsLabelsColor(android.R.color.white)
+                .setPagesColor(R.color.sampleLighter)
+                .setSelectionColor(android.R.color.white)
+                .setSelectionLabelColor(R.color.sampleDark)
+                .setTodayLabelColor(R.color.dialogAccent)
+                .setDialogButtonsColor(android.R.color.white)
+                .setDaysLabelsColor(android.R.color.white)
+                .setMinimumDate(today)
+
+                .setAnotherMonthsDaysLabelsColor(R.color.sampleLighter)
+                .setMaximumDaysRange(10);
+
+
+        DatePicker rangePicker = rangeBuilder.build();
+        rangePicker.show();
+    }
+
+
+    @Override
+    public void onSelect(List<Calendar> calendars) {
+//        Stream.of(calendars).forEach(calendar ->
+//                Toast.makeText(getApplicationContext(),
+//                        calendar.getTime().toString(),
+//                        Toast.LENGTH_SHORT).show());
+        Date startDateTypeDate = calendars.get(0).getTime();  //取得開始的促銷日期
+        Date endDateTypeDate = calendars.get(calendars.size()-1).getTime();//取得結束的促銷日期
+
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String[] startdate = sdf.format(startDateTypeDate).split(" ");
+        String[] enddate = sdf.format(endDateTypeDate).split(" ");
+        tvPromotionStart.setText(startdate[0]);
+        tvPromotionEnd.setText(enddate[0]);
+        startDate = Timestamp.valueOf(sdf.format(startDateTypeDate));
+        endDate = Timestamp.valueOf(sdf.format(endDateTypeDate));
+
+
+        Log.e("startDate & endDate",startDate.toString()+"   "+endDate.toString());
+
+    }
 
 }

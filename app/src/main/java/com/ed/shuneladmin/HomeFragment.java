@@ -41,14 +41,12 @@ public class HomeFragment extends Fragment {
 
     private Activity activity;
     private ImageView ivLogout, ivAdmin;
-<<<<<<< HEAD
-=======
     /*建立viewPage 7.22*/
     TabLayout tabLayout;
     ViewPager2 viewPager;
     private int[] label={R.string.Promotion,R.string.system,R.string.chat};
 
-    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
+
 //=======
 //
 //    private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
@@ -58,13 +56,9 @@ public class HomeFragment extends Fragment {
 //    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
-<<<<<<< HEAD
  //   private int[] label={R.string.system,R.string.Promotion,R.string.chat};
-=======
 
->>>>>>> 1dbf90302852618d6fcc4a71f11eb886d206922f
 
->>>>>>> 6464a59678282588128ccac611953bb65a256171
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +77,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
 
 //        ivLogout = view.findViewById(R.id.ivLogout);
 //        ivAdmin = view.findViewById(R.id.ivAdmin);
@@ -100,8 +93,6 @@ public class HomeFragment extends Fragment {
 //                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
 //            }
 //        });
-=======
-<<<<<<< HEAD
 
         //建立bottom
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
@@ -123,8 +114,6 @@ public class HomeFragment extends Fragment {
 //                Logout();
 //            }
 //        });
-=======
->>>>>>> 1dbf90302852618d6fcc4a71f11eb886d206922f
         ivLogout = view.findViewById(R.id.ivLogout);
         ivAdmin = view.findViewById(R.id.ivAdim);
 
@@ -144,7 +133,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
->>>>>>> 6464a59678282588128ccac611953bb65a256171
 
         findViews(view);
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
