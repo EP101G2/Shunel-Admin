@@ -377,7 +377,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                         String rp = insertProduct.execute().get();
                         int count = Integer.parseInt(rp);
 
-                        if (count == 1) {
+                        if (count != 0) {
 
                             Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
 
