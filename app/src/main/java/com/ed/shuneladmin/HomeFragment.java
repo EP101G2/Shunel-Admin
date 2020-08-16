@@ -112,7 +112,6 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent();
         intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
         startActivity(intent);
-//        if (MainActivity.preferences.edit())
     }
 
     private void findViews(View view) {
