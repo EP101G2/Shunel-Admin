@@ -8,7 +8,7 @@
         android:id="@+id/fragment_systemN"
         />
     <item android:title="@string/memberNew"
-        android:id="@+id/customerServiceFragment"
+        android:id="@+id/member_newsFragment"
         />
 
 </menu>

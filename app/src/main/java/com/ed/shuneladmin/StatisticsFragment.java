@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
+import com.ed.shuneladmin.Task.Common;
+import com.ed.shuneladmin.Task.CommonTask;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -38,8 +41,13 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,14 +65,19 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
      *************************************************************************/
     private static final String TAG = "StatisticsFragment";
     private Activity activity;
-
+    private CommonTask dateTask;
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
     /*************************************************************************
      * 變數數宣告區
      *************************************************************************/
 
     Date myDate;
-
+    Date startDate;
+    Date endDate;
+    String strStart;
+    String strEnd;
+    private int dataVar = 1;
 
     /**************************** View元件變數 *********************************/
 
@@ -72,7 +85,7 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
 
     private TextView tvStartDate;
 
-    private Button btn_PickDate;
+    private TextView tvEndDate;
 
     private Button btn_SendDate;
 
@@ -128,9 +141,8 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     private void findViews(View view) {
         lineChart = view.findViewById(R.id.lineChart);
         btn_SendDate = view.findViewById(R.id.btn_SendDate);
+        tvEndDate = view.findViewById(R.id.tvEndDate);
         tvStartDate = view.findViewById(R.id.tvStartDate);
-        btn_PickDate = view.findViewById(R.id.btn_PickDate);
-
     }
 
     private void initData() {
@@ -164,10 +176,18 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
 
     private void setLinstener() {
 
-        btn_PickDate.setOnClickListener(new View.OnClickListener() {
+
+        tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRangePicker();
+                openOneDayPicker();
+            }
+        });
+
+        tvEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EndOneDayPicker();
             }
         });
 
@@ -176,8 +196,33 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
             @Override
             public void onClick(View v) {
 
-//           發送到server
+                //為填入日期防呆裝置
+                if (startDate == null || endDate == null) {
+                    Toast.makeText(activity, "請填入日期", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //日期輸入錯誤防呆裝置
+                if (startDate.after(endDate)) {
+                    Toast.makeText(activity, "日期有誤", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL_SERVER + "Orders_Servlet";
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "getStatistics");
+                    jsonObject.addProperty("date1", strStart);
+                    jsonObject.addProperty("date2", strEnd);
+                    dateTask = new CommonTask(url, jsonObject.toString());
+                    try {
+                        String jsonIn = dateTask.execute().get();
+                        Log.e(TAG,"jsoin:"+jsonIn);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                }else {
+                    Common.showToast(activity, R.string.textNoNetwork);
+                }
 
             }
         });
@@ -321,50 +366,93 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     @Override
     public void onSelect(List<java.util.Calendar> calendars) {
 
+        for (Calendar c : calendars
+        ) {
+            //判斷開始日 結束數
+            //dataVar 為控制變數 1＝開始日 2=結束日
+            // 為開始日
+            if (dataVar == 1) {
+                startDate = c.getTime();
+                strStart = dateToStr(c.getTime());
+                tvStartDate.setText(dateToStr(c.getTime()));
+//                Log.e(TAG,"1 i"+dataVar+"\t"+c.getTime()+"\t"+startDate);
+                dataVar++;
+//                Log.e(TAG,"2 i"+dataVar);
+            } else {
+                //為結束日
+                endDate = c.getTime();
+                strEnd = dateToStr(c.getTime());
+                tvEndDate.setText(dateToStr(c.getTime()));
+//                Log.e(TAG,"3 i"+dataVar);
+                dataVar = 1;
+//                Log.e(TAG,"4 i"+dataVar);
+            }
+        }
+    }
 
-        Stream.of(calendars).forEach(calendar ->
-                tvStartDate.setText(String.valueOf(calendar.getTime()))
-        );
+    private String dateToStr(Date time) {
+        //設定日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //進行轉換
+        String dateString = sdf.format(time);
+        System.out.println(dateString);
 
-        Stream.of(calendars).forEach(calendar ->
-                myDate = calendar.getTime()
-        );
-
+        return dateString;
     }
 
 
-    private void openRangePicker() {
-        java.util.Calendar min = java.util.Calendar.getInstance();
-        min.add(java.util.Calendar.DAY_OF_MONTH, -5);
+    private void openOneDayPicker() {
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.MONTH, -5);
 
-        java.util.Calendar max = java.util.Calendar.getInstance();
-        max.add(java.util.Calendar.DAY_OF_MONTH, 3);
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
 
-        List<java.util.Calendar> selectedDays = new ArrayList<>();
-        selectedDays.add(min);
-        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
-        selectedDays.add(max);
 
-        DatePickerBuilder rangeBuilder = new DatePickerBuilder(activity, StatisticsFragment.this)
-                .setPickerType(CalendarView.RANGE_PICKER)
-                .setHeaderColor(R.color.defaultColor)
-                .setAbbreviationsBarColor(R.color.defaultColor)
-                .setAbbreviationsLabelsColor(android.R.color.white)
-                .setPagesColor(R.color.defaultColor)
-                .setSelectionColor(android.R.color.white)
-                .setSelectionLabelColor(R.color.colorPrimaryDark)
-//                .setTodayLabelColor(R.color.wallet_holo_blue_light)
-                .setDialogButtonsColor(android.R.color.white)
-                .setDaysLabelsColor(android.R.color.white)
-                .setAnotherMonthsDaysLabelsColor(R.color.design_default_color_primary_dark)
-                .setSelectedDays(selectedDays)
-                .setMaximumDaysRange(10)
+        DatePickerBuilder oneDayBuilder = new DatePickerBuilder(activity, StatisticsFragment.this)
+                .setPickerType(CalendarView.ONE_DAY_PICKER)
+                .setDate(max)
+                .setHeaderColor(R.color.colorPrimaryDark)
+                .setHeaderLabelColor(R.color.currentMonthDayColor)
+                .setSelectionColor(R.color.daysLabelColor)
+                .setTodayLabelColor(R.color.colorAccent)
+                .setDialogButtonsColor(android.R.color.holo_green_dark)
+                .setDisabledDaysLabelsColor(android.R.color.holo_purple)
+                .setMinimumDate(min)
+                .setMaximumDate(max)
+                .setTodayColor(R.color.sampleLighter)
+                .setHeaderVisibility(View.VISIBLE)
                 .setDisabledDays(getDisabledDays());
 
-        com.applandeo.materialcalendarview.DatePicker rangePicker = rangeBuilder.build();
-        rangePicker.show();
+        com.applandeo.materialcalendarview.DatePicker oneDayPicker = oneDayBuilder.build();
+        oneDayPicker.show();
+    }
 
 
+    private void EndOneDayPicker() {
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
+
+        DatePickerBuilder oneDayBuilder = new DatePickerBuilder(activity, StatisticsFragment.this)
+                .setPickerType(CalendarView.ONE_DAY_PICKER)
+                .setDate(max)
+                .setHeaderColor(R.color.colorPrimaryDark)
+                .setHeaderLabelColor(R.color.currentMonthDayColor)
+                .setSelectionColor(R.color.daysLabelColor)
+                .setTodayLabelColor(R.color.colorAccent)
+                .setDialogButtonsColor(android.R.color.holo_green_dark)
+                .setDisabledDaysLabelsColor(android.R.color.holo_purple)
+                .setMinimumDate(min)
+                .setMaximumDate(max)
+                .setTodayColor(R.color.sampleLighter)
+                .setHeaderVisibility(View.VISIBLE)
+                .setDisabledDays(getDisabledDays());
+
+        com.applandeo.materialcalendarview.DatePicker oneDayPicker = oneDayBuilder.build();
+        oneDayPicker.show();
     }
 
 
