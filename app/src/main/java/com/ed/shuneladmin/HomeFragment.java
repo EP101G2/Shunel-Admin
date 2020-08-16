@@ -42,13 +42,6 @@ public class HomeFragment extends Fragment {
     private Activity activity;
     private ImageView ivLogout, ivAdmin;
 
-<<<<<<< HEAD
-=======
-    /*建立viewPage 7.22*/
-    TabLayout tabLayout;
-    ViewPager2 viewPager;
-
->>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
 
 
@@ -70,28 +63,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
-=======
-
-
-//        ivLogout = view.findViewById(R.id.ivLogout);
-//        ivAdmin = view.findViewById(R.id.ivAdmin);
-//
-//        ivLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Logout();
-//            }
-//        });
-//        ivAdmin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
-//            }
-//        });
-
-
->>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
         //建立bottom
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
@@ -124,11 +95,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
         findViews(view);
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
