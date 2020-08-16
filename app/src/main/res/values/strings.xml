@@ -115,6 +115,13 @@
     <string name="picture">從相簿取照片</string>
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
     <string name="textDelete">刪除</string>
     <string name="textDeleteFail">刪除失敗</string>
     <string name="textDeleteSuccess">刪除成功</string>
@@ -133,6 +140,10 @@
     <string name="shelvesproduct">下架</string>
     <string name="onsaleproduct">上架</string>
     <string name="promotion">促銷</string>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
     <string name="NoticeSystemAdmin">管理系統訊息</string>
     <string name="NoticeSaleAdmin">管理促銷訊息</string>
     <string name="ordered_product_id" />

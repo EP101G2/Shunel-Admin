@@ -23,6 +23,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view">
+=======
+        android:id="@+id/linearLayout2"
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
 
         <com.google.android.material.tabs.TabLayout
@@ -32,6 +40,7 @@
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
+<<<<<<< HEAD
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,6 +78,8 @@
                 android:layout_marginRight="4dp"
                 app:srcCompat="@drawable/admin" />
         </LinearLayout>
+=======
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -80,6 +91,10 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
         <fragment
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -106,9 +121,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
 <!--        app:srcCompat="@drawable/logout" />-->
 
 
+=======
+    <ImageView
+        android:id="@+id/ivLogout"
+        android:layout_width="45dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="690dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/logout" />
+
+    <!--    <ImageView-->
+<!--        android:id="@+id/ivAdim"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="34dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/ivLogout"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/ivLogout"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ivLogout"-->
+<!--        app:srcCompat="@drawable/admin" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivLogout"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/logout" />-->
+
+
+
+    <!--  建立viewPage Jack 7.22  -->
+>>>>>>> 3d955997cf8d1db2142ce3487f3bad9a2c6a9b32
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
