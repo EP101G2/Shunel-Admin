@@ -18,19 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.annimon.stream.Stream;
-import com.applandeo.materialcalendarview.CalendarUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.bean.Order_Main;
+import com.ed.shuneladmin.bean.orderStatistics;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -44,7 +43,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +68,7 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     private Activity activity;
     private CommonTask dateTask;
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+    orderStatistics orderSs;
 
     /*************************************************************************
      * 變數數宣告區
@@ -78,6 +80,8 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     String strStart;
     String strEnd;
     private int dataVar = 1;
+    List<Entry> ordersEntries=null;
+    List<orderStatistics> orderStatisticsList;
 
     /**************************** View元件變數 *********************************/
 
@@ -135,7 +139,9 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         /* 設置必要的系統服務元件如: Services、BroadcastReceiver */
         setSystemServices();
         /* 設置View元件對應的linstener事件,讓UI可以與用戶產生互動 */
-        setLinstener();
+        setListener();
+
+
     }
 
     private void findViews(View view) {
@@ -151,12 +157,12 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         /* 取得並設定X軸標籤文字 */
         XAxis xAxis = lineChart.getXAxis();
         /* 設定最大值到12(月) */
-        xAxis.setAxisMaximum(12);
+        xAxis.setAxisMaximum(50);
 
         /* 取得左側Y軸物件 */
         YAxis yAxisLeft = lineChart.getAxisLeft();
         /* 設定左側Y軸最大值 */
-        yAxisLeft.setAxisMaximum(16000);
+        yAxisLeft.setAxisMaximum(500);
 
         /* 取得右側Y軸物件 */
         YAxis yAxisRight = lineChart.getAxisRight();
@@ -174,7 +180,7 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     private void setSystemServices() {
     }
 
-    private void setLinstener() {
+    private void setListener() {
 
 
         tvStartDate.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +213,9 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
                     return;
                 }
 
+
                 if (Common.networkConnected(activity)) {
+//                    List<orderStatistics> orderStatisticsList = new ArrayList<>();
                     String url = Common.URL_SERVER + "Orders_Servlet";
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "getStatistics");
@@ -216,15 +224,38 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
                     dateTask = new CommonTask(url, jsonObject.toString());
                     try {
                         String jsonIn = dateTask.execute().get();
+//                        get as list
+                        Type listType = new TypeToken<List<orderStatistics>>() {
+                        }.getType();
+                        orderStatisticsList = gson.fromJson(jsonIn, listType);
                         Log.e(TAG,"jsoin:"+jsonIn);
+                        initData();
+                        ordersEntries = getOrdersEntries(orderStatisticsList);
+                        LineDataSet lineDataSetOrder = new LineDataSet(ordersEntries, "Order");
+                        lineDataSetOrder.setCircleRadius(4);
+                        lineDataSetOrder.setDrawCircleHole(false);
+                        lineDataSetOrder.setCircleColor(Color.MAGENTA);
+                        lineDataSetOrder.setColor(Color.GREEN);
+                        lineDataSetOrder.setLineWidth(4);
+                        lineDataSetOrder.setHighLightColor(Color.CYAN);
+                        lineDataSetOrder.setValueTextColor(Color.DKGRAY);
+                        lineDataSetOrder.setValueTextSize(10);
+
+                        /* 有幾個LineDataSet，就繪製幾條線 */
+                        List<ILineDataSet> dataSets = new ArrayList<>();
+                        dataSets.add(lineDataSetOrder);
+                        LineData lineData = new LineData(dataSets);
+                        lineChart.setData(lineData);
+                        lineChart.invalidate();
+
                     } catch (Exception e) {
                         Log.e(TAG, e.toString());
                     }
                 }else {
                     Common.showToast(activity, R.string.textNoNetwork);
                 }
-
             }
+
         });
 
 
@@ -247,47 +278,69 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         });
 
         /* 取得各品牌車每月銷售量資料 */
-        List<Entry> toyotaEntries = getToyotaEntries();
-        List<Entry> nissanEntries = getNissanEntries();
-
-        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
-        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
-        /* 設定資料圓點半徑 */
-        lineDataSetToyota.setCircleRadius(4);
-        /* 設定資料圓點是否中空 */
-        lineDataSetToyota.setDrawCircleHole(true);
-        /* 設定資料圓點顏色 */
-        lineDataSetToyota.setCircleColor(Color.RED);
-        /* 設定線的顏色 */
-        lineDataSetToyota.setColor(Color.BLUE);
-        /* 設定線的粗細 */
-        lineDataSetToyota.setLineWidth(4);
-        /* 設定highlight線的顏色 */
-        lineDataSetToyota.setHighLightColor(Color.CYAN);
-        /* 設定資料點上的文字顏色 */
-        lineDataSetToyota.setValueTextColor(Color.DKGRAY);
-        /* 設定資料點上的文字大小 */
-        lineDataSetToyota.setValueTextSize(10);
-
-        LineDataSet lineDataSetNissan = new LineDataSet(nissanEntries, "Nissan");
-        lineDataSetNissan.setCircleRadius(4);
-        lineDataSetNissan.setDrawCircleHole(false);
-        lineDataSetNissan.setCircleColor(Color.MAGENTA);
-        lineDataSetNissan.setColor(Color.GREEN);
-        lineDataSetNissan.setLineWidth(4);
-        lineDataSetNissan.setHighLightColor(Color.CYAN);
-        lineDataSetNissan.setValueTextColor(Color.DKGRAY);
-        lineDataSetNissan.setValueTextSize(10);
-
-        /* 有幾個LineDataSet，就繪製幾條線 */
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lineDataSetToyota);
-        dataSets.add(lineDataSetNissan);
-        LineData lineData = new LineData(dataSets);
-        lineChart.setData(lineData);
-        lineChart.invalidate();
+//        List<Entry> toyotaEntries = getToyotaEntries();
+//        List<Entry> nissanEntries = getNissanEntries();
 
 
+//        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
+//        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
+//        /* 設定資料圓點半徑 */
+//        lineDataSetToyota.setCircleRadius(4);
+//        /* 設定資料圓點是否中空 */
+//        lineDataSetToyota.setDrawCircleHole(true);
+//        /* 設定資料圓點顏色 */
+//        lineDataSetToyota.setCircleColor(Color.RED);
+//        /* 設定線的顏色 */
+//        lineDataSetToyota.setColor(Color.BLUE);
+//        /* 設定線的粗細 */
+//        lineDataSetToyota.setLineWidth(4);
+//        /* 設定highlight線的顏色 */
+//        lineDataSetToyota.setHighLightColor(Color.CYAN);
+//        /* 設定資料點上的文字顏色 */
+//        lineDataSetToyota.setValueTextColor(Color.DKGRAY);
+//        /* 設定資料點上的文字大小 */
+//        lineDataSetToyota.setValueTextSize(10);
+//
+//        LineDataSet lineDataSetNissan = new LineDataSet(nissanEntries, "Nissan");
+//        lineDataSetNissan.setCircleRadius(4);
+//        lineDataSetNissan.setDrawCircleHole(false);
+//        lineDataSetNissan.setCircleColor(Color.MAGENTA);
+//        lineDataSetNissan.setColor(Color.GREEN);
+//        lineDataSetNissan.setLineWidth(4);
+//        lineDataSetNissan.setHighLightColor(Color.CYAN);
+//        lineDataSetNissan.setValueTextColor(Color.DKGRAY);
+//        lineDataSetNissan.setValueTextSize(10);
+
+
+
+
+
+    }
+
+    private List<Entry> getOrdersEntries(List<orderStatistics> List) {
+        List<Entry> ordersEntries = new ArrayList<>();
+        if (List == null){
+            ordersEntries.add(new Entry(1, 2));
+            Log.e(TAG, "1");
+            return ordersEntries;
+        }
+        try {
+            Log.e(TAG, "2");
+            for (orderStatistics os: List
+            ) {
+                Log.e(TAG, "3");
+                ordersEntries.add(new Entry(os.getCATEGORY_ID(),os.getSumBUY_PRICE()));
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+//        x: order date, y: sumBuyPrice
+
+//        ordersEntries.add(new Entry(orderSs.getORDER_DATE().getDate(), orderSs.getSumBUY_PRICE()));
+
+
+        return ordersEntries;
     }
 
     private List<Entry> getToyotaEntries() {
@@ -393,6 +446,16 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     private String dateToStr(Date time) {
         //設定日期格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //進行轉換
+        String dateString = sdf.format(time);
+        System.out.println(dateString);
+
+        return dateString;
+    }
+
+    private String dateToStr2(Date time) {
+        //設定日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         //進行轉換
         String dateString = sdf.format(time);
         System.out.println(dateString);

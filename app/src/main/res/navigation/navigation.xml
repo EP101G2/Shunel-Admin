@@ -143,5 +143,10 @@
         android:name="com.ed.shuneladmin.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/pieChartFragment"
+        android:name="com.ed.shuneladmin.PieChartFragment"
+        android:label="fragment_pie_chart"
+        tools:layout="@layout/fragment_pie_chart" />
 
 </navigation>
