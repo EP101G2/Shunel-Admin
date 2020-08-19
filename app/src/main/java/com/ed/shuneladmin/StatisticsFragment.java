@@ -6,12 +6,6 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,24 +16,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
-import com.ed.shuneladmin.bean.Order_Main;
 import com.ed.shuneladmin.bean.orderStatistics;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -80,13 +73,12 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     String strStart;
     String strEnd;
     private int dataVar = 1;
-    List<Entry> ordersEntries=null;
+    List<PieEntry> ordersEntries=null;
     List<orderStatistics> orderStatisticsList;
 
     /**************************** View元件變數 *********************************/
 
-    LineChart lineChart;
-
+    private PieChart pieChart;
     private TextView tvStartDate;
 
     private TextView tvEndDate;
@@ -145,7 +137,8 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
     }
 
     private void findViews(View view) {
-        lineChart = view.findViewById(R.id.lineChart);
+
+        pieChart = view.findViewById(R.id.pieChart);
         btn_SendDate = view.findViewById(R.id.btn_SendDate);
         tvEndDate = view.findViewById(R.id.tvEndDate);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -153,27 +146,15 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
 
     private void initData() {
 
-        lineChart.setBackgroundColor(Color.WHITE);
-        /* 取得並設定X軸標籤文字 */
-        XAxis xAxis = lineChart.getXAxis();
-        /* 設定最大值到12(月) */
-        xAxis.setAxisMaximum(50);
+        /* 設定可否旋轉 */
+        pieChart.setRotationEnabled(true);
+        /* 設定圓心文字 */
+        pieChart.setCenterText("商品銷售比例");
+        /* 設定圓心文字大小 */
+        pieChart.setCenterTextSize(15);
 
-        /* 取得左側Y軸物件 */
-        YAxis yAxisLeft = lineChart.getAxisLeft();
-        /* 設定左側Y軸最大值 */
-        yAxisLeft.setAxisMaximum(500);
-
-        /* 取得右側Y軸物件 */
-        YAxis yAxisRight = lineChart.getAxisRight();
-        /* 是否顯示右側Y軸 */
-        yAxisRight.setEnabled(false);
-
-        /* 設定右下角描述文字 */
         Description description = new Description();
-        description.setText("Car Sales in Taiwan");
-        description.setTextSize(16);
-        lineChart.setDescription(description);
+        pieChart.setDescription(description);
 
     }
 
@@ -231,22 +212,17 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
                         Log.e(TAG,"jsoin:"+jsonIn);
                         initData();
                         ordersEntries = getOrdersEntries(orderStatisticsList);
-                        LineDataSet lineDataSetOrder = new LineDataSet(ordersEntries, "Order");
-                        lineDataSetOrder.setCircleRadius(4);
-                        lineDataSetOrder.setDrawCircleHole(false);
-                        lineDataSetOrder.setCircleColor(Color.MAGENTA);
-                        lineDataSetOrder.setColor(Color.GREEN);
-                        lineDataSetOrder.setLineWidth(4);
-                        lineDataSetOrder.setHighLightColor(Color.CYAN);
-                        lineDataSetOrder.setValueTextColor(Color.DKGRAY);
-                        lineDataSetOrder.setValueTextSize(10);
 
-                        /* 有幾個LineDataSet，就繪製幾條線 */
-                        List<ILineDataSet> dataSets = new ArrayList<>();
-                        dataSets.add(lineDataSetOrder);
-                        LineData lineData = new LineData(dataSets);
-                        lineChart.setData(lineData);
-                        lineChart.invalidate();
+                        PieDataSet pieDataSet = new PieDataSet(ordersEntries, "");
+                        pieDataSet.setValueTextColor(Color.BLACK);
+                        pieDataSet.setValueTextSize(20);
+                        pieDataSet.setSliceSpace(3);
+
+                        /* 使用官訂顏色範本，顏色不能超過5種，否則官定範本要加顏色 */
+                        pieDataSet.setColors(Color_test.JOYFUL_COLORS);
+                        PieData pieData = new PieData(pieDataSet);
+                        pieChart.setData(pieData);
+                        pieChart.invalidate();
 
                     } catch (Exception e) {
                         Log.e(TAG, e.toString());
@@ -259,68 +235,13 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         });
 
 
-        /* 監聽是否點選chart內容值 */
-        lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            /* entry: 儲存著被點選項目的值；包含X與Y軸的值
-             *  highlight: 儲存著標記相關資訊，也包含X與Y軸的值
-             *  有entry物件就不太需要highlight物件 */
-            public void onValueSelected(Entry entry, Highlight highlight) {
-                Log.d(TAG, "entry: " + entry.toString() + "; highlight: " + highlight.toString());
-                String text = (int) entry.getX() + "\n" + (int) entry.getY();
-                Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-        /* 取得各品牌車每月銷售量資料 */
-//        List<Entry> toyotaEntries = getToyotaEntries();
-//        List<Entry> nissanEntries = getNissanEntries();
-
-
-//        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
-//        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
-//        /* 設定資料圓點半徑 */
-//        lineDataSetToyota.setCircleRadius(4);
-//        /* 設定資料圓點是否中空 */
-//        lineDataSetToyota.setDrawCircleHole(true);
-//        /* 設定資料圓點顏色 */
-//        lineDataSetToyota.setCircleColor(Color.RED);
-//        /* 設定線的顏色 */
-//        lineDataSetToyota.setColor(Color.BLUE);
-//        /* 設定線的粗細 */
-//        lineDataSetToyota.setLineWidth(4);
-//        /* 設定highlight線的顏色 */
-//        lineDataSetToyota.setHighLightColor(Color.CYAN);
-//        /* 設定資料點上的文字顏色 */
-//        lineDataSetToyota.setValueTextColor(Color.DKGRAY);
-//        /* 設定資料點上的文字大小 */
-//        lineDataSetToyota.setValueTextSize(10);
-//
-//        LineDataSet lineDataSetNissan = new LineDataSet(nissanEntries, "Nissan");
-//        lineDataSetNissan.setCircleRadius(4);
-//        lineDataSetNissan.setDrawCircleHole(false);
-//        lineDataSetNissan.setCircleColor(Color.MAGENTA);
-//        lineDataSetNissan.setColor(Color.GREEN);
-//        lineDataSetNissan.setLineWidth(4);
-//        lineDataSetNissan.setHighLightColor(Color.CYAN);
-//        lineDataSetNissan.setValueTextColor(Color.DKGRAY);
-//        lineDataSetNissan.setValueTextSize(10);
-
-
-
-
 
     }
 
-    private List<Entry> getOrdersEntries(List<orderStatistics> List) {
-        List<Entry> ordersEntries = new ArrayList<>();
+    private List<PieEntry> getOrdersEntries(List<orderStatistics> List) {
+        List<PieEntry> ordersEntries = new ArrayList<>();
         if (List == null){
-            ordersEntries.add(new Entry(1, 2));
+            ordersEntries.add(new PieEntry(1, "1"));
             Log.e(TAG, "1");
             return ordersEntries;
         }
@@ -328,8 +249,15 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
             Log.e(TAG, "2");
             for (orderStatistics os: List
             ) {
-                Log.e(TAG, "3");
-                ordersEntries.add(new Entry(os.getCATEGORY_ID(),os.getSumBUY_PRICE()));
+                if (os.getCATEGORY_ID() ==1){
+
+                    ordersEntries.add(new PieEntry(os.getSumBUY_PRICE(),os.getPRODUCT_NAME()));
+                }else if (os.getCATEGORY_ID() ==2){
+                    ordersEntries.add(new PieEntry(os.getSumBUY_PRICE(),os.getPRODUCT_NAME()));
+                }else if(os.getCATEGORY_ID() ==3){
+                    ordersEntries.add(new PieEntry(os.getSumBUY_PRICE(),os.getPRODUCT_NAME()));
+                }
+
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -343,40 +271,7 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         return ordersEntries;
     }
 
-    private List<Entry> getToyotaEntries() {
-        List<Entry> toyotaEntries = new ArrayList<>();
-        /* 一個Entry儲存著一筆資訊，在此代表X與Y軸的值 */
-        toyotaEntries.add(new Entry(1, 10000));
-        toyotaEntries.add(new Entry(2, 12000));
-        toyotaEntries.add(new Entry(3, 13500));
-        toyotaEntries.add(new Entry(4, 12500));
-        toyotaEntries.add(new Entry(5, 13300));
-        toyotaEntries.add(new Entry(6, 12400));
-        toyotaEntries.add(new Entry(7, 11500));
-        toyotaEntries.add(new Entry(8, 12500));
-        toyotaEntries.add(new Entry(9, 12300));
-        toyotaEntries.add(new Entry(10, 13000));
-        toyotaEntries.add(new Entry(11, 13200));
-        toyotaEntries.add(new Entry(12, 14000));
-        return toyotaEntries;
-    }
 
-    private List<Entry> getNissanEntries() {
-        List<Entry> nissanEntries = new ArrayList<>();
-        nissanEntries.add(new Entry(1, 3000));
-        nissanEntries.add(new Entry(2, 3200));
-        nissanEntries.add(new Entry(3, 3500));
-        nissanEntries.add(new Entry(4, 3150));
-        nissanEntries.add(new Entry(5, 3300));
-        nissanEntries.add(new Entry(6, 3400));
-        nissanEntries.add(new Entry(7, 3120));
-        nissanEntries.add(new Entry(8, 3250));
-        nissanEntries.add(new Entry(9, 3300));
-        nissanEntries.add(new Entry(10, 3230));
-        nissanEntries.add(new Entry(11, 3350));
-        nissanEntries.add(new Entry(12, 3400));
-        return nissanEntries;
-    }
 
     @Override
     public void onStart() {
@@ -428,17 +323,13 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
                 startDate = c.getTime();
                 strStart = dateToStr(c.getTime());
                 tvStartDate.setText(dateToStr(c.getTime()));
-//                Log.e(TAG,"1 i"+dataVar+"\t"+c.getTime()+"\t"+startDate);
                 dataVar++;
-//                Log.e(TAG,"2 i"+dataVar);
             } else {
                 //為結束日
                 endDate = c.getTime();
                 strEnd = dateToStr(c.getTime());
                 tvEndDate.setText(dateToStr(c.getTime()));
-//                Log.e(TAG,"3 i"+dataVar);
                 dataVar = 1;
-//                Log.e(TAG,"4 i"+dataVar);
             }
         }
     }
@@ -534,5 +425,47 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         calendars.add(secondDisabled);
         calendars.add(thirdDisabled);
         return calendars;
+    }
+
+    private static class Color_test {
+        /**
+         * an "invalid" color that indicates that no color is set
+         */
+        public static final int COLOR_NONE = 0x00112233;
+
+        /**
+         * this "color" is used for the Legend creation and indicates that the next
+         * form should be skipped
+         */
+        public static final int COLOR_SKIP = 0x00112234;
+
+        /**
+         * THE COLOR THEMES ARE PREDEFINED (predefined color integer arrays), FEEL
+         * FREE TO CREATE YOUR OWN WITH AS MANY DIFFERENT COLORS AS YOU WANT
+         */
+        public static final int[] LIBERTY_COLORS = {
+                Color.rgb(207, 248, 246), Color.rgb(148, 212, 212), Color.rgb(136, 180, 187),
+                Color.rgb(118, 174, 175), Color.rgb(42, 109, 130)
+        };
+        public static final int[] JOYFUL_COLORS = {
+                Color.rgb(147, 236, 76), Color.rgb(203, 254, 255), Color.rgb(254, 247, 120),
+                Color.rgb(106, 167, 134), Color.rgb(53, 194, 209)
+        };
+        public static final int[] PASTEL_COLORS = {
+                Color.rgb(64, 89, 128), Color.rgb(149, 165, 124), Color.rgb(217, 184, 162),
+                Color.rgb(191, 134, 134), Color.rgb(179, 48, 80)
+        };
+        public static final int[] COLORFUL_COLORS = {
+                Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
+                Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
+        };
+        public static final int[] VORDIPLOM_COLORS = {
+                Color.rgb(192, 255, 140), Color.rgb(255, 247, 140), Color.rgb(255, 208, 140),
+                Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+        };
+//        public static final int[] MATERIAL_COLORS = {
+//                rgb("#2ecc71"), rgb("#f1c40f"), rgb("#e74c3c"), rgb("#3498db")
+//        };
+
     }
 }
