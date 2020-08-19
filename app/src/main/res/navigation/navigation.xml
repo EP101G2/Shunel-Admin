@@ -54,16 +54,8 @@
             android:id="@+id/action_userFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/member_newsFragment"
-        android:name="com.ed.shuneladmin.Member_newsFragment"
-        android:label="fragment_member_news"
-        tools:layout="@layout/fragment_member_news" />
-    <fragment
-        android:id="@+id/customerServiceFragment"
-        android:name="com.ed.shuneladmin.customerServiceFragment"
-        android:label="fragment_customer_service"
-        tools:layout="@layout/fragment_customer_service" />
+
+
     <fragment
         android:id="@+id/noticeAdminFragment"
         android:name="com.ed.shuneladmin.NoticeAdminFragment"
@@ -152,9 +144,9 @@
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
     <fragment
-        android:id="@+id/calendarFragment"
-        android:name="com.ed.shuneladmin.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        android:id="@+id/pieChartFragment"
+        android:name="com.ed.shuneladmin.PieChartFragment"
+        android:label="fragment_pie_chart"
+        tools:layout="@layout/fragment_pie_chart" />
 
 </navigation>

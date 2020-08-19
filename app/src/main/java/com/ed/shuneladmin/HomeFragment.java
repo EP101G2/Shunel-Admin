@@ -41,22 +41,8 @@ public class HomeFragment extends Fragment {
 
     private Activity activity;
     private ImageView ivLogout, ivAdmin;
-    /*建立viewPage 7.22*/
-    TabLayout tabLayout;
-    ViewPager2 viewPager;
-    private int[] label={R.string.Promotion,R.string.system,R.string.chat};
 
 
-//=======
-//
-//    private int[] label={R.string.system,R.string.Product,R.string.Promotion,R.string.msg,R.string.notice};
-//
-//>>>>>>> d10b0c31dd01221f3d499117e1b7cadfbaa888ef
-//=======
-//    private int[] label={R.string.system,R.string.Promotion,R.string.chat};
-
-
- //   private int[] label={R.string.system,R.string.Promotion,R.string.chat};
 
 
 
@@ -76,23 +62,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        ivLogout = view.findViewById(R.id.ivLogout);
-//        ivAdmin = view.findViewById(R.id.ivAdmin);
-//
-//        ivLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Logout();
-//            }
-//        });
-//        ivAdmin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
-//            }
-//        });
 
 
         //建立bottom
@@ -116,15 +85,7 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
         ivLogout = view.findViewById(R.id.ivLogout);
-        ivAdmin = view.findViewById(R.id.ivAdim);
 
-
-        ivAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_adminFragment);
-            }
-        });
 
 
         ivLogout.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +112,6 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent();
         intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
         startActivity(intent);
-//        if (MainActivity.preferences.edit())
     }
 
     private void findViews(View view) {

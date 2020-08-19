@@ -19,4 +19,6 @@
         android:icon="@drawable/price"
         android:id="@+id/statisticsFragment"
         />
+
+
 </menu>

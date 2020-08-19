@@ -12,6 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
         android:orientation="vertical">
         android:layout_height="wrap_content"
@@ -105,7 +106,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
+<!--        app:srcCompat="@drawable/logout" />-->
+
+
+    <ImageView
+        android:id="@+id/ivLogout"
+        android:layout_width="45dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="690dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/logout" />
+
+    <!--    <ImageView-->
 <!--        android:id="@+id/ivAdim"-->
 <!--        android:layout_width="45dp"-->
 <!--        android:layout_height="34dp"-->
@@ -126,7 +140,6 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:srcCompat="@drawable/logout" />-->
-
 
 
 

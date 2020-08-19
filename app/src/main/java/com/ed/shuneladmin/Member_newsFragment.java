@@ -194,21 +194,12 @@ public class Member_newsFragment extends Fragment {
                 public void onClick(View view) {
 
                     findRoomId();
-
-
-
-
-
                     Bundle bundle = new Bundle();
                     bundle.putString("member", member);
                     bundle.putInt("chatRoom",chat_ID);
 
                     Log.e(TAG,member+"==================================="+chat_ID);
-//                    Intent intent = new Intent(activity,customerServiceFragment.class);
-//                    startActivity(intent);
-//                    Toast.makeText(context,view?.findNavController()?.R.id.customerServiceFragment?.,Toast.LENGTH_SHORT).show()
-                    findNavController(view).navigate(R.id.action_homeFragment_to_customerServiceFragment,bundle);
-//                    Navigation.findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment, bundle);
+                    findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment,bundle);
                 }
             });
 

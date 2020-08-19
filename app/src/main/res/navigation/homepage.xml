@@ -10,4 +10,27 @@
         android:name="com.ed.shuneladmin.mainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/fragment_systemN"
+        android:name="com.ed.shuneladmin.SystemNFragment"
+        android:label="fragment_system_n"
+        tools:layout="@layout/fragment_system_n" />
+
+
+    <fragment
+        android:id="@+id/member_newsFragment"
+        android:name="com.ed.shuneladmin.Member_newsFragment"
+        android:label="fragment_member_news"
+        tools:layout="@layout/fragment_member_news" >
+        <action
+            android:id="@+id/action_member_newsFragment_to_customerServiceFragment"
+            app:destination="@id/customerServiceFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/customerServiceFragment"
+        android:name="com.ed.shuneladmin.customerServiceFragment"
+        android:label="fragment_customer_service"
+        tools:layout="@layout/fragment_customer_service" />
 </navigation>

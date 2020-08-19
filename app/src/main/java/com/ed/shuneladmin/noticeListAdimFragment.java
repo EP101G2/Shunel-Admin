@@ -96,7 +96,7 @@ public class noticeListAdimFragment extends Fragment {
 
     private void findViews(View view) {
         ivAddSaleN = view.findViewById(R.id.ivAddSaleN);
-        tvUpdateSaleN = view.findViewById(R.id.tvUpdateSaleN);
+        tvUpdateSaleN = view.findViewById(R.id.tvdeleteSaleN);
         rvAdimSaleN = view.findViewById(R.id.rvAdimSaleN);
         SearchSaleN = view.findViewById(R.id.SearchSaleN);
         rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));

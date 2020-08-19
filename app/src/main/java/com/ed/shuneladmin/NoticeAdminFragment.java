@@ -98,31 +98,51 @@ public class NoticeAdminFragment extends Fragment {
 
 
     private void initData() {
+        Bundle bundle;
         switch (MainActivity.flag) {
             case 0:
                 String textSale = "新增促銷訊息";
                 tvAddNPageT.append(textSale);
-
-//                }
-                break;
-
-            case 1:
-                String textSystem = "新增系統訊息";
-                tvAddNPageT.append(textSystem);
-//                }
-                break;
-
-            case 2:
-                String textUpdateSale = "修改促銷訊息";
-                tvAddNPageT.setText(textUpdateSale);
-                Bundle bundle = getArguments();
+                bundle = getArguments();
                 if (bundle != null) {
                     notice = (Notice) bundle.getSerializable("NoitceAdim");
                     edNoticeTitle.setText(notice.getNotice_Title());
                     edNoticeDetail.setText(notice.getNotice_Content());
                 }
+                break;
 
+            case 1:
+                String textSystem = "新增系統訊息";
+                tvAddNPageT.append(textSystem);
+                bundle = getArguments();
+                if (bundle != null) {
+                    notice = (Notice) bundle.getSerializable("NoitceAdim");
+                    edNoticeTitle.setText(notice.getNotice_Title());
+                    edNoticeDetail.setText(notice.getNotice_Content());
+                }
+                break;
 
+            case 2:
+                String textUpdateSale = "修改促銷訊息";
+                tvAddNPageT.setText(textUpdateSale);
+                 bundle = getArguments();
+                if (bundle != null) {
+                    notice = (Notice) bundle.getSerializable("NoitceAdim");
+                    edNoticeTitle.setText(notice.getNotice_Title());
+                    edNoticeDetail.setText(notice.getNotice_Content());
+            }
+                break;
+
+            case 3:
+                String textUpdateSystem = "修改系統訊息";
+                tvAddNPageT.setText(textUpdateSystem);
+                bundle = getArguments();
+                if (bundle != null) {
+                    notice = (Notice) bundle.getSerializable("NoitceAdim");
+                    edNoticeTitle.setText(notice.getNotice_Title());
+                    edNoticeDetail.setText(notice.getNotice_Content());
+                }
+                break;
         }
 
 
@@ -146,6 +166,8 @@ public class NoticeAdminFragment extends Fragment {
                     String url = Common.URL_SERVER + "Notice_Servlet";
                     JsonObject jsonObject = new JsonObject();
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                    String title ;
+                    String detail;
                     switch (MainActivity.flag) {
                         case 0:
                             Log.e("促銷訊息", "===" +MainActivity.flag);
@@ -167,8 +189,8 @@ public class NoticeAdminFragment extends Fragment {
                             break;
 
                         case 2:
-                            String title = edNoticeTitle.getText().toString();
-                            String detail = edNoticeDetail.getText().toString();
+                             title = edNoticeTitle.getText().toString();
+                             detail = edNoticeDetail.getText().toString();
                             notice.setNotice_Title(title);
                             notice.setNotice_Content(detail);
                             Log.e("修改促消訊息", "===" +MainActivity.flag);
@@ -176,6 +198,18 @@ public class NoticeAdminFragment extends Fragment {
                             jsonObject.addProperty("notice",gson.toJson(notice));
                             Log.e("系統訊息", "===" + jsonObject.toString());
                             Common.showToast(activity,"修改促銷訊息已送出");
+                            break;
+
+                        case 3:
+                             title = edNoticeTitle.getText().toString();
+                             detail = edNoticeDetail.getText().toString();
+                            notice.setNotice_Title(title);
+                            notice.setNotice_Content(detail);
+                            Log.e("修改促消訊息", "===" +MainActivity.flag);
+                            jsonObject.addProperty("action", "update");
+                            jsonObject.addProperty("notice",gson.toJson(notice));
+                            Log.e("系統訊息", "===" + jsonObject.toString());
+                            Common.showToast(activity,"修改系統訊息已送出");
                             break;
                     }
                     noticeAdminTask = new CommonTask(url, jsonObject.toString());
@@ -189,9 +223,7 @@ public class NoticeAdminFragment extends Fragment {
                     }
                     Log.e("------------",jsonIn);
                 }
-
                navController.popBackStack();
-
             }
         })
 
