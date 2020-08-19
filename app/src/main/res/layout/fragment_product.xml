@@ -5,17 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".productFragment">
-
+    <TextView
+        android:id="@+id/view3"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/appbar"
+        android:gravity="center"
+        android:text="@string/product"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="403dp"
+        android:layout_height="546dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintTop_toBottomOf="@+id/productstatus" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btAdd"
@@ -29,4 +38,39 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#FFFFFF" />
+
+    <RadioGroup
+        android:id="@+id/productstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3">
+
+        <RadioButton
+            android:id="@+id/shelvesProduct"
+            android:layout_width="74dp"
+            android:layout_height="match_parent"
+            android:text="下架" />
+
+        <RadioButton
+            android:id="@+id/onsaleProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上架" />
+
+        <RadioButton
+            android:id="@+id/promotionProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="促銷" />
+
+        <RadioButton
+            android:id="@+id/allProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所有商品" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productm
         return new productmyviewholder(view);
     }
 
+
+
+    void setlistProduct(List<Product> productlist){
+         products = productlist;
+
+
+    };
     @Override
     public void onBindViewHolder(@NonNull final productmyviewholder holder, int position) {
         final Product product = products.get(position);
