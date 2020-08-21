@@ -5,18 +5,36 @@ import java.sql.Timestamp;
 
 public class orderStatistics {
     private int PRODUCT_ID;
+    private String PRODUCT_NAME;
     private int CATEGORY_ID;
     private int countCATEGORY_ID;
     private int sumBUY_PRICE;
     private Timestamp ORDER_DATE;
 
-    public orderStatistics(int pRODUCT_ID, int cATEGORY_ID, int countCATEGORY_ID, int sumBUY_PRICE, Timestamp ORDER_DATE) {
+//    public orderStatistics(int pRODUCT_ID, int cATEGORY_ID, int countCATEGORY_ID, int sumBUY_PRICE, Timestamp ORDER_DATE) {
+//        super();
+//        PRODUCT_ID = pRODUCT_ID;
+//        CATEGORY_ID = cATEGORY_ID;
+//        this.countCATEGORY_ID = countCATEGORY_ID;
+//        this.sumBUY_PRICE = sumBUY_PRICE;
+//        this.ORDER_DATE = ORDER_DATE;
+//    }
+
+//    public orderStatistics(int pRODUCT_ID, int cATEGORY_ID, int countCATEGORY_ID, int sumBUY_PRICE) {
+//        super();
+//        PRODUCT_ID = pRODUCT_ID;
+//        CATEGORY_ID = cATEGORY_ID;
+//        this.countCATEGORY_ID = countCATEGORY_ID;
+//        this.sumBUY_PRICE = sumBUY_PRICE;
+//    }
+
+    public orderStatistics(int pRODUCT_ID,String PRODUCT_NAME, int cATEGORY_ID, int countCATEGORY_ID, int sumBUY_PRICE) {
         super();
         PRODUCT_ID = pRODUCT_ID;
+        this.PRODUCT_NAME = PRODUCT_NAME;
         CATEGORY_ID = cATEGORY_ID;
         this.countCATEGORY_ID = countCATEGORY_ID;
         this.sumBUY_PRICE = sumBUY_PRICE;
-        this.ORDER_DATE = ORDER_DATE;
     }
 
 
@@ -58,5 +76,15 @@ public class orderStatistics {
 
     public void setORDER_DATE(Timestamp oRDER_DATE) {
         ORDER_DATE = oRDER_DATE;
+    }
+
+
+
+    public String getPRODUCT_NAME() {
+        return PRODUCT_NAME;
+    }
+
+    public void setPRODUCT_NAME(String pRODUCT_NAME) {
+        PRODUCT_NAME = pRODUCT_NAME;
     }
 }
