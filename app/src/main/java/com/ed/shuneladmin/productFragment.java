@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -43,10 +44,10 @@ public class productFragment extends Fragment {
     private List<Product> promotionProduct = new ArrayList<>();
     private List<Product> onsaleProduct = new ArrayList<>();
     private List<Product> shelvesProduct = new ArrayList<>();
-    private List<Product> allproduct = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommonTask productGetAllTask;
     private RadioGroup productstatus;
+    private RadioButton allProduct;
     FloatingActionButton btAdd ;
 
 
@@ -78,13 +79,8 @@ public class productFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         findViews(view);
         product = getProduct("getAll");
-        for(Product p:product){
-            allproduct.add(p);
-        }
-
-
         showBooks(product);
-
+        allProduct.setChecked(true);
         //============商品管理頁面的Radiobutton
         ProductAdapter productAdapter = (ProductAdapter) recyclerView.getAdapter();
         productstatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -92,52 +88,44 @@ public class productFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.shelvesProduct://單選 下架
-                        Log.e("這是下架的allproduct",allproduct.size()+"");
-                        for(int i = 0 ; i <= allproduct.size()-1 ; i++){
-                            if(allproduct.get(i).getProduct_Status()==0){
-                                shelvesProduct.add(allproduct.get(i));
+                        shelvesProduct.clear();
+                            Log.e("這是下架的allproduct", product.size() + "");
+                            for (int i = 0; i <= product.size() - 1; i++) {
+                                if (product.get(i).getProduct_Status() == 0) {
+                                    shelvesProduct.add(product.get(i));
+                                }
                             }
-                        }
-                        product.clear();
-                        product = shelvesProduct;
-                        productAdapter.setProducts(product);
-                        productAdapter.notifyDataSetChanged();
+                            productAdapter.setProducts(shelvesProduct);
+                            productAdapter.notifyDataSetChanged();
+
                         //showBooks(product);
                         break;
                     case R.id.onsaleProduct: //單選 上架
-                        Log.e("這是上架的allproduct",allproduct.size()+"");
-                        for(int i = 0 ; i <= allproduct.size()-1 ; i++){
-                            if(allproduct.get(i).getProduct_Status()==1){
-                                onsaleProduct.add(allproduct.get(i));
+
+                        onsaleProduct.clear();
+                        for(int i = 0 ; i <= product.size()-1 ; i++){
+                            if(product.get(i).getProduct_Status()==1){
+                                onsaleProduct.add(product.get(i));
                             }
                         }
-                        product.clear();
-                        product = onsaleProduct;
                         //showBooks(product);
-                        productAdapter.setProducts(product);
+                        productAdapter.setProducts(onsaleProduct);
                         productAdapter.notifyDataSetChanged();
                         break;
                     case R.id.promotionProduct: //單選 促銷
-                        Log.e("這是促銷的allproduct",allproduct.size()+"");
-                        for(int i = 0 ; i <= allproduct.size()-1 ; i++){
-                            if(allproduct.get(i).getProduct_Status()==2){
-                                promotionProduct.add(allproduct.get(i));
+                        promotionProduct.clear();
+                        for(int i = 0 ; i <= product.size()-1 ; i++){
+                            if(product.get(i).getProduct_Status()==2){
+                                promotionProduct.add(product.get(i));
                             }
                         }
-                        product.clear();
-                        product = promotionProduct;
                        // showBooks(product);
-                         productAdapter.setProducts(product);
+                         productAdapter.setProducts(promotionProduct);
                         productAdapter.notifyDataSetChanged();
 
                         break;
                     case R.id.allProduct: //單選 所有商品
-                        Log.e("這是所有商品的allproduct",allproduct.size()+"");
-                       product.clear();
-//                        for(Product p:allproduct){
-//                            product.add(p);
-//                        }
-
+                        product.clear();
                         product = getProduct("getAll");
                         productAdapter.setProducts(product);
                         productAdapter.notifyDataSetChanged();
@@ -157,6 +145,7 @@ public class productFragment extends Fragment {
 
     private void findViews(View view) {
         btAdd = view.findViewById(R.id.btAdd);
+        allProduct = view.findViewById(R.id.allProduct);
         showtest();
     }
 

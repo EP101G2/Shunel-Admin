@@ -19,18 +19,22 @@ import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productmyviewholder> {
     private boolean[] userExpanded;
     private Context context;
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
     private ImageTask productimageTask;
     private int imageSize;
 
     public ProductAdapter(Context context, List<Product> product) {
+
         this.context = context;
-        this.products = product;
+
+        this.products.addAll(product);
+        //this.products = product;
         imageSize = context.getResources().getDisplayMetrics().widthPixels / 4;
         userExpanded = new boolean[product.size()];
 
@@ -45,9 +49,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productm
 
 
     void setlistProduct(List<Product> productlist){
-         products = productlist;
 
-
+        products.addAll(productlist);
     };
     @Override
     public void onBindViewHolder(@NonNull final productmyviewholder holder, int position) {
