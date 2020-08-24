@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
@@ -44,11 +45,13 @@ public class productFragment extends Fragment {
     private List<Product> promotionProduct = new ArrayList<>();
     private List<Product> onsaleProduct = new ArrayList<>();
     private List<Product> shelvesProduct = new ArrayList<>();
+    private List<Product> searchProduct = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommonTask productGetAllTask;
     private RadioGroup productstatus;
     private RadioButton allProduct;
     FloatingActionButton btAdd ;
+    private SearchView searchView3;
 
 
     public productFragment() {
@@ -95,6 +98,8 @@ public class productFragment extends Fragment {
                                     shelvesProduct.add(product.get(i));
                                 }
                             }
+                        searchProduct.clear();
+                            searchProduct.addAll(shelvesProduct);
                             productAdapter.setProducts(shelvesProduct);
                             productAdapter.notifyDataSetChanged();
 
@@ -108,6 +113,8 @@ public class productFragment extends Fragment {
                                 onsaleProduct.add(product.get(i));
                             }
                         }
+                        searchProduct.clear();
+                        searchProduct.addAll(onsaleProduct);
                         //showBooks(product);
                         productAdapter.setProducts(onsaleProduct);
                         productAdapter.notifyDataSetChanged();
@@ -119,6 +126,8 @@ public class productFragment extends Fragment {
                                 promotionProduct.add(product.get(i));
                             }
                         }
+                        searchProduct.clear();
+                        searchProduct.addAll(promotionProduct);
                        // showBooks(product);
                          productAdapter.setProducts(promotionProduct);
                         productAdapter.notifyDataSetChanged();
@@ -127,6 +136,8 @@ public class productFragment extends Fragment {
                     case R.id.allProduct: //單選 所有商品
                         product.clear();
                         product = getProduct("getAll");
+                        searchProduct.clear();
+                        searchProduct.addAll(product);
                         productAdapter.setProducts(product);
                         productAdapter.notifyDataSetChanged();
 //                        showBooks(allproduct);
@@ -141,11 +152,40 @@ public class productFragment extends Fragment {
         //========================================
 
 
+        //=============快速搜尋===========================
+        searchView3.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {   //沒有輸入東西 就是輸出所有的東西
+                    showBooks(searchProduct);
+                } else {
+                    List<Product> products = new ArrayList<>();
+                    // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
+                    for (Product product : searchProduct) {
+                        if (product.getProduct_Name().toUpperCase().contains(newText.toUpperCase())) {   //toUpperCase()全部轉成大寫 就可以達到不分大小寫
+                            //contains這個是一個比對的方法
+                            //再由傳入的值(newText) 改為全大寫 與全部的好友資訊做比對
+                            products.add(product);  //把達到條件的 加入  products
+                        }
+                    }
+                    showBooks(products);
+                }
+                return true;
+            }
+        });
+
+        //========================================
     }
 
     private void findViews(View view) {
         btAdd = view.findViewById(R.id.btAdd);
         allProduct = view.findViewById(R.id.allProduct);
+        searchView3 = view.findViewById(R.id.searchView3);
         showtest();
     }
 
