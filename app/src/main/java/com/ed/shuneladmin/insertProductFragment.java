@@ -48,6 +48,7 @@ import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Product;
 import com.ed.shuneladmin.bean.Promotion;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.yalantis.ucrop.UCrop;
 
@@ -76,27 +77,26 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
     private int flag = 0;
     private final static String TAG = "insertProductFragment";
     Activity activity;
-    EditText nameOfProduct, colorOfProduct, priceOfProduct, detailOfProduct, categoryOfProduct, statusOfProduct,PromotionPrice;
+    EditText nameOfProduct, colorOfProduct, priceOfProduct, detailOfProduct, categoryOfProduct, statusOfProduct, PromotionPrice;
     Product product;
     Promotion promotion;
     Button btaddproduct;
     Common common;
-    CommonTask insertProduct;
+    CommonTask insertProduct, getPromotionPriceAndDate;
     ImageView ivinsertbuttom, ivshowpicture;
     ImageTask imageTask;
-    RadioButton shelvesProduct, onSaleProduct,promotionProduct,ring,necklace,earring,fragranceNecklace,fragranceEarring;
-    RadioGroup statusRadioGroup,categoryRadioGroup;
+    RadioButton shelvesProduct, onSaleProduct, promotionProduct, ring, necklace, earring, fragranceNecklace, fragranceEarring;
+    RadioGroup statusRadioGroup, categoryRadioGroup;
     ConstraintLayout promotiondetail;
-    TextView tvPromotionStart,tvPromotionEnd;
+    TextView tvPromotionStart, tvPromotionEnd;
     private byte[] image;
     private Uri contentUri;
     private static final int REQ_TAKE_PICTURE = 0;
     private static final int REQ_PICK_IMAGE = 1;
     private static final int REQ_CROP_PICTURE = 2;
     private AlertDialog dialog;
-    private int ststus  ,category;
-    private Timestamp startDate , endDate;
-
+    private int ststus, category;
+    private Timestamp startDate, endDate;
 
 
     public insertProductFragment() {
@@ -133,8 +133,8 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         categoryRadioGroup = view.findViewById(R.id.categoryRadioGroup);
         ring = view.findViewById(R.id.ring);
         promotionProduct = view.findViewById(R.id.promotionProduct);
-        necklace= view.findViewById(R.id.necklace);
-        earring=view.findViewById(R.id.earring);
+        necklace = view.findViewById(R.id.necklace);
+        earring = view.findViewById(R.id.earring);
         fragranceNecklace = view.findViewById(R.id.fragranceNecklace);
         fragranceEarring = view.findViewById(R.id.fragranceEarring);
         promotiondetail = view.findViewById(R.id.promotiondetail);
@@ -152,46 +152,70 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
             colorOfProduct.setText(product.getProduct_Color());
             priceOfProduct.setText(String.valueOf(product.getProduct_Price()));
             detailOfProduct.setText(product.getProduct_Ditail());
+            //==============用產品id去拿促銷價格及時間
+            if (Common.networkConnected(activity)) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "getpromotionPriceAndDate");
+                jsonObject.addProperty("ID", product.getProduct_ID());
+                String url = Common.URL_SERVER + "Promotion_Servlet";
+                getPromotionPriceAndDate = new CommonTask(url, jsonObject.toString());
+                try {
+                    String rp = getPromotionPriceAndDate.execute().get();
+
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                        promotion = gson.fromJson(rp, Promotion.class);
+                    if (promotion != null) {
+                        PromotionPrice.setText(String.valueOf(promotion.getPromotion_Price()));
+                        tvPromotionStart.setText(promotion.getDate_Start().toString().substring(0, 10));
+                        tvPromotionEnd.setText(promotion.getDate_End().toString().substring(0, 10));
+                    }
+
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            //==============
 
             category = product.getProduct_Category_ID();
             ststus = product.getProduct_Status();
 
             //===========進入修改頁面 若有bundle會設定 RadioButton On
-            switch (category){
-                case 1 :
+            switch (category) {
+                case 1:
                     ring.setChecked(true);
                     break;
-                case 2 :
+                case 2:
                     necklace.setChecked(true);
                     break;
-                case 3 :
+                case 3:
                     earring.setChecked(true);
                     break;
-                case 4 :
+                case 4:
                     fragranceNecklace.setChecked(true);
                     break;
-                case 5 :
+                case 5:
                     fragranceEarring.setChecked(true);
                     break;
             }
-            switch (ststus){
-                case 0 :
+            switch (ststus) {
+                case 0:
                     shelvesProduct.setChecked(true);
                     break;
-                case 1 :
+                case 1:
                     onSaleProduct.setChecked(true);
                     break;
-                case 2 :
+                case 2:
                     promotionProduct.setChecked(true);
                     break;
 
             }
 
 
-
-
-
-      //      ring.setChecked(true);
+            //      ring.setChecked(true);
 
 
 //            categoryOfProduct.setText(String.valueOf(product.getProduct_Category_ID()));
@@ -271,7 +295,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.ring://單選 戒指
                         category = 1;
                         break;
@@ -294,7 +318,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.shelvesProduct://單選 下架
                         promotiondetail.setVisibility(View.GONE);
                         ststus = 0;
@@ -313,10 +337,6 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         });
         //==============點下促銷RadioButton 顯示促銷詳細資訊
         promotiondetail.setVisibility(ststus == 2 ? View.VISIBLE : View.GONE);
-
-
-
-
 
 
         //==============
@@ -346,7 +366,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
 
                     }
 
-                    if(ststus == 2) {
+                    if (ststus == 2) {
                         int promotionPrice;
                         if (!PromotionPrice.getText().toString().equals("")) {  // 促銷價格
                             promotionPrice = Integer.parseInt(PromotionPrice.getText().toString());
@@ -354,6 +374,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                             promotion.setPromotion_Price(promotionPrice);
                             promotion.setDate_Start(startDate);
                             promotion.setDate_End(endDate);
+                            Log.e("promotion-----", promotion + "");
                             jsonObject.addProperty("promotion", new Gson().toJson(promotion));
 
                         } else {
@@ -378,14 +399,11 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                         int count = Integer.parseInt(rp);
                         Log.e("--------",count+  "+++++");
 
-                        if (count != 0) {
-
-                            Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
-
-                        } else {
+                        if (count == 0) {
                             Toast.makeText(activity, flag == 1 ? R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
                         }
-
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -458,6 +476,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
             ivshowpicture.setImageResource(R.drawable.no_image);
         }
     }
+
     private void openRangePicker() {
         Calendar today = Calendar.getInstance();
         today.add(Calendar.DAY_OF_MONTH, -1);
@@ -498,7 +517,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
 //                        calendar.getTime().toString(),
 //                        Toast.LENGTH_SHORT).show());
         Date startDateTypeDate = calendars.get(0).getTime();  //取得開始的促銷日期
-        Date endDateTypeDate = calendars.get(calendars.size()-1).getTime();//取得結束的促銷日期
+        Date endDateTypeDate = calendars.get(calendars.size() - 1).getTime();//取得結束的促銷日期
 
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String[] startdate = sdf.format(startDateTypeDate).split(" ");
@@ -509,7 +528,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         endDate = Timestamp.valueOf(sdf.format(endDateTypeDate));
 
 
-        Log.e("startDate & endDate",startDate.toString()+"   "+endDate.toString());
+        Log.e("startDate & endDate", startDate.toString() + "   " + endDate.toString());
 
     }
 

@@ -5,8 +5,8 @@
 
     android:layout_width="300dp"
     android:layout_gravity="center"
-    android:layout_height="300dp">
-
+    android:layout_height="300dp"
+    android:background="#B3E1D9">
     <TextView
 
         android:id="@+id/ivtakepicture"
@@ -17,6 +17,7 @@
         android:layout_marginBottom="68dp"
         android:text="@string/takepicture"
         android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/tvalbum"
         app:layout_constraintEnd_toEndOf="@+id/tvalbum" />
 
@@ -24,11 +25,11 @@
         android:id="@+id/tvalbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="188dp"
         android:text="@string/picture"
         android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

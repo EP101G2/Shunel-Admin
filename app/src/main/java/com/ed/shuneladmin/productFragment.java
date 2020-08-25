@@ -16,6 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
@@ -27,6 +31,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -37,9 +42,17 @@ import java.util.concurrent.ExecutionException;
 public class productFragment extends Fragment {
     Activity activity;
     private List<Product> product;
+    private List<Product> promotionProduct = new ArrayList<>();
+    private List<Product> onsaleProduct = new ArrayList<>();
+    private List<Product> shelvesProduct = new ArrayList<>();
+    private List<Product> searchProduct = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommonTask productGetAllTask;
+    private RadioGroup productstatus;
+    private RadioButton allProduct;
     FloatingActionButton btAdd ;
+    private SearchView searchView3;
+
 
     public productFragment() {
         // Required empty public constructor
@@ -64,18 +77,115 @@ public class productFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerview);
+        productstatus = view.findViewById(R.id.productstatus);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        product = getProduct();
-        showBooks(product);
-        recyclerView.setAdapter(new ProductAdapter(getContext(),product));
+        recyclerView.setHasFixedSize(true);
         findViews(view);
+        product = getProduct("getAll");
+        showBooks(product);
+        allProduct.setChecked(true);
+        //============商品管理頁面的Radiobutton
+        ProductAdapter productAdapter = (ProductAdapter) recyclerView.getAdapter();
+        productstatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.shelvesProduct://單選 下架
+                        shelvesProduct.clear();
+                            Log.e("這是下架的allproduct", product.size() + "");
+                            for (int i = 0; i <= product.size() - 1; i++) {
+                                if (product.get(i).getProduct_Status() == 0) {
+                                    shelvesProduct.add(product.get(i));
+                                }
+                            }
+                        searchProduct.clear();
+                            searchProduct.addAll(shelvesProduct);
+                            productAdapter.setProducts(shelvesProduct);
+                            productAdapter.notifyDataSetChanged();
+
+                        //showBooks(product);
+                        break;
+                    case R.id.onsaleProduct: //單選 上架
+
+                        onsaleProduct.clear();
+                        for(int i = 0 ; i <= product.size()-1 ; i++){
+                            if(product.get(i).getProduct_Status()==1){
+                                onsaleProduct.add(product.get(i));
+                            }
+                        }
+                        searchProduct.clear();
+                        searchProduct.addAll(onsaleProduct);
+                        //showBooks(product);
+                        productAdapter.setProducts(onsaleProduct);
+                        productAdapter.notifyDataSetChanged();
+                        break;
+                    case R.id.promotionProduct: //單選 促銷
+                        promotionProduct.clear();
+                        for(int i = 0 ; i <= product.size()-1 ; i++){
+                            if(product.get(i).getProduct_Status()==2){
+                                promotionProduct.add(product.get(i));
+                            }
+                        }
+                        searchProduct.clear();
+                        searchProduct.addAll(promotionProduct);
+                       // showBooks(product);
+                         productAdapter.setProducts(promotionProduct);
+                        productAdapter.notifyDataSetChanged();
+
+                        break;
+                    case R.id.allProduct: //單選 所有商品
+                        product.clear();
+                        product = getProduct("getAll");
+                        searchProduct.clear();
+                        searchProduct.addAll(product);
+                        productAdapter.setProducts(product);
+                        productAdapter.notifyDataSetChanged();
+//                        showBooks(allproduct);
+//                        recyclerView.setAdapter(productAdapter);
+
+                        break;
+
+                }
+
+            }
+        });
+        //========================================
 
 
+        //=============快速搜尋===========================
+        searchView3.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {   //沒有輸入東西 就是輸出所有的東西
+                    showBooks(searchProduct);
+                } else {
+                    List<Product> products = new ArrayList<>();
+                    // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
+                    for (Product product : searchProduct) {
+                        if (product.getProduct_Name().toUpperCase().contains(newText.toUpperCase())) {   //toUpperCase()全部轉成大寫 就可以達到不分大小寫
+                            //contains這個是一個比對的方法
+                            //再由傳入的值(newText) 改為全大寫 與全部的好友資訊做比對
+                            products.add(product);  //把達到條件的 加入  products
+                        }
+                    }
+                    showBooks(products);
+                }
+                return true;
+            }
+        });
+
+        //========================================
     }
 
     private void findViews(View view) {
         btAdd = view.findViewById(R.id.btAdd);
+        allProduct = view.findViewById(R.id.allProduct);
+        searchView3 = view.findViewById(R.id.searchView3);
         showtest();
     }
 
@@ -95,12 +205,12 @@ public class productFragment extends Fragment {
     }
 
 
-    private List<Product> getProduct() {
+    private List<Product> getProduct(String action) {
         List<Product> products = null;
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "Prouct_Servlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("action", action);
             productGetAllTask = new CommonTask(url, jsonObject.toString());
             try {
                 String jsonIn = productGetAllTask.execute().get();
