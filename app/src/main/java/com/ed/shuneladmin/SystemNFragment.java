@@ -91,7 +91,7 @@ public class SystemNFragment extends Fragment {
         tvDeleteSysN = view.findViewById(R.id.tvdeleteSystemN);
         rvAdimSysN = view.findViewById(R.id.rvAdimSystemN);
         SearchSysN = view.findViewById(R.id.SearchSystemN);
-        checkSysN = view.findViewById(R.id.checksysN);
+        checkSysN = view.findViewById(R.id.checkSystemN);
         rvAdimSysN.setLayoutManager(new LinearLayoutManager(activity));
 
 

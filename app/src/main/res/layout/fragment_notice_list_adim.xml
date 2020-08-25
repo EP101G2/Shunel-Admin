@@ -25,7 +25,7 @@
             android:textSize="18sp" />
 
         <SearchView
-            android:id="@+id/SearchSystemN"
+            android:id="@+id/SearchScheduleN"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -33,7 +33,7 @@
         </SearchView>
 
         <ImageView
-            android:id="@+id/ivAddSystemN"
+            android:id="@+id/ivAddScheduleN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAdimSystemN"
+        android:id="@+id/rvAdimScheduleN"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="@color/cardview_light_background"

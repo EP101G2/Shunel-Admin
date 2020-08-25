@@ -7,60 +7,117 @@
     android:layout_height="match_parent"
     tools:context=".NoticeAdminFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="235dp">
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvAddNPageT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/edNoticeTitle"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background2"
+            android:ems="10"
+            android:hint="@string/hintNT"
+            android:scrollbarSize="10dp"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/edNoticeDetail"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background2"
+            android:ems="10"
+            android:hint="@string/hintND"
+            android:scrollbarSize="10dp"
+            android:textSize="24sp" />
+
+        <RadioGroup
+            android:id="@+id/rgSchedule"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            tools:visibility="visible">
 
-            <TextView
-                android:id="@+id/tvAddNPageT"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/rbAllProduct"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:textSize="30sp" />
-
-            <EditText
-                android:id="@+id/edNoticeTitle"
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background2"
-                android:ems="10"
-                android:hint="@string/hintNT"
-                android:scrollbarSize="10dp"
+                android:layout_weight="1"
+                android:text="@string/allProduct"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/edNoticeDetail"
-                android:layout_width="320dp"
+            <RadioButton
+                android:id="@+id/rbOneProduct"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background2"
-                android:ems="10"
-                android:hint="@string/hintND"
-                android:scrollbarSize="10dp"
+                android:layout_weight="1"
+                android:text="@string/oneProduct"
                 android:textSize="24sp" />
+        </RadioGroup>
 
-            <Button
-                android:id="@+id/btSendNotice"
-                android:layout_width="320dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="#D9EBE8"
-                android:text="@string/Sand" />
+        <EditText
+            android:id="@+id/etNStart"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background2"
+            android:ems="10"
+            android:text="@string/edStartNotice"
+            android:textSize="24sp"
+            tools:text="@string/edStartNotice" />
 
-        </LinearLayout>
-    </ScrollView>
+        <EditText
+            android:id="@+id/etNEnd"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background2"
+            android:ems="10"
+            android:text="@string/edEndNotice"
+            android:textSize="24sp"
+            tools:text="@string/edEndNotice" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAllproductForN"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btSendNotice"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:background="#D9EBE8"
+            android:text="@string/Sand" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
