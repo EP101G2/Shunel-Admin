@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static android.widget.GridLayout.HORIZONTAL;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
@@ -101,6 +102,7 @@ public class mainFragment extends Fragment {
         rvAdimSaleN = view.findViewById(R.id.rvAdimSaleN);
         SearchSaleN = view.findViewById(R.id.SearchSaleN);
         checkN = view.findViewById(R.id.checkN);
+//        onMeasure(rvAdimSaleN,);
         rvAdimSaleN.setLayoutManager(new LinearLayoutManager(activity));
 
 
@@ -287,6 +289,16 @@ public class mainFragment extends Fragment {
         return noticeList;
     }
 
+    /*----------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
 
     private class adimSaleNAdapter extends RecyclerView.Adapter<adimSaleNAdapter.MyViewHolder> {
         Context context;
@@ -385,6 +397,9 @@ public class mainFragment extends Fragment {
         }
 
 
+
+
+
         @Override
         public int getItemCount() {
             Log.e("TAG", "數量" + noticeAdimSaleList.size() + "-----------");
@@ -413,5 +428,7 @@ public class mainFragment extends Fragment {
 
 
         }
+
+
     }
 }
