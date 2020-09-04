@@ -82,6 +82,8 @@ public class productFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         findViews(view);
         product = getProduct("getAll");
+        searchProduct.clear();
+        searchProduct.addAll(product);
         showBooks(product);
         allProduct.setChecked(true);
         //============商品管理頁面的Radiobutton

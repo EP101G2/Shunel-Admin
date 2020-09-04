@@ -332,6 +332,13 @@
                         app:layout_constraintVertical_bias="0.461" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <ImageView
+                    android:id="@+id/magicbutton"
+                    android:layout_width="54dp"
+                    android:layout_height="184dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

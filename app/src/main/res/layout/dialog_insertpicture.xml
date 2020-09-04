@@ -7,29 +7,32 @@
     android:layout_gravity="center"
     android:layout_height="300dp"
     android:background="#B3E1D9">
+
     <TextView
 
         android:id="@+id/ivtakepicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginTop="72dp"
         android:text="@string/takepicture"
-        android:textSize="24sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toTopOf="@+id/tvalbum"
-        app:layout_constraintEnd_toEndOf="@+id/tvalbum" />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvalbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="80dp"
         android:text="@string/picture"
-        android:textSize="24sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivtakepicture"
+        app:layout_constraintStart_toStartOf="@+id/ivtakepicture"
+        app:layout_constraintTop_toBottomOf="@+id/ivtakepicture"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
