@@ -82,6 +82,8 @@ public class productFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         findViews(view);
         product = getProduct("getAll");
+        searchProduct.clear();
+        searchProduct.addAll(product);
         showBooks(product);
         allProduct.setChecked(true);
         //============商品管理頁面的Radiobutton
@@ -167,7 +169,7 @@ public class productFragment extends Fragment {
                     List<Product> products = new ArrayList<>();
                     // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
                     for (Product product : searchProduct) {
-                        if (product.getProduct_Name().toUpperCase().contains(newText.toUpperCase())) {   //toUpperCase()全部轉成大寫 就可以達到不分大小寫
+                        if (product.getProduct_Name().toUpperCase().contains(newText.toUpperCase()) || String.valueOf(product.getProduct_ID()).contains(newText)) {   //toUpperCase()全部轉成大寫 就可以達到不分大小寫
                             //contains這個是一個比對的方法
                             //再由傳入的值(newText) 改為全大寫 與全部的好友資訊做比對
                             products.add(product);  //把達到條件的 加入  products
@@ -178,7 +180,6 @@ public class productFragment extends Fragment {
                 return true;
             }
         });
-
         //========================================
     }
 
@@ -188,9 +189,6 @@ public class productFragment extends Fragment {
         searchView3 = view.findViewById(R.id.searchView3);
         showtest();
     }
-
-
-
 
     private void showtest() {
 
@@ -240,8 +238,6 @@ public class productFragment extends Fragment {
         } else {
             productAdapter.setProducts(product);
             productAdapter.notifyDataSetChanged();
-
         }
     }
-
 }
