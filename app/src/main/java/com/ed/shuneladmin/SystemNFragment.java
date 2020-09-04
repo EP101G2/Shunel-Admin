@@ -74,6 +74,12 @@ public class SystemNFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Common.getPreherences(activity).edit()
+                .remove("productName")
+                .remove("product_ID")
+                .remove("productColor")
+                .remove("returnFlag")
+                .apply();
         super.onViewCreated(view, savedInstanceState);
 
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */

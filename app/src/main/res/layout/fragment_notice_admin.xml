@@ -7,46 +7,70 @@
     android:layout_height="match_parent"
     tools:context=".NoticeAdminFragment">
 
+    <TextView
+        android:id="@+id/tvAddNPageT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edN"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddNPageT" />
+
+    <EditText
+        android:id="@+id/edNotice"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/edN"
+        app:layout_constraintStart_toStartOf="@+id/edN"
+        app:layout_constraintTop_toBottomOf="@+id/edN" />
+
     <LinearLayout
+        android:id="@+id/llmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:descendantFocusability="blocksDescendants"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/edNotice">
 
-        <TextView
-            android:id="@+id/tvAddNPageT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:textSize="30sp" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/edNoticeTitle"-->
+        <!--            android:layout_width="320dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@drawable/background2"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="@string/hintNT"-->
+        <!--            android:inputType="textAutoCorrect|text"-->
+        <!--            android:scrollbarSize="10dp"-->
+        <!--            android:textSize="24sp" />-->
 
-        <EditText
-            android:id="@+id/edNoticeTitle"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background2"
-            android:ems="10"
-            android:hint="@string/hintNT"
-            android:scrollbarSize="10dp"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/edNoticeDetail"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background2"
-            android:ems="10"
-            android:hint="@string/hintND"
-            android:scrollbarSize="10dp"
-            android:textSize="24sp" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/edNoticeDetail"-->
+        <!--            android:layout_width="320dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@drawable/background2"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="@string/hintND"-->
+        <!--            android:scrollbarSize="10dp"-->
+        <!--            android:textSize="24sp" />-->
 
         <RadioGroup
             android:id="@+id/rgSchedule"
@@ -63,6 +87,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="@string/allProduct"
                 android:textSize="24sp" />
 
@@ -75,49 +100,125 @@
                 android:textSize="24sp" />
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/etNStart"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background2"
-            android:ems="10"
-            android:text="@string/edStartNotice"
-            android:textSize="24sp"
-            tools:text="@string/edStartNotice" />
-
-        <EditText
-            android:id="@+id/etNEnd"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background2"
-            android:ems="10"
-            android:text="@string/edEndNotice"
-            android:textSize="24sp"
-            tools:text="@string/edEndNotice" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAllproductForN"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <Button
-            android:id="@+id/btSendNotice"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="14dp"
-            android:background="#D9EBE8"
-            android:text="@string/Sand" />
-
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/selectProduct"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llmain" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvPraductCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="#D9EBE8"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSelect"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelect">
+
+        <TextView
+            android:id="@+id/tvproductT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
+            android:maxEms="12"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/ivCategoryN"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProductD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxEms="17"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tvproductT"
+            app:layout_constraintTop_toBottomOf="@+id/tvproductT" />
+
+        <TextView
+            android:id="@+id/tvDateN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvProductD"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductD" />
+
+        <ImageView
+            android:id="@+id/ivCategoryN"
+            android:layout_width="50dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/saleitem" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btSendNotice"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="#D9EBE8"
+        android:text="@string/Sand"
+        app:layout_constraintEnd_toEndOf="@+id/tvEnd"
+        app:layout_constraintStart_toStartOf="@+id/tvEnd"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnd" />
+
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+
+        android:background="@drawable/background2"
+        android:ems="10"
+        android:text="@string/edEndNotice"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStart" />
+
+    <TextView
+        android:id="@+id/tvStart"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background2"
+        android:ems="10"
+        android:text="@string/edStartNotice"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvPraductCard" />
+
+
+    <!--      <EditText 宣告變數名稱有問題導致跳不出來鍵盤  -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
