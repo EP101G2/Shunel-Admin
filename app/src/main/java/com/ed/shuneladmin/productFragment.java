@@ -56,7 +56,7 @@ public class productFragment extends Fragment {
     private List<Product> shelvesProduct = new ArrayList<>();
     private List<Product> searchProduct = new ArrayList<>();
     private RecyclerView recyclerView;
-    private CommonTask productGetAllTask,insertAddress;
+    private CommonTask productGetAllTask,insertAddress,getAddress;
     private RadioGroup productstatus;
     private RadioButton allProduct;
     FloatingActionButton btAdd;
@@ -109,7 +109,7 @@ public class productFragment extends Fragment {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
                 v = LayoutInflater.from(activity).inflate(R.layout.dialog_set_map, null);
                 alertDialog.setView(v);
-
+                JsonObject jsonObject = new JsonObject();
                 dialog = alertDialog.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -118,11 +118,30 @@ public class productFragment extends Fragment {
                 submit = v.findViewById(R.id.submit);
                 enterAddress = v.findViewById(R.id.enterAddress);
 
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL_SERVER + "Prouct_Servlet";
+                    jsonObject.addProperty("action", "getAddress");
+                    getAddress = new CommonTask(url, jsonObject.toString());
+                    try {
+                        String rp = getAddress.execute().get();
+                        if (rp == null) {
+                            Common.showToast(activity,"資料庫無位址");
+                        } else {
+                            enterAddress.setText(rp);
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         address = enterAddress.getText().toString();
-                        JsonObject jsonObject = new JsonObject();
+
                         if (Common.networkConnected(activity)) {
                             String url = Common.URL_SERVER + "Prouct_Servlet";
                             jsonObject.addProperty("action", "Address");

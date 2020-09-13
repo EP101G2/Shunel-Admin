@@ -442,14 +442,9 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
-
             }
         });
-
 
     }
 
