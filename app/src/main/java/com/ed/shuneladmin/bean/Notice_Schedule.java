@@ -3,7 +3,7 @@ package com.ed.shuneladmin.bean;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Notice_Schedule  implements Serializable {
+public class Notice_Schedule implements Serializable {
 
     private int NOTICE_SCHEDULE_ID;
 
@@ -19,6 +19,7 @@ public class Notice_Schedule  implements Serializable {
 
     private int PRODUCT_ID;
 
+
     public Notice_Schedule(int NOTICE_SCHEDULE_ID, String NOTICE_SCHEDULE_T, String NOTICE_SCHEDULE_D, Timestamp NOTICE_SCHEDUL_STARTTIME, Timestamp NOTICE_SCHEDUL_ENDTIME, int SCHEDULE_FLAG, int PRODUCT_ID) {
         this.NOTICE_SCHEDULE_ID = NOTICE_SCHEDULE_ID;
         this.NOTICE_SCHEDULE_T = NOTICE_SCHEDULE_T;
@@ -28,6 +29,27 @@ public class Notice_Schedule  implements Serializable {
         this.SCHEDULE_FLAG = SCHEDULE_FLAG;
         this.PRODUCT_ID = PRODUCT_ID;
     }
+
+    public Notice_Schedule(int NOTICE_SCHEDULE_ID, String NOTICE_SCHEDULE_T, String NOTICE_SCHEDULE_D, Timestamp NOTICE_SCHEDUL_STARTTIME, Timestamp NOTICE_SCHEDUL_ENDTIME, int PRODUCT_ID) {
+        this.NOTICE_SCHEDULE_ID = NOTICE_SCHEDULE_ID;
+        this.NOTICE_SCHEDULE_T = NOTICE_SCHEDULE_T;
+        this.NOTICE_SCHEDULE_D = NOTICE_SCHEDULE_D;
+        this.NOTICE_SCHEDUL_STARTTIME = NOTICE_SCHEDUL_STARTTIME;
+        this.NOTICE_SCHEDUL_ENDTIME = NOTICE_SCHEDUL_ENDTIME;
+        this.PRODUCT_ID = PRODUCT_ID;
+
+    }
+
+
+//    public Notice_Schedule() {
+//        this.NOTICE_SCHEDULE_ID = NOTICE_SCHEDULE_ID;
+//        this.NOTICE_SCHEDULE_T = NOTICE_SCHEDULE_T;
+//        this.NOTICE_SCHEDULE_D = NOTICE_SCHEDULE_D;
+//        this.NOTICE_SCHEDUL_STARTTIME = NOTICE_SCHEDUL_STARTTIME;
+//        this.NOTICE_SCHEDUL_ENDTIME = NOTICE_SCHEDUL_ENDTIME;
+//        this.SCHEDULE_FLAG = SCHEDULE_FLAG;
+//        this.PRODUCT_ID = PRODUCT_ID;
+//    }
 
     public int getNOTICE_SCHEDULE_ID() {
         return NOTICE_SCHEDULE_ID;

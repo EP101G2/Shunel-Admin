@@ -34,10 +34,7 @@
         <action
             android:id="@+id/action_homeFragment_to_customerServiceFragment"
             app:destination="@id/customerServiceFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_noticeListAdimFragment"
-            app:destination="@id/noticeListAdimFragment" />
-        <action
+    <action
             android:id="@+id/action_homeFragment_to_ordersManagementFragment"
             app:destination="@id/ordersManagementFragment" />
 
@@ -60,7 +57,14 @@
         android:id="@+id/noticeAdminFragment"
         android:name="com.ed.shuneladmin.NoticeAdminFragment"
         android:label="fragment_notice_admin"
-        tools:layout="@layout/fragment_notice_admin" />
+        tools:layout="@layout/fragment_notice_admin" >
+        <action
+            android:id="@+id/action_noticeAdminFragment_to_productSelectNFragment"
+            app:destination="@id/productSelectNFragment" />
+        <action
+            android:id="@+id/action_noticeAdminFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
 
         android:id="@+id/adminFragment"
@@ -153,9 +157,20 @@
         android:label="fragment_pie_chart"
         tools:layout="@layout/fragment_pie_chart" />
     <fragment
+<<<<<<< HEAD
         android:id="@+id/setMapFragment"
         android:name="com.ed.shuneladmin.SetMapFragment"
         android:label="fragment_set_map"
         tools:layout="@layout/dialog_set_map" />
+=======
+        android:id="@+id/productSelectNFragment"
+        android:name="com.ed.shuneladmin.productSelectNFragment"
+        android:label="fragment_product_select_n"
+        tools:layout="@layout/fragment_product_select_n" >
+        <action
+            android:id="@+id/action_productSelectNFragment_to_noticeAdminFragment"
+            app:destination="@id/noticeAdminFragment" />
+    </fragment>
+>>>>>>> e1363d135605f2d1fe0b28dda87a572b2cf2680e
 
 </navigation>

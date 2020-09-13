@@ -76,6 +76,13 @@ public class NoticeScheduleFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Common.getPreherences(activity).edit()
+                .remove("productName")
+                .remove("product_ID")
+                .remove("productColor")
+                .remove("returnFlag")
+                .apply();
+
         super.onViewCreated(view, savedInstanceState);
 
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
@@ -95,6 +102,7 @@ public class NoticeScheduleFragment extends Fragment {
         SearchScheduleN = view.findViewById(R.id.SearchScheduleN);
         checkScheduleN = view.findViewById(R.id.checkScheduleN);
         rvAdimScheduleN.setLayoutManager(new LinearLayoutManager(activity));
+
 
     }
 
@@ -156,7 +164,7 @@ public class NoticeScheduleFragment extends Fragment {
 
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 //                    Log.e("", ));
-                    jsonObject.addProperty("action", "deleteSchedule");
+                    jsonObject.addProperty("action", "delete");
                     jsonObject.addProperty("delete", gson.toJson(scheduleArrayList));
                     Log.e("", String.valueOf(jsonObject));
                 }
@@ -167,7 +175,7 @@ public class NoticeScheduleFragment extends Fragment {
                     Expanded[i] = !Expanded[i];
                 }
 
-                ScheduleNGetAllTask= new CommonTask(url, jsonObject.toString());
+                ScheduleNGetAllTask = new CommonTask(url, jsonObject.toString());
                 String jsonIn = "";
 
                 try {
@@ -195,7 +203,7 @@ public class NoticeScheduleFragment extends Fragment {
                 if (!flag) {
                     tvDeleteScheduleN.setText(R.string.cancel);
                     flag = !flag;
-                }else {
+                } else {
                     tvDeleteScheduleN.setText(R.string.delet);
                     flag = false;
                 }
@@ -207,7 +215,7 @@ public class NoticeScheduleFragment extends Fragment {
                     Expanded[i] = !Expanded[i];
                 }
 
-                if (noticeScheduleApapter.getOpen() == true ){
+                if (noticeScheduleApapter.getOpen() == true) {
                     scheduleArrayList.remove(notice);
                 }
 
@@ -263,6 +271,7 @@ public class NoticeScheduleFragment extends Fragment {
                 }.getType();
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 scheduleNList = gson.fromJson(jsonIn, listType);
+                Log.e("scheduleNLis", "+++scheduleNLis+++" + scheduleNList.get(0).getNOTICE_SCHEDUL_STARTTIME());
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -320,13 +329,22 @@ public class NoticeScheduleFragment extends Fragment {
         public void onBindViewHolder(@NonNull ScheduleNApapter.MyViewHolder holder, final int position) {
             final Notice_Schedule notice_schedule = noticeAdimScheduleList.get(position);
             final int noticeSchedule_ID = notice_schedule.getNOTICE_SCHEDULE_ID();
-
+            int scheduleFlag = notice_schedule.getSCHEDULE_FLAG();
+            Log.e("cl3", "cl3" + notice_schedule.getNOTICE_SCHEDUL_STARTTIME());
             holder.tvNoticeT.setText(notice_schedule.getNOTICE_SCHEDULE_T());
             holder.tvNoticeD.setText(notice_schedule.getNOTICE_SCHEDULE_D());
-            holder.tvDateN.setText(notice_schedule.getNOTICE_SCHEDUL_STARTTIME().toString());
+            String date = notice_schedule.getNOTICE_SCHEDUL_STARTTIME().toString();
+            holder.tvDateN.setText(date.substring(0, date.length() - 5));
             holder.cbNotice.setVisibility(Expanded[position] ? View.VISIBLE : View.GONE);
+
             if (!Expanded[position]) {
                 holder.cbNotice.setChecked(false);
+            }
+
+            if (scheduleFlag == 1) {
+                holder.ivSendSuccess.setVisibility(View.VISIBLE);
+            } else if (scheduleFlag == 0) {
+                holder.ivSendSuccess.setVisibility(View.GONE);
             }
 
 
@@ -354,6 +372,11 @@ public class NoticeScheduleFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     MainActivity.flag = 5;
+
+                    Common.getPreherences(activity).edit()
+                            .putInt("product_ID", notice_schedule.getPRODUCT_ID())
+                            .apply();
+
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("NoitceSchedule", notice_schedule);
                     NavController navController = Navigation.findNavController(activity, R.id.homeFragment);
@@ -376,6 +399,7 @@ public class NoticeScheduleFragment extends Fragment {
             TextView tvDateN;
             CheckBox cbNotice;
             Button btUpdateND;
+            ImageView ivSendSuccess;
 
             public MyViewHolder(View view) {
                 super(view);
@@ -385,6 +409,7 @@ public class NoticeScheduleFragment extends Fragment {
                 tvDateN = view.findViewById(R.id.tvDateN);
                 cbNotice = view.findViewById(R.id.cbNotice);
                 btUpdateND = view.findViewById(R.id.btUpdateND);
+                ivSendSuccess = view.findViewById(R.id.ivSendSuccess);
 
 
             }

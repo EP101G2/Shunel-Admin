@@ -149,6 +149,7 @@
     <string name="edEndNotice">請選擇結束時間</string>
     <string name="allProduct">全體促銷</string>
     <string name="oneProduct">單一商品促銷</string>
+    <string name="selectProduct">請選擇商品</string>
 
 
 </resources>

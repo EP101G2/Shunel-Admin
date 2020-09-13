@@ -84,7 +84,15 @@ public class mainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+
+        Common.getPreherences(activity).edit()
+                .remove("productName")
+                .remove("product_ID")
+                .remove("productColor")
+                .remove("returnFlag")
+                .apply();
 
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
         findViews(view);
@@ -386,6 +394,8 @@ public class mainFragment extends Fragment {
             holder.btUpdateND.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Common.getPreherences(activity).edit().putInt("product_ID", notice.getCATEGORY_MESSAGE_ID());
+
                     MainActivity.flag = 2;
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("NoitceAdim", notice);

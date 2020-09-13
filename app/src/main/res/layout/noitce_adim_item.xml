@@ -93,6 +93,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/saleitem" />
 
+        <ImageView
+            android:id="@+id/ivSendSuccess"
+            android:layout_width="65dp"
+            android:layout_height="44dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btUpdateND"
+            app:layout_constraintEnd_toStartOf="@+id/btUpdateND"
+            app:layout_constraintTop_toTopOf="@+id/btUpdateND"
+            app:srcCompat="@drawable/pngguru" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

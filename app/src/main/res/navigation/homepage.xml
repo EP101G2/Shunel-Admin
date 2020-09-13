@@ -9,7 +9,14 @@
         android:id="@+id/mainFragment"
         android:name="com.ed.shuneladmin.mainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_noticeScheduleFragment"
+            app:destination="@id/noticeScheduleFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragment_systemN"
+            app:destination="@id/fragment_systemN" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_systemN"
         android:name="com.ed.shuneladmin.SystemNFragment"
