@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -370,8 +372,6 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
             @Override
             public void onClick(View v) {
                 if (checknull()) {
-
-
                     JsonObject jsonObject = new JsonObject();
                     if (Common.networkConnected(activity)) {
                         //product = new Product();
@@ -435,6 +435,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                             Toast.makeText(activity, flag == 1 ? R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(v).popBackStack();
                         }
                     } catch (ExecutionException e) {
                         e.printStackTrace();

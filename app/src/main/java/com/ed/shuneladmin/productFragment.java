@@ -1,24 +1,31 @@
 package com.ed.shuneladmin;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ed.shuneladmin.Task.Common;
@@ -35,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static com.ed.shuneladmin.MainActivity.flag;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,11 +56,16 @@ public class productFragment extends Fragment {
     private List<Product> shelvesProduct = new ArrayList<>();
     private List<Product> searchProduct = new ArrayList<>();
     private RecyclerView recyclerView;
-    private CommonTask productGetAllTask;
+    private CommonTask productGetAllTask,insertAddress;
     private RadioGroup productstatus;
     private RadioButton allProduct;
-    FloatingActionButton btAdd ;
+    FloatingActionButton btAdd;
     private SearchView searchView3;
+    private ImageView ivmap;
+    private AlertDialog dialog;
+    private Button submit;
+    private EditText enterAddress;
+    private String address;
 
 
     public productFragment() {
@@ -78,6 +92,7 @@ public class productFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerview);
         productstatus = view.findViewById(R.id.productstatus);
+        ivmap = view.findViewById(R.id.ivmap);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setHasFixedSize(true);
         findViews(view);
@@ -86,6 +101,65 @@ public class productFragment extends Fragment {
         searchProduct.addAll(product);
         showBooks(product);
         allProduct.setChecked(true);
+
+        //設定店家位址
+        ivmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+                v = LayoutInflater.from(activity).inflate(R.layout.dialog_set_map, null);
+                alertDialog.setView(v);
+
+                dialog = alertDialog.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+                dialog.getWindow().setLayout(1000, 1000);
+
+                submit = v.findViewById(R.id.submit);
+                enterAddress = v.findViewById(R.id.enterAddress);
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        address = enterAddress.getText().toString();
+                        JsonObject jsonObject = new JsonObject();
+                        if (Common.networkConnected(activity)) {
+                            String url = Common.URL_SERVER + "Prouct_Servlet";
+                            jsonObject.addProperty("action", "Address");
+                            jsonObject.addProperty("Address", address);
+
+
+
+                            insertAddress = new CommonTask(url, jsonObject.toString());
+
+                            try {
+                                String rp = insertAddress.execute().get();
+                                int count = Integer.parseInt(rp);
+                                Log.e("--------", count + "+++++");
+                                if (count == 0) {
+                                    Common.showToast(activity,"修改失敗");
+                                } else {
+                                dialog.dismiss();
+                                    Common.showToast(activity,"修改位址成功");
+                                }
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                });
+
+
+
+
+
+            }
+        });
+
+
         //============商品管理頁面的Radiobutton
         ProductAdapter productAdapter = (ProductAdapter) recyclerView.getAdapter();
         productstatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

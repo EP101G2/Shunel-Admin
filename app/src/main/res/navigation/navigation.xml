@@ -132,7 +132,11 @@
         android:id="@+id/productFragment"
         android:name="com.ed.shuneladmin.productFragment"
         android:label="fragment_product"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_productFragment_to_setMapFragment"
+            app:destination="@id/setMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/insertProductFragment"
         android:name="com.ed.shuneladmin.insertProductFragment"
@@ -148,5 +152,10 @@
         android:name="com.ed.shuneladmin.PieChartFragment"
         android:label="fragment_pie_chart"
         tools:layout="@layout/fragment_pie_chart" />
+    <fragment
+        android:id="@+id/setMapFragment"
+        android:name="com.ed.shuneladmin.SetMapFragment"
+        android:label="fragment_set_map"
+        tools:layout="@layout/dialog_set_map" />
 
 </navigation>
