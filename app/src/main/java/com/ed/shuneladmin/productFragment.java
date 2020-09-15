@@ -66,6 +66,7 @@ public class productFragment extends Fragment {
     private Button submit;
     private EditText enterAddress;
     private String address;
+    private ImageView ivbutton1,ivbutton2;
 
 
     public productFragment() {
@@ -114,6 +115,22 @@ public class productFragment extends Fragment {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
                 dialog.getWindow().setLayout(1000, 1000);
+
+                ivbutton1 = v.findViewById(R.id.ivbutton1);
+                ivbutton1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        enterAddress.setText("台北火車站");
+                    }
+                });
+                ivbutton2 = v.findViewById(R.id.ivbutton2);
+                ivbutton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        enterAddress.setText("台中火車站");
+                    }
+                });
+
 
                 submit = v.findViewById(R.id.submit);
                 enterAddress = v.findViewById(R.id.enterAddress);
