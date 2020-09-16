@@ -193,6 +193,7 @@ public class NoticeScheduleFragment extends Fragment {
                         flag = !flag;
                     }
                 }
+                checkScheduleN.setVisibility(View.GONE);
             }
         });
 
@@ -330,7 +331,6 @@ public class NoticeScheduleFragment extends Fragment {
             final Notice_Schedule notice_schedule = noticeAdimScheduleList.get(position);
             final int noticeSchedule_ID = notice_schedule.getNOTICE_SCHEDULE_ID();
             int scheduleFlag = notice_schedule.getSCHEDULE_FLAG();
-            Log.e("cl3", "cl3" + notice_schedule.getNOTICE_SCHEDUL_STARTTIME());
             holder.tvNoticeT.setText(notice_schedule.getNOTICE_SCHEDULE_T());
             holder.tvNoticeD.setText(notice_schedule.getNOTICE_SCHEDULE_D());
             String date = notice_schedule.getNOTICE_SCHEDUL_STARTTIME().toString();

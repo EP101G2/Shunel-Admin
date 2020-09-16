@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int NOTIFICATION_ID = 0;
     private final static String NOTIFICATION_CHANNEL_ID = "Channel01";
     private NotificationManager notificationManager;
+    static AlertDialog.Builder builder;
 
 
     @Override
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     // 接收到聊天訊息會在TextView呈現
     private BroadcastReceiver chatReceiver = new BroadcastReceiver() {

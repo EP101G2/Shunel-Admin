@@ -28,7 +28,8 @@
             android:id="@+id/SearchScheduleN"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:iconifiedByDefault="false">
 
         </SearchView>
 
@@ -46,12 +47,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAdimScheduleN"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="545dp"
         android:backgroundTint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutN">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutN"></androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/checkScheduleN"

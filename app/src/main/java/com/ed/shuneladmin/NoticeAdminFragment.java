@@ -107,7 +107,7 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
     private RecyclerView rvAllproductForN;
     private ImageView ivCategoryN;
     private TextView tvNoticeT, tvNoticeD, tvDateN, edNStart, edNEnd;
-    ;
+
     private CheckBox cbNotice;
     private Button btUpdateND;
     private List<Product> productList;
@@ -303,8 +303,8 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
                     String startStr = notice_schedule.getNOTICE_SCHEDUL_STARTTIME().toString();
                     String endStr = notice_schedule.getNOTICE_SCHEDUL_ENDTIME().toString();
                     Log.e("startStr", "startStr:" + startStr);
-                    edNStart.setText(startStr.substring(0,startStr.length()-5));
-                    edNEnd.setText(endStr.substring(0,endStr.length()-5));
+                    edNStart.setText(startStr.substring(0, startStr.length() - 5));
+                    edNEnd.setText(endStr.substring(0, endStr.length() - 5));
 
                     if (notice_schedule.getPRODUCT_ID() != 0) {
                         rbOneProduct.setChecked(true);
@@ -376,6 +376,44 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
 //                return false;
 //            }
 //        });
+
+        tvAddNPageT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (MainActivity.flag) {
+                    case 0:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                    case 1:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                    case 2:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                    case 3:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                    case 4:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                    case 5:
+                        edNoticeTitle.setText("");
+                        edNoticeDetail.setText("");
+                        break;
+
+                }
+            }
+        });
 
 
         rgSchedule.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

@@ -31,7 +31,8 @@
             android:id="@+id/SearchSaleN"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:iconifiedByDefault="false">
 
         </SearchView>
 
@@ -49,7 +50,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAdimSaleN"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="545dp"
         android:backgroundTint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
