@@ -187,11 +187,12 @@ public class OrderManageDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                int orderID = orderMain.getOrder_ID();
 
                 String name = tvReceiverName.getText().toString().trim();
                 String phone = tvReceiverPhone.getText().toString().trim();
                 String address = tvReceiverAddress.getText().toString();
-
+                bundle.putInt("orderID",orderID);
                 bundle.putString("name", name);
                 bundle.putString("phone", phone);
                 bundle.putString("address", address);

@@ -16,7 +16,10 @@ public class Order_Main implements Serializable {
     private int order_Status;
     private Timestamp Order_Main_Modify_Date;
 
-    public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, String order_Main_Receiver, String order_Main_Address, String order_Main_Phone,Timestamp order_Main_Order_Date, int order_Main_Order_Status, Timestamp order_Main_Modify_Date) {
+    public Order_Main() {
+    }
+
+    public Order_Main(int order_ID, String account_ID, int order_Main_Total_Price, String order_Main_Receiver, String order_Main_Address, String order_Main_Phone, Timestamp order_Main_Order_Date, int order_Main_Order_Status, Timestamp order_Main_Modify_Date) {
         super();
         this.order_ID = order_ID;
         this.account_ID = account_ID;
@@ -131,9 +134,10 @@ public class Order_Main implements Serializable {
         Order_Main_Modify_Date = order_Main_Modify_Date;
     }
 
-    public void setReceiver(String order_Main_Receiver, String order_Main_Phone, String order_Main_Address) {
+    public void setReceiver(String order_Main_Receiver, String order_Main_Phone, String order_Main_Address,int orderID) {
         this.order_Main_Receiver = order_Main_Receiver;
         this.order_Main_Phone = order_Main_Phone;
         this.order_Main_Address = order_Main_Address;
+        this.order_ID = orderID;
     }
 }
