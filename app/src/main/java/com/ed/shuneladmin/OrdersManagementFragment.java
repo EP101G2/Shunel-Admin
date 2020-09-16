@@ -234,8 +234,6 @@ public class OrdersManagementFragment extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Orders", orderMain);
-
-
                     Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment, bundle);
                 }
             });

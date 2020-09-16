@@ -382,34 +382,21 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
             public void onClick(View v) {
                 switch (MainActivity.flag) {
                     case 0:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
+                        edNoticeTitle.setText("中秋特別促銷來了！");
+                        edNoticeDetail.setText("一年一度的中秋節，除了送月餅、柚子、烤肉外，也可以有其他的選擇！目前商城有多樣商品促銷中，歡迎選購");
                         break;
 
                     case 1:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
+                        edNoticeTitle.setText("app更新");
+                        edNoticeDetail.setText("app已更新至1.2.5版，請至app商城進行更新");
                         break;
 
-                    case 2:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
-                        break;
-
-                    case 3:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
-                        break;
 
                     case 4:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
+                        edNoticeTitle.setText("中秋特別促銷來了！");
+                        edNoticeDetail.setText("一年一度的中秋節，除了送月餅、柚子、烤肉外，也可以有其他的選擇！目前商城有多樣商品促銷中，歡迎選購");
                         break;
 
-                    case 5:
-                        edNoticeTitle.setText("");
-                        edNoticeDetail.setText("");
-                        break;
 
                 }
             }
