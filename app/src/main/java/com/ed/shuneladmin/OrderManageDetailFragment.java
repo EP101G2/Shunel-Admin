@@ -94,16 +94,24 @@ public class OrderManageDetailFragment extends Fragment {
         tvReceiverPhone = view.findViewById(R.id.tvReceiverPhone);
         tvReceiverAddress = view.findViewById(R.id.tvReceiverAddress);
 //        bundle data from last page
+        String[] statusCategory = {"未付款", "未出貨", "已出貨", "已送達", "已取消", "已退貨"};
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getSerializable("Orders") == null) {
             Common.showToast(activity, R.string.textnofound);
             navController.popBackStack();
             return;
-        }
-        orderMain = (Order_Main) bundle.getSerializable("Orders");
-        showOrderDetails();
+        }else {
+            orderMain = (Order_Main) bundle.getSerializable("Orders");
+            spChangeStatus = view.findViewById(R.id.spChangeStatus);
+//        spChangeStatus.setSelection(oriStatus, true);
 
+//        spinner's adapter
+            ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, statusCategory);
+            aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spChangeStatus.setAdapter(aAdapter);
+            showOrderDetails();
+        }
 //        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
 //        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
 //        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
@@ -118,13 +126,7 @@ public class OrderManageDetailFragment extends Fragment {
 
 //        setting spinner, change status
 //        int oriStatus = orderMain.getOrder_Main_Order_Status();
-        spChangeStatus = view.findViewById(R.id.spChangeStatus);
-//        spChangeStatus.setSelection(oriStatus, true);
-        String[] statusCategory = {"未付款", "未出貨", "已出貨", "已送達", "已取消", "已退貨"};
-//        spinner's adapter
-        ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, statusCategory);
-        aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spChangeStatus.setAdapter(aAdapter);
+
         spChangeStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -260,6 +262,30 @@ public class OrderManageDetailFragment extends Fragment {
         tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
         tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
         tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+        int status = orderMain.getOrder_Main_Order_Status(); // 拿訂單狀態碼
+        Log.e("status===========",status+"");
+        switch (status){
+            case 0 :
+                spChangeStatus.setSelection(0);
+                break;
+            case 1 :
+                spChangeStatus.setSelection(1);
+                break;
+            case 2 :
+                spChangeStatus.setSelection(2);
+                break;
+            case 3 :
+                spChangeStatus.setSelection(3);
+                break;
+            case 4 :
+                spChangeStatus.setSelection(4);
+                break;
+            case 5 :
+                spChangeStatus.setSelection(5);
+                break;
+
+        }
+
     }//show ok
 
     //    Adapter for rvOrderDetProduct
