@@ -46,6 +46,8 @@ public class ModifyReceiverDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_modify_receiver_detail, container, false);
+
+
     }
 
     @Override
@@ -55,6 +57,12 @@ public class ModifyReceiverDetailFragment extends Fragment {
         etRecName = view.findViewById(R.id.etRecName);
         etRecPhone = view.findViewById(R.id.etRecPhone);
         etRecAddress = view.findViewById(R.id.etRecAddress);
+
+        Common.getPreherences(activity).edit()
+                .remove("order_Main_Receiver")
+                .remove("order_Main_Phone")
+                .remove("order_Main_Address")
+                .apply();
 
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
@@ -94,6 +102,16 @@ public class ModifyReceiverDetailFragment extends Fragment {
                     String order_Main_Address = etRecAddress.getText().toString();
                     Log.e(TAG, "getEditText -> "+order_Main_Receiver+"+"+order_Main_Phone+"+"+order_Main_Address);
                     orderMain.setReceiver(order_Main_Receiver, order_Main_Phone, order_Main_Address,orderID);
+
+
+                    Common.getPreherences(activity).edit()
+                            .putString("order_Main_Receiver",order_Main_Receiver)
+                            .putString("order_Main_Phone",order_Main_Phone)
+                            .putString("order_Main_Address",order_Main_Address)
+                            .apply();
+
+
+
 //                save to db
                     if (Common.networkConnected(activity)) {
                         String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址

@@ -47,13 +47,13 @@ public class OrderManageDetailFragment extends Fragment {
     private static final String TAG = "---orderManageDet---";
     // TODO: Rename and change types of parameters
     private String mParam1;
-//    private String mParam2;
+    //    private String mParam2;
 //    routine work
     private Activity activity;
     private TextView tvAccountIdDet, tvOrderIdDet, tvOrderDateDet, tvReceiverName, tvReceiverPhone, tvReceiverAddress;
     private Spinner spChangeStatus;
     private Button btCancel, btSave, btModifyOrderData;
-//    private int status = 0;
+    //    private int status = 0;
     private Order_Main orderMain;
     private Order_Detail orderDetail;
     List<Order_Main> orderMainList;
@@ -101,7 +101,7 @@ public class OrderManageDetailFragment extends Fragment {
             Common.showToast(activity, R.string.textnofound);
             navController.popBackStack();
             return;
-        }else {
+        } else {
             orderMain = (Order_Main) bundle.getSerializable("Orders");
             spChangeStatus = view.findViewById(R.id.spChangeStatus);
 //        spChangeStatus.setSelection(oriStatus, true);
@@ -149,7 +149,7 @@ public class OrderManageDetailFragment extends Fragment {
         });
 //save changed status and upload to server
         btSave = view.findViewById(R.id.btSaveOMD);
-        btSave.setOnClickListener(  new View.OnClickListener() {
+        btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int orderId = Integer.parseInt(tvOrderIdDet.getText().toString());
@@ -170,10 +170,10 @@ public class OrderManageDetailFragment extends Fragment {
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }
-                    }else {
+                    } else {
                         Common.showToast(activity, R.string.textNoNetwork);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
                 Log.e("--updateStatus--", jsonIn);
@@ -192,7 +192,7 @@ public class OrderManageDetailFragment extends Fragment {
                 String name = tvReceiverName.getText().toString().trim();
                 String phone = tvReceiverPhone.getText().toString().trim();
                 String address = tvReceiverAddress.getText().toString();
-                bundle.putInt("orderID",orderID);
+                bundle.putInt("orderID", orderID);
                 bundle.putString("name", name);
                 bundle.putString("phone", phone);
                 bundle.putString("address", address);
@@ -204,7 +204,7 @@ public class OrderManageDetailFragment extends Fragment {
 
     private void showOrderedProducts(List<Order_Detail> orderDetailList) {
 //        Log.e(TAG, "orderDetList: "+orderDetailList);//get ok
-        try{
+        try {
             if (orderDetailList == null || orderDetailList.isEmpty()) {
                 Common.showToast(activity, R.string.textnofound);
             }
@@ -235,7 +235,7 @@ public class OrderManageDetailFragment extends Fragment {
                 jsonObject.addProperty("order_Id", orderId);
                 String jsonOut = jsonObject.toString();
                 ordersListDetGetTask = new CommonTask(url, jsonOut);
-                Log.e(TAG, "getOrderedProducts: out -> "+jsonOut);
+                Log.e(TAG, "getOrderedProducts: out -> " + jsonOut);
                 try {
                     String jsonIn = ordersListDetGetTask.execute().get();
                     Type listType = new TypeToken<List<Order_Detail>>() {
@@ -260,28 +260,39 @@ public class OrderManageDetailFragment extends Fragment {
         tvOrderIdDet.setText(String.valueOf(id));
         tvAccountIdDet.setText(orderMain.getAccount_ID());
         tvOrderDateDet.setText(String.valueOf(orderMain.getOrder_Main_Order_Date()));
-        tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
-        tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
-        tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+
+
+        if (!Common.getPreherences(activity).getString("order_Main_Receiver", "N").equals("N")) {
+            String receiverName = Common.getPreherences(activity).getString("order_Main_Receiver", "name");
+            String receiverPhone = Common.getPreherences(activity).getString("order_Main_Phone", "phone");
+            String receiverAddress = Common.getPreherences(activity).getString("order_Main_Address", "adress");
+            tvReceiverName.setText(receiverName);
+            tvReceiverPhone.setText(receiverPhone);
+            tvReceiverAddress.setText(receiverAddress);
+        } else {
+            tvReceiverName.setText(orderMain.getOrder_Main_Receiver());
+            tvReceiverPhone.setText(orderMain.getOrder_Main_Phone());
+            tvReceiverAddress.setText(orderMain.getOrder_Main_Address());
+        }
         int status = orderMain.getOrder_Main_Order_Status(); // 拿訂單狀態碼
-        Log.e("status===========",status+"");
-        switch (status){
-            case 0 :
+        Log.e("status===========", status + "");
+        switch (status) {
+            case 0:
                 spChangeStatus.setSelection(0);
                 break;
-            case 1 :
+            case 1:
                 spChangeStatus.setSelection(1);
                 break;
-            case 2 :
+            case 2:
                 spChangeStatus.setSelection(2);
                 break;
-            case 3 :
+            case 3:
                 spChangeStatus.setSelection(3);
                 break;
-            case 4 :
+            case 4:
                 spChangeStatus.setSelection(4);
                 break;
-            case 5 :
+            case 5:
                 spChangeStatus.setSelection(5);
                 break;
 
@@ -331,7 +342,7 @@ public class OrderManageDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull OrderManageDetAdapter.PageViewHolder holder, int position) {
             final Order_Detail orderDetail = orderDetailList.get(position);
-            Log.e(TAG, "orderDetail: "+orderDetail.getorderDetProductId());
+            Log.e(TAG, "orderDetail: " + orderDetail.getorderDetProductId());
 
             holder.tvProductName.setText(orderDetail.getorderDetProductName()); //
             holder.tvProductPrice.setText("$" + orderDetail.getOrder_Detail_Buy_Price());
