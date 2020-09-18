@@ -61,7 +61,7 @@ public class productFragment extends Fragment {
     private RadioButton allProduct;
     FloatingActionButton btAdd;
     private SearchView searchView3;
-    private ImageView ivmap;
+    private ImageView ivmap,magicBT,magicBT1;
     private AlertDialog dialog;
     private Button submit;
     private EditText enterAddress;
@@ -102,6 +102,22 @@ public class productFragment extends Fragment {
         searchProduct.addAll(product);
         showBooks(product);
         allProduct.setChecked(true);
+
+        //神奇小按鈕
+        magicBT = view.findViewById(R.id.magicBT);
+        magicBT1 = view.findViewById(R.id.magicBT1);
+        magicBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView3.setQuery("金",false);
+            }
+        });
+        magicBT1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView3.setQuery("金色",false);
+            }
+        });
 
         //設定店家位址
         ivmap.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +217,7 @@ public class productFragment extends Fragment {
         productstatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                searchView3.setQuery("", false);
                 switch (checkedId) {
                     case R.id.shelvesProduct://單選 下架
                         shelvesProduct.clear();
