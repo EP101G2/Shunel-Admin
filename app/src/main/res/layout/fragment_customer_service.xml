@@ -3,78 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".customerServiceFragment">
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/etMessage"
+            android:layout_width="300dp"
+            android:layout_height="53dp"
+
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnPickPicture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/picture" />
+
+        <Button
+            android:id="@+id/btnTakePicture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/camera" />
+
+
+        <Button
+            android:id="@+id/btSend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_send_black_24dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="412dp"
         android:layout_height="419dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_Picture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnTakePicture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/textTakePicture" />
-
-                <Button
-                    android:id="@+id/btnPickPicture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="選擇照片" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etMessage"
-                android:layout_width="213dp"
-                android:layout_height="53dp"
-
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/btnPicture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-
-                />
-
-            <Button
-                android:id="@+id/btSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textSend" />
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

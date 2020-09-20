@@ -30,9 +30,10 @@ public class CommonTwo {
         }
         if (chatWebSocketClient == null) {
             chatWebSocketClient = new ChatWebSocketClient(uri, context);
-            Log.e(TAG, "2=111111");
             chatWebSocketClient.connect();
-            Log.e(TAG, "1=" + chatWebSocketClient.toString());
+        }else {
+            chatWebSocketClient = new ChatWebSocketClient(uri, context);
+            chatWebSocketClient.connect();
         }
     }
 
