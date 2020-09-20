@@ -73,6 +73,14 @@ public class OrdersManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Common.getPreherences(activity).edit()
+                .remove("order_Main_Receiver")
+                .remove("order_Main_Phone")
+                .remove("order_Main_Address")
+                .apply();
+
+
 //        get data
         orderMainList = getOrders();
         showOrders(getOrders());
@@ -234,8 +242,6 @@ public class OrdersManagementFragment extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Orders", orderMain);
-
-
                     Navigation.findNavController(v).navigate(R.id.action_ordersManagementFragment_to_orderManageDetailFragment, bundle);
                 }
             });

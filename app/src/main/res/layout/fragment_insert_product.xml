@@ -285,8 +285,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
-                        android:layout_marginLeft="28dp"
-                        android:text="TextView"
                         app:layout_constraintStart_toEndOf="@+id/textView2"
                         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
@@ -302,7 +300,6 @@
                         android:id="@+id/tvPromotionEnd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
                         app:layout_constraintStart_toStartOf="@+id/tvPromotionStart"
                         app:layout_constraintTop_toBottomOf="@+id/tvPromotionStart" />
 
@@ -331,6 +328,13 @@
                         app:layout_constraintTop_toTopOf="@+id/textView19"
                         app:layout_constraintVertical_bias="0.461" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/magicbutton"
+                    android:layout_width="54dp"
+                    android:layout_height="184dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

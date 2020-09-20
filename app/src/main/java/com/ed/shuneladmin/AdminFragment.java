@@ -39,6 +39,8 @@ import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ed.shuneladmin.MainActivity.builder;
+
 
 public class AdminFragment extends Fragment {
     private static final String TAG = "---AdminFragment---";
@@ -67,6 +69,14 @@ public class AdminFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+        if(MainActivity.builder != null){
+            Log.e("))))","9999");
+            builder.create().cancel();
+            builder.create().dismiss();
+        }
         searchView =view.findViewById(R.id.searchView2);
         rvAdmin = view.findViewById(R.id.rvAdmin);
         ivAdd=view.findViewById(R.id.ivAdd);
@@ -190,6 +200,8 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
         holder.tvId.setText(String.valueOf(admin.getAdmin_ID()));              //setText()裡塞我要使用的方法
         holder.tvName.setText(admin.getAdmin_Name());
         String pos = Common.getPreherences(activity).getString("position","def");
+
+        Log.e("-------pos--------",pos);
         Log.e("0000", pos+"");
         if (pos.equals("管理員")){
             holder.btEdit.setVisibility(View.VISIBLE);
@@ -206,9 +218,6 @@ private class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolde
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("admin", admin);
-
-                Navigation.findNavController(view).navigate(R.id.noticeAdminFragment, bundle);
-
                 NavController navController = Navigation.findNavController(activity,R.id.homeFragment);
                 navController.navigate(R.id.adminNewDetailFragment,bundle);
 

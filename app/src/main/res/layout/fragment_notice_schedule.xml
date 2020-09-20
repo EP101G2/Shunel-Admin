@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".noticeListAdimFragment">
+    tools:context=".NoticeScheduleFragment">
 
     <LinearLayout
         android:id="@+id/linearLayoutN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvdeleteSystemN"
+            android:id="@+id/tvdeleteSchduleN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -28,7 +28,8 @@
             android:id="@+id/SearchScheduleN"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:iconifiedByDefault="false">
 
         </SearchView>
 
@@ -46,43 +47,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAdimScheduleN"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="545dp"
         android:backgroundTint="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/lLCheck"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutN"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutN"></androidx.recyclerview.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/lLCheck"
+    <Button
+        android:id="@+id/checkScheduleN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="-4dp"
 
-
+        android:layout_marginLeft="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginBottom="-8dp"
+        android:text="@string/textSend"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rvAdimScheduleN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/cancelN"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/cancel"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/checkN"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/textSend"
-            android:visibility="gone" />
-    </LinearLayout>
-
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+

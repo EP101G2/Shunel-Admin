@@ -15,14 +15,7 @@
 
         android:layout_height="match_parent"
         android:orientation="vertical">
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+
 
 
         <com.google.android.material.tabs.TabLayout
@@ -33,49 +26,13 @@
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#A5DCD0"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center|left|center_vertical"
-                android:text="@string/admin"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp" />
-
-            <ImageView
-                android:id="@+id/ivLogout"
-                android:layout_width="45dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="4dp"
-                app:srcCompat="@drawable/logout" />
-
-            <ImageView
-                android:id="@+id/ivAdim"
-                android:layout_width="45dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="4dp"
-                app:srcCompat="@drawable/admin" />
-        </LinearLayout>
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:background="@color/cardview_light_background"
+            app:itemTextColor="#000000"
             app:menu="@menu/menuhome">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -115,8 +72,9 @@
         android:layout_height="38dp"
         android:layout_gravity="center"
         android:layout_marginBottom="690dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logout" />
 
     <!--    <ImageView-->

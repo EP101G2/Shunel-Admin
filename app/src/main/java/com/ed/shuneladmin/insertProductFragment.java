@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -83,7 +85,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
     Button btaddproduct;
     Common common;
     CommonTask insertProduct, getPromotionPriceAndDate;
-    ImageView ivinsertbuttom, ivshowpicture;
+    ImageView ivinsertbuttom, ivshowpicture,magicbutton;
     ImageTask imageTask;
     RadioButton shelvesProduct, onSaleProduct, promotionProduct, ring, necklace, earring, fragranceNecklace, fragranceEarring;
     RadioGroup statusRadioGroup, categoryRadioGroup;
@@ -95,7 +97,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
     private static final int REQ_PICK_IMAGE = 1;
     private static final int REQ_CROP_PICTURE = 2;
     private AlertDialog dialog;
-    private int ststus, category;
+    private int ststus = 9, category;  //ststus 初始 9  表示無填任何值
     private Timestamp startDate, endDate;
 
 
@@ -141,6 +143,29 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         tvPromotionStart = view.findViewById(R.id.tvPromotionStart);
         tvPromotionEnd = view.findViewById(R.id.tvPromotionEnd);
         PromotionPrice = view.findViewById(R.id.PromotionPrice);
+        magicbutton = view.findViewById(R.id.magicbutton);
+
+
+
+        //=============神奇小按鈕
+        magicbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameOfProduct.setText("我的貴賓狗");
+                colorOfProduct.setText("銀");
+                priceOfProduct.setText("399");
+                detailOfProduct.setText("■ 獨家商品\n" +
+                        "■ 動物系列\n" +
+                        "■ 小巧可愛\n" +
+                        "■ 香氛鍊子為925純銀\n" +
+                        "■ 鍊長為20吋左右\n" +
+                        "■ 吊墜項鍊，鎖住心頭芬芳\n" +
+                        "■ 顏色：銀");
+            }
+        });
+
+
+        //==============
 
 
         Bundle bundle = getArguments();
@@ -162,8 +187,8 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                 try {
                     String rp = getPromotionPriceAndDate.execute().get();
 
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                        promotion = gson.fromJson(rp, Promotion.class);
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                    promotion = gson.fromJson(rp, Promotion.class);
                     if (promotion != null) {
                         PromotionPrice.setText(String.valueOf(promotion.getPromotion_Price()));
                         tvPromotionStart.setText(promotion.getDate_Start().toString().substring(0, 10));
@@ -253,7 +278,9 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                 alertDialog.setView(v);
 
                 dialog = alertDialog.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+                dialog.getWindow().setLayout(1000, 1000);
 
 
                 TextView ivtakepicture, tvalbum;
@@ -344,42 +371,47 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         btaddproduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObject jsonObject = new JsonObject();
-                if (Common.networkConnected(activity)) {
-                    //product = new Product();
-                    if (flag == 0) {   //flag = 0 修改商品
-                        product.setProduct_ID(product.getProduct_ID());
-                        product.setProduct_Name(nameOfProduct.getText().toString());
-                        product.setProduct_Color(colorOfProduct.getText().toString());
-                        product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
-                        product.setProduct_Ditail(detailOfProduct.getText().toString());
-                        product.setProduct_Category_ID(category);
-                        product.setProduct_Status(ststus);
-                    } else {
-                        product = new Product();
-                        product.setProduct_Name(nameOfProduct.getText().toString());
-                        product.setProduct_Color(colorOfProduct.getText().toString());
-                        product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
-                        product.setProduct_Ditail(detailOfProduct.getText().toString());
-                        product.setProduct_Category_ID(category);
-                        product.setProduct_Status(ststus);
-
-                    }
-
-                    if (ststus == 2) {
-                        int promotionPrice;
-                        if (!PromotionPrice.getText().toString().equals("")) {  // 促銷價格
-                            promotionPrice = Integer.parseInt(PromotionPrice.getText().toString());
-                            Promotion promotion = new Promotion();
-                            promotion.setPromotion_Price(promotionPrice);
-                            promotion.setDate_Start(startDate);
-                            promotion.setDate_End(endDate);
-                            Log.e("promotion-----", promotion + "");
-                            jsonObject.addProperty("promotion", new Gson().toJson(promotion));
-
+                if (checknull()) {
+                    JsonObject jsonObject = new JsonObject();
+                    if (Common.networkConnected(activity)) {
+                        //product = new Product();
+                        if (flag == 0) {   //flag = 0 修改商品
+                            product.setProduct_ID(product.getProduct_ID());
+                            product.setProduct_Name(nameOfProduct.getText().toString());
+                            product.setProduct_Color(colorOfProduct.getText().toString());
+                            product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
+                            product.setProduct_Ditail(detailOfProduct.getText().toString());
+                            product.setProduct_Category_ID(category);
+                            product.setProduct_Status(ststus);
                         } else {
-                            Toast.makeText(activity, "請輸入促銷價格", Toast.LENGTH_SHORT).show();
+                            product = new Product();
+                            product.setProduct_Name(nameOfProduct.getText().toString());
+                            product.setProduct_Color(colorOfProduct.getText().toString());
+                            product.setProduct_Price(Integer.parseInt(priceOfProduct.getText().toString()));
+                            product.setProduct_Ditail(detailOfProduct.getText().toString());
+                            product.setProduct_Category_ID(category);
+                            Log.e("category",category+"");
+                            product.setProduct_Status(ststus);
+
                         }
+
+                        if (ststus == 2) {
+                            int promotionPrice;
+                            if (!PromotionPrice.getText().toString().equals("")) {  // 促銷價格
+                                promotionPrice = Integer.parseInt(PromotionPrice.getText().toString());
+                                Promotion promotion = new Promotion();
+                                promotion.setPromotion_Price(promotionPrice);
+                                promotion.setDate_Start(startDate);
+                                promotion.setDate_End(endDate);
+                                Log.e("promotion-----", promotion + "");
+                                jsonObject.addProperty("promotion", new Gson().toJson(promotion));
+
+                            } else {
+                                Toast.makeText(activity, "請輸入促銷價格", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
                     }
 
                     String url = Common.URL_SERVER + "Prouct_Servlet";
@@ -397,25 +429,22 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                     try {
                         String rp = insertProduct.execute().get();
                         int count = Integer.parseInt(rp);
+                        Log.e("--------", count + "+++++");
 
                         if (count == 0) {
                             Toast.makeText(activity, flag == 1 ? R.string.insertfail : R.string.updatefail, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(activity, flag == 1 ? R.string.insertsuccess : R.string.updatesuccess, Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(v).popBackStack();
                         }
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
-
             }
         });
-
 
     }
 
@@ -474,6 +503,42 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
         } else {
             ivshowpicture.setImageResource(R.drawable.no_image);
         }
+    }
+
+
+    private boolean checknull() {
+        boolean pass = true;
+        if (nameOfProduct.getText().toString().trim().equals("")) {
+            nameOfProduct.setError("請輸入名稱");
+            pass = false;
+        }
+        if (colorOfProduct.getText().toString().trim().equals("")) {
+            colorOfProduct.setError("請輸入顏色");
+            pass = false;
+        }
+        if (priceOfProduct.getText().toString().trim().equals("")) {
+            priceOfProduct.setError("請輸入價格");
+            pass = false;
+        }
+        if (detailOfProduct.getText().toString().trim().equals("")) {
+            detailOfProduct.setError("請輸入詳細資訊");
+            pass = false;
+        }
+
+        if (category == 0) {
+            Toast.makeText(activity, "請選擇類別", Toast.LENGTH_SHORT).show();
+            pass = false;
+        }
+        if (ststus == 9) {
+            Toast.makeText(activity, "請選擇狀態", Toast.LENGTH_SHORT).show();
+            pass = false;
+        }
+
+
+
+
+
+        return pass;
     }
 
     private void openRangePicker() {

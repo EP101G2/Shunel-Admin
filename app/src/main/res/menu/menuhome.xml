@@ -2,13 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="@string/NoticeSaleAdmin"
         android:id="@+id/mainFragment"
+        android:icon="@drawable/sale"
         />
 
     <item android:title="@string/NoticeSystemAdmin"
         android:id="@+id/fragment_systemN"
+        android:icon="@drawable/setting"
         />
+
+    <item android:title="@string/NoticeSchdule"
+        android:id="@+id/noticeScheduleFragment"
+        android:icon="@drawable/scedule"
+        />
+
     <item android:title="@string/memberNew"
         android:id="@+id/member_newsFragment"
+        android:icon="@drawable/member"
         />
 
 </menu>

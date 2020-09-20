@@ -7,60 +7,224 @@
     android:layout_height="match_parent"
     tools:context=".NoticeAdminFragment">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/tvAddNPageT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edN"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background2"
+        android:hint="@string/noticeTitle"
+        android:textSize="24sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddNPageT" />
+
+    <EditText
+        android:id="@+id/edNotice"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background2"
+        android:hint="@string/noticeDetail"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/edN"
+        app:layout_constraintStart_toStartOf="@+id/edN"
+        app:layout_constraintTop_toBottomOf="@+id/edN" />
+
+    <LinearLayout
+        android:id="@+id/llmain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="235dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edNotice">
 
-        <LinearLayout
+        <!--        <EditText-->
+        <!--            android:id="@+id/edNoticeTitle"-->
+        <!--            android:layout_width="320dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@drawable/background2"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="@string/hintNT"-->
+        <!--            android:inputType="textAutoCorrect|text"-->
+        <!--            android:scrollbarSize="10dp"-->
+        <!--            android:textSize="24sp" />-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/edNoticeDetail"-->
+        <!--            android:layout_width="320dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@drawable/background2"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="@string/hintND"-->
+        <!--            android:scrollbarSize="10dp"-->
+        <!--            android:textSize="24sp" />-->
+
+        <RadioGroup
+            android:id="@+id/rgSchedule"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            tools:visibility="visible">
 
-            <TextView
-                android:id="@+id/tvAddNPageT"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/rbAllProduct"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:textSize="30sp" />
-
-            <EditText
-                android:id="@+id/edNoticeTitle"
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background2"
-                android:ems="10"
-                android:hint="@string/hintNT"
-                android:scrollbarSize="10dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="@string/allProduct"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/edNoticeDetail"
-                android:layout_width="320dp"
+            <RadioButton
+                android:id="@+id/rbOneProduct"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background2"
-                android:ems="10"
-                android:hint="@string/hintND"
-                android:scrollbarSize="10dp"
+                android:layout_weight="1"
+                android:text="@string/oneProduct"
                 android:textSize="24sp" />
+        </RadioGroup>
 
-            <Button
-                android:id="@+id/btSendNotice"
-                android:layout_width="320dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="#D9EBE8"
-                android:text="@string/Sand" />
+    </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/selectProduct"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llmain" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvPraductCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="#D9EBE8"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSelect"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelect">
+
+        <TextView
+            android:id="@+id/tvproductT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:maxEms="12"
+            android:singleLine="true"
+            android:text="@string/productname"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/ivCategoryN"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProductD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxEms="17"
+            android:singleLine="true"
+            android:text="@string/productid"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tvproductT"
+            app:layout_constraintTop_toBottomOf="@+id/tvproductT" />
+
+        <TextView
+            android:id="@+id/tvDateN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:singleLine="true"
+            android:text="@string/productcolor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvProductD"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductD" />
+
+        <ImageView
+            android:id="@+id/ivCategoryN"
+            android:layout_width="50dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/saleitem" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btSendNotice"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="#D9EBE8"
+        android:text="@string/Sand"
+        app:layout_constraintEnd_toEndOf="@+id/tvEnd"
+        app:layout_constraintStart_toStartOf="@+id/tvEnd"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnd" />
+
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+
+        android:background="@drawable/background2"
+        android:ems="10"
+        android:text="@string/edEndNotice"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStart" />
+
+    <TextView
+        android:id="@+id/tvStart"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/background2"
+        android:ems="10"
+        android:text="@string/edStartNotice"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvPraductCard" />
+
+
+    <!--      <EditText 宣告變數名稱有問題導致跳不出來鍵盤  -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

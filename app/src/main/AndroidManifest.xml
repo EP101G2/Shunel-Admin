@@ -57,6 +57,14 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
+
+        <activity android:name=".NoticeAdminFragment"
+            android:configChanges="keyboard"
+            >
+
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -31,8 +31,9 @@ public class ModifyReceiverDetailFragment extends Fragment {
     private EditText etRecName, etRecPhone, etRecAddress;
     private Button btCancel, btSave;
     private CommonTask modifyRecInfoTask;
-    private Order_Main orderMain;
+    private Order_Main orderMain = new Order_Main();
     private String recName, recPhone, recAddress;
+    private  int orderID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class ModifyReceiverDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_modify_receiver_detail, container, false);
+
+
     }
 
     @Override
@@ -55,6 +58,12 @@ public class ModifyReceiverDetailFragment extends Fragment {
         etRecPhone = view.findViewById(R.id.etRecPhone);
         etRecAddress = view.findViewById(R.id.etRecAddress);
 
+        Common.getPreherences(activity).edit()
+                .remove("order_Main_Receiver")
+                .remove("order_Main_Phone")
+                .remove("order_Main_Address")
+                .apply();
+
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
         if (bundle == null) {
@@ -62,6 +71,7 @@ public class ModifyReceiverDetailFragment extends Fragment {
             navController.popBackStack();
             return;
         }else{
+            orderID = bundle.getInt("orderID");
             String name = bundle.getString("name");
             String phone = bundle.getString("phone");
             String address = bundle.getString("address");
@@ -85,17 +95,26 @@ public class ModifyReceiverDetailFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+
                 try{
                     String order_Main_Receiver = etRecName.getText().toString();
                     String order_Main_Phone = etRecPhone.getText().toString();
                     String order_Main_Address = etRecAddress.getText().toString();
-                    Log.e(TAG, "getEditText -> "+order_Main_Receiver+"+"+order_Main_Phone+"+"+order_Main_Address);//ok
+                    Log.e(TAG, "getEditText -> "+order_Main_Receiver+"+"+order_Main_Phone+"+"+order_Main_Address);
+                    orderMain.setReceiver(order_Main_Receiver, order_Main_Phone, order_Main_Address,orderID);
+
+
+                    Common.getPreherences(activity).edit()
+                            .putString("order_Main_Receiver",order_Main_Receiver)
+                            .putString("order_Main_Phone",order_Main_Phone)
+                            .putString("order_Main_Address",order_Main_Address)
+                            .apply();
+
+
 
 //                save to db
                     if (Common.networkConnected(activity)) {
                         String url = Common.URL_SERVER + "Orders_Servlet";//連server端先檢查網址
-                        orderMain.setReceiver(order_Main_Receiver, order_Main_Phone, order_Main_Address);
-
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action", "update");//case "update" in servlet(check)
                         jsonObject.addProperty("Receiver", new Gson().toJson(orderMain));

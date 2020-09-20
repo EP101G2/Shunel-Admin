@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogin;
     private EditText etPw, etId;
     private String id,password,position;
+    private int number;
     private CommonTask loginTask;
     private ImageView imageView2;
 
@@ -107,9 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                             String userJstr = jsonObject2.get("admin").getAsString();
                             if (userJstr != null) {
                                 Admin admin = gson.fromJson(userJstr, Admin.class);
-                                id =admin.getAdmin_User_Name();
+                                number = admin.getAdmin_ID();
+                                id = admin.getAdmin_User_Name();
                                 position = admin.getAdmin_User_Position();
-                                password=admin.getAdmin_User_Password();
+                                password= admin.getAdmin_User_Password();
                                 savePreferences();
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("Admin", admin);
@@ -141,9 +143,11 @@ public class LoginActivity extends AppCompatActivity {
     private void savePreferences() {
 
         //置入name屬性的字串
-        Common.getPreherences(LoginActivity.this).edit().putString("id", id)
+        Common.getPreherences(LoginActivity.this).edit()
+                .putString("id", id)
                 .putString("password", password)
                 .putString("position",position)
+                .putInt("number",number)
                 .apply();
 
 

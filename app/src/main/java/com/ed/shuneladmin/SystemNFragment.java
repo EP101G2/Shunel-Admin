@@ -74,6 +74,12 @@ public class SystemNFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Common.getPreherences(activity).edit()
+                .remove("productName")
+                .remove("product_ID")
+                .remove("productColor")
+                .remove("returnFlag")
+                .apply();
         super.onViewCreated(view, savedInstanceState);
 
         /* 初始化資料,包含從其他Activity傳來的Bundle資料 ,Preference資枓 */
@@ -91,7 +97,7 @@ public class SystemNFragment extends Fragment {
         tvDeleteSysN = view.findViewById(R.id.tvdeleteSystemN);
         rvAdimSysN = view.findViewById(R.id.rvAdimSystemN);
         SearchSysN = view.findViewById(R.id.SearchSystemN);
-        checkSysN = view.findViewById(R.id.checksysN);
+        checkSysN = view.findViewById(R.id.checkSystemN);
         rvAdimSysN.setLayoutManager(new LinearLayoutManager(activity));
 
 

@@ -9,7 +9,14 @@
         android:id="@+id/mainFragment"
         android:name="com.ed.shuneladmin.mainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_noticeScheduleFragment"
+            app:destination="@id/noticeScheduleFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragment_systemN"
+            app:destination="@id/fragment_systemN" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_systemN"
         android:name="com.ed.shuneladmin.SystemNFragment"
@@ -33,4 +40,9 @@
         android:name="com.ed.shuneladmin.customerServiceFragment"
         android:label="fragment_customer_service"
         tools:layout="@layout/fragment_customer_service" />
+    <fragment
+        android:id="@+id/noticeScheduleFragment"
+        android:name="com.ed.shuneladmin.NoticeScheduleFragment"
+        android:label="fragment_notice_schedule"
+        tools:layout="@layout/fragment_notice_schedule" />
 </navigation>
