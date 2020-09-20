@@ -49,7 +49,7 @@ public class AdminFragment extends Fragment {
     private CommonTask adminTask;
     private List<Admin> data;
     private SearchView searchView;
-    private ImageView ivAdd;
+    private ImageView ivAdd,ivCustomer;
     private CommonTask adminDeleteTask;
 
 
@@ -77,9 +77,12 @@ public class AdminFragment extends Fragment {
             builder.create().cancel();
             builder.create().dismiss();
         }
+
         searchView =view.findViewById(R.id.searchView2);
         rvAdmin = view.findViewById(R.id.rvAdmin);
         ivAdd=view.findViewById(R.id.ivAdd);
+        ivCustomer = view.findViewById(R.id.ivCustomer);
+
         data=getAdmins();
         Log.e("_______", data + "");
 
@@ -92,6 +95,13 @@ public class AdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_adminFragment_to_adminNewFragment);
+            }
+        });
+
+        ivCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).popBackStack();
             }
         });
 

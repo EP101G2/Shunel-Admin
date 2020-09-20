@@ -162,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setClass(activity, LoginActivity.class);   //前放目前ＡＣＴＩＶＩＴＹ，後放目標的ＡＣＴ
         startActivity(intent);
-//        if (MainActivity.preferences.edit())
-
 
     }
 
@@ -191,10 +189,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CommonTwo.connectServer(this, loadUserName(this));
-        // 初始化LocalBroadcastManager並註冊BroadcastReceiver
-        broadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
-        registerChatReceiver();
     }
 
 

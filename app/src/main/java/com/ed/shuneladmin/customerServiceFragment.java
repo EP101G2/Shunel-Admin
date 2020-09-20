@@ -162,11 +162,10 @@ public class customerServiceFragment extends Fragment {
 
 
         /*拍照元件*/
-        cv_Picture = view.findViewById(R.id.cv_Picture);
+
         btnTakePicture = view.findViewById(R.id.btnTakePicture);
         btnPickPicture = view.findViewById(R.id.btnPickPicture);
-        btnPicture = view.findViewById(R.id.btnPicture);
-        cv_Picture.setVisibility(View.GONE);
+
 
     }
 
@@ -268,21 +267,7 @@ public class customerServiceFragment extends Fragment {
         });
 
 
-        /*拍照*/
-        btnPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean cardview = true;
 
-                if (cardview) {
-                    cv_Picture.setVisibility(View.VISIBLE);
-                    cardview = false;
-                } else {
-                    cv_Picture.setVisibility(View.GONE);
-                    cardview = true;
-                }
-            }
-        });
 
         btnPickPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +315,6 @@ public class customerServiceFragment extends Fragment {
         try {
             chatTask = new CommonTask(url, jsonObject.toString());
             String result = chatTask.execute().get();
-            Log.e(TAG, "============" + result);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -355,11 +339,9 @@ public class customerServiceFragment extends Fragment {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
             String sender = chatMessage.getSender();
-//            imageID=chatMessage.getId();
             // 接收到聊天訊息，若發送者與目前聊天對象相同，就將訊息顯示在TextView
             chatMessage.setFlag(1);
             chatMessageList.add(chatMessage);
-            Log.d("=============", "///////////////////////////////////"+chatMessage.getBase64());
 
             messageFragment adpter = (messageFragment) rv.getAdapter();
             if (adpter != null) {
@@ -367,7 +349,6 @@ public class customerServiceFragment extends Fragment {
                 adpter.notifyDataSetChanged();
             }
 
-//            Log.d("=============", "///////////////////////////////////"+imageID+chatMessage.getType()+chatMessage.getSender()+chatMessage.getReceiver()+chatMessage.getId());
         }
     };
 
@@ -377,7 +358,7 @@ public class customerServiceFragment extends Fragment {
         super.onDestroy();
         // Fragment頁面切換時解除註冊，但不需要關閉WebSocket，
         // 否則回到前頁好友列表，會因為斷線而無法顯示好友
-        broadcastManager.unregisterReceiver(chatReceiver);
+//        broadcastManager.unregisterReceiver(chatReceiver);
     }
 
     private class messageFragment extends RecyclerView.Adapter<messageFragment.MyViewholder> {
@@ -459,7 +440,7 @@ public class customerServiceFragment extends Fragment {
 
             final ChatMessage CM = message.get(position);
             Calendar mCal = Calendar.getInstance();
-            CharSequence s = DateFormat.format("hh:mm:ss", mCal.getTime());
+            CharSequence s = DateFormat.format("hh:mm", mCal.getTime());
 
 
             if (CM.getSender().equals("Shunel")) {
@@ -577,7 +558,7 @@ public class customerServiceFragment extends Fragment {
 
     public static String DateToStr(Date date) {
 
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         String str = format.format(date);
         return str;
     }
@@ -606,8 +587,6 @@ public class customerServiceFragment extends Fragment {
             image = out.toByteArray();
 
             base61ToStr=Base64.encodeToString(image, Base64.DEFAULT);
-//            base61ToStr = Base64.encodeToString(image, Base64.DEFAULT);
-//            Log.e(TAG, "234567890-" + base61ToStr);
 
         } catch (IOException e) {
             Log.e(TAG, e.toString());
@@ -622,8 +601,6 @@ public class customerServiceFragment extends Fragment {
         file = new File(file, "picture_cropped.jpg");
         Uri destinationUri = Uri.fromFile(file);
         UCrop.of(sourceImageUri, destinationUri)
-//                .withAspectRatio(16, 9) // 設定裁減比例
-//                .withMaxResultSize(500, 500) // 設定結果尺寸不可超過指定寬高
                 .start(activity, this, REQ_CROP_PICTURE);
     }
 
@@ -652,17 +629,6 @@ public class customerServiceFragment extends Fragment {
     }
 
 
-
-//    private String imageToStr(byte[] image){
-//        /*btmapToStr*/
-//        Bitmap bitmap = null;
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//        image = out.toByteArray();
-//        base61ToStr = Base64.encodeToString(image, Base64.DEFAULT);
-//
-//        return base61ToStr;
-//    }
 
     private Bitmap btyeToBitmap(byte[] image){
         if (image.length != 0) {
