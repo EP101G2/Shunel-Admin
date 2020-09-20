@@ -57,8 +57,10 @@ public class PieChartFragment extends Fragment {
         /* 設定圓心文字大小 */
         pieChart.setCenterTextSize(25);
 
+
         Description description = new Description();
         description.setText("Car Sales in Taiwan");
+
         description.setTextSize(25);
         pieChart.setDescription(description);
 
@@ -81,7 +83,8 @@ public class PieChartFragment extends Fragment {
         List<PieEntry> pieEntries = getSalesEntries();
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Categories");
-        pieDataSet.setValueTextColor(Color.BLUE);
+        pieDataSet.setValueTextColor(Color.BLACK);
+
         pieDataSet.setValueTextSize(20);
         pieDataSet.setSliceSpace(2);
 

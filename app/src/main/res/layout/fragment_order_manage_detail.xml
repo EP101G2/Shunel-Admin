@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/appbar"
-        android:gravity="fill_vertical"
+        android:gravity="center"
         android:text="@string/order_detail_manage"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

@@ -153,6 +153,9 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
         /* 設定圓心文字大小 */
         pieChart.setCenterTextSize(15);
 
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
+
         Description description = new Description();
         pieChart.setDescription(description);
 
@@ -259,6 +262,8 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
                 }
 
             }
+
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
