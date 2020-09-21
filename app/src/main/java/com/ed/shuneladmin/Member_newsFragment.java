@@ -50,7 +50,6 @@ public class Member_newsFragment extends Fragment {
     private List<String> MemberList;
     private LocalBroadcastManager broadcastManager;
     private CommonTask chatTask;
-    private String member_ID;
     private int chat_ID;
     public Member_newsFragment() {
         // Required empty public constructor
