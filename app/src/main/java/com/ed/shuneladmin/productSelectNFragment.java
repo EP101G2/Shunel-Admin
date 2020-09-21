@@ -2,6 +2,7 @@ package com.ed.shuneladmin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.bean.Product;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +37,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -174,6 +178,18 @@ public class productSelectNFragment extends Fragment {
         public void onBindViewHolder(@NonNull ProductChooseAdapter.MyViewHolder holder, int position) {
             final Product product = productList.get(position);
             final int product_ID = product.getProduct_ID();
+
+            int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+            Bitmap bitmap = null;
+            String url = Common.URL_SERVER + "Prouct_Servlet";
+
+            try {
+                bitmap = new ImageTask(url, product_ID, imageSize, holder.ivCategoryN).execute().get();
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+
+
             holder.tvNoticeT.setText("品名:" + product.getProduct_Name());
             holder.tvNoticeD.setText("ID:" + product.getProduct_ID());
             holder.tvDateN.setText("顏色:" + product.getProduct_Color());

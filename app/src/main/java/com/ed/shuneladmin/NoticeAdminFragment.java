@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.tv.TvContentRating;
@@ -52,6 +53,7 @@ import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.ed.shuneladmin.Task.Common;
 import com.ed.shuneladmin.Task.CommonTask;
+import com.ed.shuneladmin.Task.ImageTask;
 import com.ed.shuneladmin.adapter.ProductAdapter;
 import com.ed.shuneladmin.bean.Notice;
 import com.ed.shuneladmin.bean.Notice_Schedule;
@@ -114,6 +116,7 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
     private AlertDialog dialog;
     String productName, productColor;
     int product_ID, notice_schedule_ID;
+    private int imageSize;
 
 
     private int dateSatatus = 0;
@@ -169,6 +172,7 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
         rgSchedule = view.findViewById(R.id.rgSchedule);
         rbAllProduct = view.findViewById(R.id.rbAllProduct);
         rbOneProduct = view.findViewById(R.id.rbOneProduct);
+        ivCategoryN = view.findViewById(R.id.ivCategoryN);
 
 
 //        rvAllproductForN = view.findViewById(R.id.rvAllproductForN);
@@ -192,6 +196,10 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
         Bundle bundle = getArguments();
 
         Log.e("MainActivity.flag", "MainActivity.flag" + MainActivity.flag);
+
+
+
+
 
         switch (MainActivity.flag) {
             case 0:
@@ -342,7 +350,13 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
 
 
                 break;
+
+
+
+
         }
+
+
 
 
         //如果有進選擇商品頁面的話，就會把偏好設定的值塞進來，用returnFlag＝Ｙ做判斷
@@ -354,6 +368,23 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
                 tvNoticeT.setText(productName);
                 tvNoticeD.setText(String.valueOf(product_ID));
                 tvDateN.setText(productColor);
+
+                if(product_ID != 0){
+                    int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+                    Bitmap bitmap = null;
+                    String url = Common.URL_SERVER + "Prouct_Servlet";
+                    try {
+                        bitmap = new ImageTask(url, product_ID, imageSize).execute().get();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (bitmap != null) {
+                        ivCategoryN.setImageBitmap(bitmap);
+                    }
+
+                }
+
+
             }
 
         } else {
@@ -494,7 +525,7 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
                                 jsonObject.addProperty("productType", product_ID);
                                 Log.e("productType", "productType:" + product_ID);
 
-                                Log.e("促銷訊息", "===" + jsonObject.toString());
+
                                 Common.showToast(activity, "促銷訊息已送出");
                                 break;
 
@@ -519,15 +550,16 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
 //                                Log.e("系統訊息", "===" + jsonObject.toString());
                                 Log.e("productType", "productType:" + product_ID);
                                 Common.showToast(activity, "修改促銷訊息已送出");
+
                                 break;
 
                             case 3:
                                 notice.setNotice_Title(title);
                                 notice.setNotice_Content(detail);
-                                Log.e("修改促消訊息", "===" + MainActivity.flag);
+
                                 jsonObject.addProperty("action", "update");
                                 jsonObject.addProperty("notice", gson.toJson(notice));
-                                Log.e("系統訊息", "===" + jsonObject.toString());
+
                                 Common.showToast(activity, "修改系統訊息已送出");
                                 break;
 
@@ -564,9 +596,13 @@ public class NoticeAdminFragment extends Fragment implements OnSelectDateListene
 
                                 break;
 
+
+
                         }
                         noticeAdminTask = new CommonTask(url, jsonObject.toString());
                         String jsonIn = "";
+
+
 
                         try {
                             jsonIn = noticeAdminTask.execute().get();

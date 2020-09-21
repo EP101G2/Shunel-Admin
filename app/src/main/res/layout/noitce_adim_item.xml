@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:maxEms="17"
+            android:maxEms="14"
             android:singleLine="true"
             android:text="TextView"
             android:textSize="12sp"
