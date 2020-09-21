@@ -34,6 +34,8 @@ public class CommonTwo {
         }else {
             chatWebSocketClient = new ChatWebSocketClient(uri, context);
             chatWebSocketClient.connect();
+//            test
+
         }
     }
 
