@@ -50,7 +50,6 @@ public class Member_newsFragment extends Fragment {
     private List<String> MemberList;
     private LocalBroadcastManager broadcastManager;
     private CommonTask chatTask;
-    private String member_ID;
     private int chat_ID;
     public Member_newsFragment() {
         // Required empty public constructor
@@ -185,7 +184,6 @@ public class Member_newsFragment extends Fragment {
 
             final String member = MemberList.get(position);
 
-            member_ID = member;
 
             holder.tvFriendName.setText(member);
             // 點選聊天清單上的user即開啟聊天頁面
@@ -193,7 +191,7 @@ public class Member_newsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    findRoomId();
+                    findRoomId(member);
                     Bundle bundle = new Bundle();
                     bundle.putString("member", member);
                     bundle.putInt("chatRoom",chat_ID);
@@ -224,7 +222,7 @@ public class Member_newsFragment extends Fragment {
         }
     }
 
-    private void findRoomId() {
+    private void findRoomId(String member_ID) {
 
 
         /********************************建立聊天室 Jack*****************************************/
