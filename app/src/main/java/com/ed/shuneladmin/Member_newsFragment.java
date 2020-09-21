@@ -183,13 +183,6 @@ public class Member_newsFragment extends Fragment {
         public void onBindViewHolder(@NonNull mViewHoder holder, int position) {
 
             final String member = MemberList.get(position);
-
-
-
-
-
-
-
 //            Log.e(TAG,"選擇=-----------------------"+member);
             holder.tvFriendName.setText(member);
             // 點選聊天清單上的user即開啟聊天頁面
