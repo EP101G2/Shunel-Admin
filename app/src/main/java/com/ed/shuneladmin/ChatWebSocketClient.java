@@ -31,6 +31,8 @@ public class ChatWebSocketClient extends WebSocketClient {
 
 
 
+//    test
+
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
