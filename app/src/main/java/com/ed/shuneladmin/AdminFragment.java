@@ -246,6 +246,7 @@ public class AdminFragment extends Fragment {
 //                                Navigation.findNavController(view)
 //                                        .navigate(R.id.action_spotListFragment_to_spotUpdateFragment, bundle);
 //                                break;
+
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "Admin";
