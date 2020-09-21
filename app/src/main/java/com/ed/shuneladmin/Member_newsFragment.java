@@ -185,20 +185,23 @@ public class Member_newsFragment extends Fragment {
 
             final String member = MemberList.get(position);
 
-            member_ID = member;
 
+
+
+
+
+
+//            Log.e(TAG,"選擇=-----------------------"+member);
             holder.tvFriendName.setText(member);
             // 點選聊天清單上的user即開啟聊天頁面
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    findRoomId();
+                    findRoomId(member);
                     Bundle bundle = new Bundle();
                     bundle.putString("member", member);
                     bundle.putInt("chatRoom",chat_ID);
-
-                    Log.e(TAG,member+"==================================="+chat_ID);
                     findNavController(view).navigate(R.id.action_member_newsFragment_to_customerServiceFragment,bundle);
                 }
             });
@@ -224,7 +227,7 @@ public class Member_newsFragment extends Fragment {
         }
     }
 
-    private void findRoomId() {
+    private void findRoomId(String member_ID) {
 
 
         /********************************建立聊天室 Jack*****************************************/
@@ -237,18 +240,20 @@ public class Member_newsFragment extends Fragment {
         jsonObject.addProperty("admin_Id", "1");
         jsonObject.addProperty("user_ID", member_ID);
 
-        Log.e(TAG, jsonObject.toString());
+//        Log.e(TAG, "0000000000000000000"+jsonObject.toString());
         try {
             chatTask = new CommonTask(url, jsonObject.toString());
+
+
+
             String result = chatTask.execute().get();
             chat_ID = Integer.parseInt(result);
-            Log.e(TAG, "============"+result);
+//            Log.e(TAG, "1111111111111111111="+result);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
 
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("chatroom",chat_ID);
+
 
         /********************************建立聊天室 Jack*****************************************/
 
