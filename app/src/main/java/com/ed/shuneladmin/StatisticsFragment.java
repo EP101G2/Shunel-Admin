@@ -253,7 +253,6 @@ public class StatisticsFragment extends Fragment implements DatePickerDialog.OnD
             for (orderStatistics os: List
             ) {
                 if (os.getCATEGORY_ID() ==1){
-
                     ordersEntries.add(new PieEntry(os.getSumBUY_PRICE(),os.getPRODUCT_NAME()));
                 }else if (os.getCATEGORY_ID() ==2){
                     ordersEntries.add(new PieEntry(os.getSumBUY_PRICE(),os.getPRODUCT_NAME()));
