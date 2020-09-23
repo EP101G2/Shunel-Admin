@@ -554,19 +554,25 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(activity, this)
                 .setPickerType(CalendarView.RANGE_PICKER)
-                .setHeaderColor(R.color.sampleDark)
-                .setAbbreviationsBarColor(R.color.sampleLight)
+                .setHeaderColor(R.color.sampleLighter)
+                .setAbbreviationsBarColor(android.R.color.white)
                 .setAbbreviationsLabelsColor(android.R.color.white)
-                .setPagesColor(R.color.sampleLighter)
-                .setSelectionColor(android.R.color.white)
-                .setSelectionLabelColor(R.color.sampleDark)
-                .setTodayLabelColor(R.color.dialogAccent)
+                .setPreviousButtonSrc(R.drawable.ic_arrow_left)
+                .setForwardButtonSrc(R.drawable.ic_arrow_right)
+                .setPagesColor(android.R.color.white)
+                .setSelectionColor(R.color.daysLabelColor)
+                .setSelectionLabelColor(android.R.color.white)
+                .setTodayLabelColor(R.color.daysLabelColor)
+                .setTodayColor(R.color.sampleLighter)
                 .setDialogButtonsColor(android.R.color.white)
-                .setDaysLabelsColor(android.R.color.white)
+                .setDaysLabelsColor(R.color.daysLabelColor)
+                .setDisabledDaysLabelsColor(R.color.disabledDialogButtonColor)
                 .setMinimumDate(today)
-
                 .setAnotherMonthsDaysLabelsColor(R.color.sampleLighter)
                 .setMaximumDaysRange(10);
+
+
+
 
 
         DatePicker rangePicker = rangeBuilder.build();
