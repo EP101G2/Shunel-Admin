@@ -564,7 +564,7 @@ public class insertProductFragment extends Fragment implements OnSelectDateListe
                 .setSelectionLabelColor(android.R.color.white)
                 .setTodayLabelColor(R.color.daysLabelColor)
                 .setTodayColor(R.color.sampleLighter)
-                .setDialogButtonsColor(android.R.color.white)
+                .setDialogButtonsColor(R.color.sampleLighter)
                 .setDaysLabelsColor(R.color.daysLabelColor)
                 .setDisabledDaysLabelsColor(R.color.disabledDialogButtonColor)
                 .setMinimumDate(today)

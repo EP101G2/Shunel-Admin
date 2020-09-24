@@ -51,6 +51,7 @@ public class AdminFragment extends Fragment {
     private SearchView searchView;
     private ImageView ivAdd, ivCustomer;
     private CommonTask adminDeleteTask;
+    private String pos;
 
 
     @Override
@@ -88,7 +89,17 @@ public class AdminFragment extends Fragment {
         rvAdmin.setAdapter(new AdminAdapter(activity, data));        //控制所有元件
         rvAdmin.setLayoutManager(new LinearLayoutManager(activity));
 
+
         showAdmin(data);
+
+        pos = Common.getPreherences(activity).getString("position", "def");
+
+        if (pos.equals("管理員")) {
+            ivAdd.setVisibility(View.VISIBLE);
+        } else {
+            ivAdd.setVisibility(View.GONE);
+        }
+
 
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +218,7 @@ public class AdminFragment extends Fragment {
             final Admin admin = admins.get(position);
             holder.tvId.setText(String.valueOf(admin.getAdmin_ID()));              //setText()裡塞我要使用的方法
             holder.tvName.setText(admin.getAdmin_Name());
-            String pos = Common.getPreherences(activity).getString("position", "def");
+            pos = Common.getPreherences(activity).getString("position", "def");
 
             Log.e("-------pos--------", pos);
             Log.e("0000", pos + "");
@@ -216,7 +227,6 @@ public class AdminFragment extends Fragment {
             } else {
                 holder.btEdit.setVisibility(View.GONE);
             }
-
 
 
             holder.btEdit.setOnClickListener(new View.OnClickListener() {
@@ -230,16 +240,18 @@ public class AdminFragment extends Fragment {
                 }
             });
 
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public boolean onLongClick(final View view) {
-                    PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
+
+            if (pos.equals("管理員")) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public boolean onLongClick(final View view) {
+                        PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
+                        popupMenu.inflate(R.menu.popup_menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
 //                            case R.id.update:
 //                                Bundle bundle = new Bundle();
 //                                bundle.putSerializable("spot", spot);
@@ -247,40 +259,41 @@ public class AdminFragment extends Fragment {
 //                                        .navigate(R.id.action_spotListFragment_to_spotUpdateFragment, bundle);
 //                                break;
 
-                                case R.id.delete:
-                                    if (Common.networkConnected(activity)) {
-                                        String url = Common.URL_SERVER + "Admin";
-                                        JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "Delete");
-                                        jsonObject.addProperty("adminId", admin.getAdmin_ID());
-                                        int count = 0;
-                                        try {
-                                            adminDeleteTask = new CommonTask(url, jsonObject.toString());
-                                            String result = adminDeleteTask.execute().get();
-                                            count = Integer.parseInt(result);
-                                        } catch (Exception e) {
-                                            Log.e(TAG, e.toString());
-                                        }
-                                        if (count == 0) {
-                                            Common.showToast(activity, R.string.textDeleteFail);
+                                    case R.id.delete:
+                                        if (Common.networkConnected(activity)) {
+                                            String url = Common.URL_SERVER + "Admin";
+                                            JsonObject jsonObject = new JsonObject();
+                                            jsonObject.addProperty("action", "Delete");
+                                            jsonObject.addProperty("adminId", admin.getAdmin_ID());
+                                            int count = 0;
+                                            try {
+                                                adminDeleteTask = new CommonTask(url, jsonObject.toString());
+                                                String result = adminDeleteTask.execute().get();
+                                                count = Integer.parseInt(result);
+                                            } catch (Exception e) {
+                                                Log.e(TAG, e.toString());
+                                            }
+                                            if (count == 0) {
+                                                Common.showToast(activity, R.string.textDeleteFail);
+                                            } else {
+                                                admins.remove(admin);
+                                                AdminAdapter.this.notifyDataSetChanged();
+                                                // 外面spots也必須移除選取的spot
+                                                AdminFragment.this.data.remove(admin);
+                                                Common.showToast(activity, R.string.textDeleteSuccess);
+                                            }
                                         } else {
-                                            admins.remove(admin);
-                                            AdminAdapter.this.notifyDataSetChanged();
-                                            // 外面spots也必須移除選取的spot
-                                            AdminFragment.this.data.remove(admin);
-                                            Common.showToast(activity, R.string.textDeleteSuccess);
+                                            Common.showToast(activity, R.string.textNoNetwork);
                                         }
-                                    } else {
-                                        Common.showToast(activity, R.string.textNoNetwork);
-                                    }
+                                }
+                                return true;
                             }
-                            return true;
-                        }
-                    });
-                    popupMenu.show();
-                    return true;
-                }
-            });
+                        });
+                        popupMenu.show();
+                        return true;
+                    }
+                });
+            }
         }
 
         @Override
@@ -304,6 +317,7 @@ public class AdminFragment extends Fragment {
             Adapter.setAdmins(admins);
             Adapter.notifyDataSetChanged();
         }
+
     }
 
 

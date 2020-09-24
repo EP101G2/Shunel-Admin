@@ -38,6 +38,7 @@ public class AdminNewFragment extends Fragment {
     private Spinner spPosition;
     private Button btConfirm, btCancel;
     private String result;
+    private TextView tvView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class AdminNewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        tvView = view.findViewById(R.id.view);
         etName = view.findViewById(R.id.etName);
         etAccountId = view.findViewById(R.id.etAccountId);
         etNewPassword = view.findViewById(R.id.etNewPassword);
@@ -95,6 +96,16 @@ public class AdminNewFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        tvView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etName.setText("Ed");
+                etAccountId.setText("ed1");
+                etNewPassword.setText("1");
+                etReTypeNewPassword.setText("1");
             }
         });
 

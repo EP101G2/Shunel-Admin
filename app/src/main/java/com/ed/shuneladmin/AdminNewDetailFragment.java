@@ -159,8 +159,9 @@ public class AdminNewDetailFragment extends Fragment {
         Common.getPreherences(activity).edit().putString("id",etAccountId.getText().toString()).apply();
         Common.getPreherences(activity).edit().putString("password",etNewPassword.getText().toString()).apply();
         int  number = Common.getPreherences(activity).getInt("number",0);
-        if (admin.getAdmin_ID() == number)
-        Common.getPreherences(activity).edit().putString("position",result).apply();
+        if (admin.getAdmin_ID() == number) {
+            Common.getPreherences(activity).edit().putString("position", result).apply();
+        }
 
         Log.i(TAG, "-------------------------------------------------------------");
 
