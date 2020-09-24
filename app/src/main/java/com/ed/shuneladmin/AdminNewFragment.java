@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,7 +39,11 @@ public class AdminNewFragment extends Fragment {
     private Spinner spPosition;
     private Button btConfirm, btCancel;
     private String result;
+<<<<<<< HEAD
     private TextView tvView;
+=======
+    private ImageView magicbt;
+>>>>>>> 4cfb831513990736c52d4b52f9106bf3fec1c7e6
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,8 +62,16 @@ public class AdminNewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+<<<<<<< HEAD
         tvView = view.findViewById(R.id.view);
+=======
+
+
+>>>>>>> 4cfb831513990736c52d4b52f9106bf3fec1c7e6
         etName = view.findViewById(R.id.etName);
+
+
+
         etAccountId = view.findViewById(R.id.etAccountId);
         etNewPassword = view.findViewById(R.id.etNewPassword);
         etReTypeNewPassword = view.findViewById(R.id.etReTypeNewPassword);
